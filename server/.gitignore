@@ -1,0 +1,14 @@
+/build
+/bin
+/src/main/resources/application-production.yml
+/src/main/resources/application.yml
+doma-gen.gradle
+/.apt_generated/
+.classpath
+.factorypath
+.project
+/.gradle
+/.settings
+gradlew
+gradlew.bat
+/gradle

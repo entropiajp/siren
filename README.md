@@ -19,5 +19,12 @@ sirens is a web application for band-off management.
 ## Access
 `http://localhost:8080`
 
+## Run test
+`grunt test`  
+or  
+`grunt karma` (only unit test)  
+or  
+`grunt protractor:all` (only e2e test)
+
 ## License
 Apache License, Version 2.0
