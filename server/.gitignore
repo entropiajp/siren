@@ -12,3 +12,4 @@ doma-gen.gradle
 gradlew
 gradlew.bat
 /gradle
+/src/main/resources/static
