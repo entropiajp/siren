@@ -164,6 +164,10 @@ module.exports = function (grunt) {
     wiredep: {
       app: {
         src: ['<%= yeoman.app %>/index.html'],
+        exclude: [
+          'bower_components/bootstrap/dist/js/bootstrap.js',
+          'bower_components/jquery/dist/jquery.js'
+        ],
         ignorePath:  /\.\.\//
       }
     },
@@ -327,6 +331,12 @@ module.exports = function (grunt) {
         cwd: '<%= yeoman.app %>/styles',
         dest: '.tmp/styles/',
         src: '{,*/}*.css'
+      },
+      staticDir: {
+        expand: true,
+        cwd: '<%= yeoman.dist %>',
+        src: '**',
+        dest: '../server/src/main/resources/static/'
       }
     },
 
@@ -427,6 +437,7 @@ module.exports = function (grunt) {
   grunt.registerTask('default', [
     'newer:jshint',
     'test',
-    'build'
+    'build',
+    'copy:staticDir'
   ]);
 };
