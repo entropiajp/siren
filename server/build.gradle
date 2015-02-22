@@ -10,7 +10,6 @@ buildscript {
 
 apply plugin: 'java'
 apply plugin: 'eclipse'
-apply plugin: 'idea'
 apply plugin: 'spring-boot'
 
 processResources.destinationDir = compileJava.destinationDir
@@ -27,12 +26,15 @@ repositories {
 }
 
 sourceCompatibility = targetCompatibility = 1.8
+tasks.withType(AbstractCompile)*.options*.encoding = 'UTF-8'
 
 dependencies {
     compile("org.springframework.boot:spring-boot-starter-thymeleaf")
     compile("org.springframework.boot:spring-boot-starter-web")
     compile("org.springframework.boot:spring-boot-starter-jdbc")
     compile("org.springframework.boot:spring-boot-starter-security")
+    compile("org.springframework.boot:spring-boot-starter-social-twitter")
+    compile("org.springframework.social:spring-social-security:1.1.0.RELEASE")
     compile("org.seasar.doma:doma:2.1.0")
     compile("org.hibernate:hibernate-validator")
     compile("mysql:mysql-connector-java:5.1.30")
