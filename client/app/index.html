@@ -9,56 +9,21 @@
     <!-- build:css(.) styles/vendor.css -->
     <!-- bower:css -->
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="bower_components/sweetalert/lib/sweet-alert.css" />
+    <link rel="stylesheet" href="bower_components/angular-loading-bar/build/loading-bar.css" />
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css(.tmp) styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
-    <link rel="stylesheet" href="styles/superhero.css">
     <!-- endbuild -->
+    <link href='http://fonts.googleapis.com/css?family=Gruppo' rel='stylesheet' type='text/css'>
   </head>
-  <body ng-app="clientApp">
+  <body ng-app="clientApp" ng-class='{coverimg: isLogin}'>
     <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
 
-    <nav class="navbar navbar-default navbar-fixed-top">
-      <div class="navbar-header">
-        <a class="navbar-brand" href=""><span class="glyphicon glyphicon-leaf"></span> sirens</a>
-      </div>
-      <div class="navbar-collapse collapse navbar-responsive-collapse">
-        <ul class="nav navbar-nav">
-          <li class="active"><a href="#">Active</a></li>
-          <li><a href="#">Link</a></li>
-
-        </ul>
-        <form class="navbar-form navbar-left">
-          <input type="text" class="form-control col-lg-8" placeholder="Search">
-        </form>
-        <ul class="nav navbar-nav navbar-right">
-          <li><a href="">エントリー</a></li>
-          <li><a href="">希望曲投票</a></li>
-          <li><a href=""><span class="glyphicon glyphicon-cog"></span>　設定</a></li>
-          <li><a href=""><span class="glyphicon glyphicon-user"></span> こや</a></li>
-        </ul>
-      </div>
-    </nav>
-
-    <!-- Add your site or application content here -->
-    <div class="container">
-      <div ng-view=""></div>
-    </div>
-
-
-    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
-     <script>
-       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-       m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-       })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-       ga('create', 'UA-XXXXX-X');
-       ga('send', 'pageview');
-    </script>
+    <div ui-view></div>
 
     <!-- build:js(.) scripts/oldieshim.js -->
     <!--[if lt IE 9]>
@@ -78,13 +43,35 @@
     <script src="bower_components/angular-touch/angular-touch.js"></script>
     <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
     <script src="bower_components/angular-i18n/angular-locale_ja-jp.js"></script>
+    <script src="bower_components/ui-router/release/angular-ui-router.js"></script>
+    <script src="bower_components/sweetalert/lib/sweet-alert.js"></script>
+    <script src="bower_components/angular-sweetalert/SweetAlert.js"></script>
+    <script src="bower_components/angular-loading-bar/build/loading-bar.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
         <!-- build:js({.tmp,app}) scripts/scripts.js -->
         <script src="scripts/app.js"></script>
-        <script src="scripts/controllers/main.js"></script>
-        <script src="scripts/controllers/about.js"></script>
+    <script src="scripts/filters/nl2br.js"></script>
+        <script src="scripts/services/globalAlert.service.js"></script>
+    <script src="scripts/services/event_service.js"></script>
+    <script src="scripts/services/tune_service.js"></script>
+    <script src="scripts/services/member_service.js"></script>
+    <script src="scripts/services/manager_service.js"></script>
+    <script src="scripts/services/candidate_service.js"></script>
+        <script src="scripts/directives/siAlert.directive.js"></script>
+        <script src="scripts/controllers/edit_event_controller.js"></script>
+    <script src="scripts/controllers/candidate_controller.js"></script>
+    <script src="scripts/controllers/member_controller.js"></script>
+        <script src="scripts/controllers/new_event.js"></script>
+        <script src="scripts/controllers/login.js"></script>
+        <script src="scripts/controllers/portal_controller.js"></script>
+        <script src="scripts/controllers/header.js"></script>
+    <script src="scripts/controllers/event_controller.js"></script>
+    <script src="scripts/controllers/new_tune.js"></script>
+
+
+
         <!-- endbuild -->
 </body>
 </html>
