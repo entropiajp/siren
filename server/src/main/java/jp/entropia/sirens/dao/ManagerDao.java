@@ -1,8 +1,7 @@
 package jp.entropia.sirens.dao;
 
 import jp.entropia.sirens.ConfigAutowireable;
-import jp.entropia.sirens.entity.User;
-import jp.entropia.sirens.entity.Users;
+import jp.entropia.sirens.entity.Manager;
 
 import org.seasar.doma.Dao;
 import org.seasar.doma.Delete;
@@ -14,36 +13,37 @@ import org.seasar.doma.Update;
  */
 @Dao
 @ConfigAutowireable
-public interface UsersDao {
+public interface ManagerDao {
 
     /**
-     * @param username
-     * @return the Users entity
+     * @param eventId
+     * @param memberId
+     * @return the Manager entity
      */
     @Select
-    Users selectById(String username);
+    Manager selectById(Integer eventId, Integer memberId);
 
     /**
      * @param entity
      * @return affected rows
      */
     @Insert
-    int insert(Users entity);
+    int insert(Manager entity);
 
     /**
      * @param entity
      * @return affected rows
      */
     @Update
-    int update(Users entity);
+    int update(Manager entity);
 
     /**
      * @param entity
      * @return affected rows
      */
     @Delete
-    int delete(Users entity);
-    
+    int delete(Manager entity);
+
     @Select
-    User selectUserInfo(String userId);
+	boolean isAdmin(Integer eventId, String userId);
 }

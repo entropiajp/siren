@@ -1,8 +1,9 @@
 package jp.entropia.sirens.dao;
 
+import java.util.List;
+
 import jp.entropia.sirens.ConfigAutowireable;
-import jp.entropia.sirens.entity.User;
-import jp.entropia.sirens.entity.Users;
+import jp.entropia.sirens.entity.Event;
 
 import org.seasar.doma.Dao;
 import org.seasar.doma.Delete;
@@ -14,36 +15,45 @@ import org.seasar.doma.Update;
  */
 @Dao
 @ConfigAutowireable
-public interface UsersDao {
+public interface EventDao {
 
     /**
-     * @param username
-     * @return the Users entity
+     * @param id
+     * @return the Event entity
      */
     @Select
-    Users selectById(String username);
+    Event selectById(Integer id);
 
     /**
      * @param entity
      * @return affected rows
      */
     @Insert
-    int insert(Users entity);
+    int insert(Event entity);
 
     /**
      * @param entity
      * @return affected rows
      */
     @Update
-    int update(Users entity);
+    int update(Event entity);
 
     /**
      * @param entity
      * @return affected rows
      */
     @Delete
-    int delete(Users entity);
+    int delete(Event entity);
+
+    @Select
+	List<Event> selectManagedEvent(String userId);
+
+    @Select
+	List<Event> selectJoinedEvents(String userId);
+
+    @Select
+	List<Event> selectPastEvents();
     
     @Select
-    User selectUserInfo(String userId);
+    List<Event> selectFutureEvents();
 }

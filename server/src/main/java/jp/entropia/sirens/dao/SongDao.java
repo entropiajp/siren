@@ -1,9 +1,7 @@
 package jp.entropia.sirens.dao;
 
 import jp.entropia.sirens.ConfigAutowireable;
-import jp.entropia.sirens.entity.User;
-import jp.entropia.sirens.entity.Users;
-
+import jp.entropia.sirens.entity.Song;
 import org.seasar.doma.Dao;
 import org.seasar.doma.Delete;
 import org.seasar.doma.Insert;
@@ -14,36 +12,33 @@ import org.seasar.doma.Update;
  */
 @Dao
 @ConfigAutowireable
-public interface UsersDao {
+public interface SongDao {
 
     /**
-     * @param username
-     * @return the Users entity
+     * @param id
+     * @return the Song entity
      */
     @Select
-    Users selectById(String username);
+    Song selectById(Integer id);
 
     /**
      * @param entity
      * @return affected rows
      */
     @Insert
-    int insert(Users entity);
+    int insert(Song entity);
 
     /**
      * @param entity
      * @return affected rows
      */
     @Update
-    int update(Users entity);
+    int update(Song entity);
 
     /**
      * @param entity
      * @return affected rows
      */
     @Delete
-    int delete(Users entity);
-    
-    @Select
-    User selectUserInfo(String userId);
+    int delete(Song entity);
 }

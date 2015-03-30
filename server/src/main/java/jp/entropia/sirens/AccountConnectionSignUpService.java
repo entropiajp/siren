@@ -16,9 +16,8 @@ public class AccountConnectionSignUpService implements ConnectionSignUp {
 	}
 	
     public String execute(Connection<?> connection) {
-        org.springframework.social.connect.UserProfile profile = connection.fetchUserProfile();
         String userId = UUID.randomUUID().toString();
-        usersService.createUser(userId, profile);
+        usersService.createUser(userId, connection);
         return userId;
     }
 

@@ -10,6 +10,7 @@ import org.seasar.doma.jdbc.dialect.MysqlDialect;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.jdbc.datasource.TransactionAwareDataSourceProxy;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
@@ -40,7 +41,7 @@ public class DatabaseConfiguration {
 
             @Override
             public DataSource getDataSource() {
-            	return dataSource;
+                return new TransactionAwareDataSourceProxy(dataSource);
             }
 
             @Override

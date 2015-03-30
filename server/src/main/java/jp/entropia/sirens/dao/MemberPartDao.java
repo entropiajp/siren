@@ -1,9 +1,7 @@
 package jp.entropia.sirens.dao;
 
 import jp.entropia.sirens.ConfigAutowireable;
-import jp.entropia.sirens.entity.User;
-import jp.entropia.sirens.entity.Users;
-
+import jp.entropia.sirens.entity.MemberPart;
 import org.seasar.doma.Dao;
 import org.seasar.doma.Delete;
 import org.seasar.doma.Insert;
@@ -14,36 +12,34 @@ import org.seasar.doma.Update;
  */
 @Dao
 @ConfigAutowireable
-public interface UsersDao {
+public interface MemberPartDao {
 
     /**
-     * @param username
-     * @return the Users entity
+     * @param memberId
+     * @param partId
+     * @return the MemberPart entity
      */
     @Select
-    Users selectById(String username);
+    MemberPart selectById(Integer memberId, Integer partId);
 
     /**
      * @param entity
      * @return affected rows
      */
     @Insert
-    int insert(Users entity);
+    int insert(MemberPart entity);
 
     /**
      * @param entity
      * @return affected rows
      */
     @Update
-    int update(Users entity);
+    int update(MemberPart entity);
 
     /**
      * @param entity
      * @return affected rows
      */
     @Delete
-    int delete(Users entity);
-    
-    @Select
-    User selectUserInfo(String userId);
+    int delete(MemberPart entity);
 }

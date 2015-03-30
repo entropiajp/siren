@@ -1,5 +1,10 @@
 package jp.entropia.sirens;
 
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,8 +12,14 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.servlet.configuration.EnableWebMvcSecurity;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.web.AuthenticationEntryPoint;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.security.web.util.matcher.RequestHeaderRequestMatcher;
+import org.springframework.security.web.util.matcher.RequestMatcher;
 import org.springframework.social.security.SocialUserDetailsService;
 import org.springframework.social.security.SpringSocialConfigurer;
 
@@ -24,17 +35,52 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         auth.
             jdbcAuthentication()
             .dataSource(dataSource);
-            //.withDefaultSchema();
+    }
+    
+    public void configure(WebSecurity web) throws Exception {
+    	// TODO デプロイ時は/asset/以下のみ許可する
+    	web.ignoring().antMatchers(
+    			"/fonts/**", "/images/**", "/styles/**", "/scripts/**", "/views/**", "/asset/**");
     }
     
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+    	http.authorizeRequests().anyRequest().authenticated();
     	http
     	    .csrf().disable()
     	    .httpBasic().disable()
             .logout().logoutUrl("/logout").deleteCookies("JSESSIONID").logoutSuccessUrl("/")
+            // TODO POST /logout してもセッションが破棄されない
         .and()
-	        .apply(new SpringSocialConfigurer().postLoginUrl("/").alwaysUsePostLoginUrl(true));
+	        .apply(new SpringSocialConfigurer().postLoginUrl("http://localhost:9000/#/portal"))
+	    .and()
+	        .exceptionHandling().defaultAuthenticationEntryPointFor(
+                    ajaxAuthenticationEntryPoint(),
+                    ajaxRequestMatcher()
+                );
+    }
+    
+    @Bean
+    public AuthenticationEntryPoint ajaxAuthenticationEntryPoint() {
+	    return new AuthenticationEntryPoint() {
+	        @Override
+	        public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
+	        	// preflightリクエストは未認証でも401を返さない
+	            if("OPTIONS".equals(request.getMethod()) == false) {
+	            	response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+	            }
+	        }
+	    };
+    }
+    
+    @Bean
+    public RequestMatcher ajaxRequestMatcher() {
+        return new RequestHeaderRequestMatcher("X-Requested-With", "XMLHttpRequest");
+    }
+
+    @Bean
+    public RequestMatcher logoutRequestMatcher() {
+        return new AntPathRequestMatcher("/logout");
     }
     
     @Bean

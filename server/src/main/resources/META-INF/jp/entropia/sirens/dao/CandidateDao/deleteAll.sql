@@ -1,0 +1,1 @@
+delete from candidate where event_id = /* eventId */1

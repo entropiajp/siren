@@ -6,11 +6,12 @@ import jp.entropia.sirens.dao.AuthoritiesDao;
 import jp.entropia.sirens.dao.UserprofileDao;
 import jp.entropia.sirens.dao.UsersDao;
 import jp.entropia.sirens.entity.Authorities;
+import jp.entropia.sirens.entity.User;
 import jp.entropia.sirens.entity.Userprofile;
 import jp.entropia.sirens.entity.Users;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.social.connect.UserProfile;
+import org.springframework.social.connect.Connection;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -28,15 +29,13 @@ public class UsersService {
 		this.userprofileDao = userprofileDao;
 	}
 	
-//	public UserProfile getUserProfile(final String userId) {
-//		
-//	}
-//	
-//	public UserConnection getUserConnection(final String userId) {
-//		
-//	}
+	public User getCurrentUser(String userid) {
+		return usersDao.selectUserInfo(userid);
+	}
 
-	public void createUser(String userId, UserProfile profile) {
+	public void createUser(String userId, Connection<?> connection) {
+		org.springframework.social.connect.UserProfile profile = connection.fetchUserProfile();
+		
 		Users users = new Users();
 		users.setUsername(userId);
 		users.setPassword(UUID.randomUUID().toString());

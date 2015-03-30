@@ -1,8 +1,10 @@
 package jp.entropia.sirens.dao;
 
+import java.util.List;
+
 import jp.entropia.sirens.ConfigAutowireable;
-import jp.entropia.sirens.entity.User;
-import jp.entropia.sirens.entity.Users;
+import jp.entropia.sirens.entity.CheckableTune;
+import jp.entropia.sirens.entity.Tune;
 
 import org.seasar.doma.Dao;
 import org.seasar.doma.Delete;
@@ -14,36 +16,43 @@ import org.seasar.doma.Update;
  */
 @Dao
 @ConfigAutowireable
-public interface UsersDao {
+public interface TuneDao {
 
     /**
-     * @param username
-     * @return the Users entity
+     * @param id
+     * @return the Tune entity
      */
     @Select
-    Users selectById(String username);
+    Tune selectById(Integer id);
 
     /**
      * @param entity
      * @return affected rows
      */
     @Insert
-    int insert(Users entity);
+    int insert(Tune entity);
 
     /**
      * @param entity
      * @return affected rows
      */
     @Update
-    int update(Users entity);
+    int update(Tune entity);
 
     /**
      * @param entity
      * @return affected rows
      */
     @Delete
-    int delete(Users entity);
+    int delete(Tune entity);
     
     @Select
-    User selectUserInfo(String userId);
+    List<CheckableTune> selectAll(Integer eventId);
+
+    @Select
+	List<String> selectStoredArtists();
+    
+    @Select
+	List<String> selectStoredSources();
+    
 }
