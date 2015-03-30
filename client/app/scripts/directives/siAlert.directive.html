@@ -1,0 +1,11 @@
+<div ng-show="siAlert.type==='success'" class="alert alert-success">
+  <span class="glyphicon glyphicon-ok"></span> {{ siAlert.msg }}
+</div>
+
+<div ng-show="siAlert.type==='warning'" class="alert alert-warning">
+  <span class="glyphicon glyphicon-exclamation-sign"></span> {{ siAlert.msg }}
+</div>
+
+<div ng-show="siAlert.type==='error'" class="alert alert-error">
+  <span class="glyphicon glyphicon-remove-sign"></span> {{ siAlert.msg }}
+</div>
