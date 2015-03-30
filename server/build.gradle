@@ -4,7 +4,6 @@ buildscript {
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:1.2.1.RELEASE")
-        classpath("org.springframework:springloaded:1.2.1.RELEASE")
     }
 }
 
@@ -35,10 +34,12 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-security")
     compile("org.springframework.boot:spring-boot-starter-social-twitter")
     compile("org.springframework.social:spring-social-security:1.1.0.RELEASE")
+    compile("org.thymeleaf.extras:thymeleaf-extras-springsecurity3:2.1.1.RELEASE")
     compile("org.seasar.doma:doma:2.1.0")
     compile("org.hibernate:hibernate-validator")
     compile("mysql:mysql-connector-java:5.1.30")
     compile("net.sourceforge.nekohtml:nekohtml:1.9.20")
+    compile("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.5.1")
     testCompile("junit:junit:4.12")
 }
 
