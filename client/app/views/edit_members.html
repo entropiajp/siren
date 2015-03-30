@@ -1,0 +1,50 @@
+<div ng-include="'views/header.html'" ng-controller="HeaderController"></div>
+<div class="container-fluid">
+  <div class="row">
+    <div ng-include="'views/sidebar.html'"></div>
+
+    <div class="col-md-10 col-md-offset-2">
+      <div ng-include="'views/admin_menu.html'"></div>
+
+      <h1>参加者編集</h1>
+      <si-alert si-alert="alert"></si-alert>
+
+      <div class="form-group">
+        <div class="col-md-4">
+          <input type="text" ng-model="search" class="form-control" id="search" placeholder="テキストで絞りこむ">
+        </div>
+      </div>
+      <table class="table table-hover">
+        <thead>
+        <tr>
+          <th>名前</th>
+          <th>打ち上げ</th>
+          <th>管理者用メモ(管理者のみ見えます)</th>
+          <th></th>
+        </tr>
+        </thead>
+        <tr ng-repeat="member in members | filter:search">
+          <td><a href="{{ member.profileUrl }}" target="_blank">
+            <img ng-src="{{ member.imageUrl }}" style="height: 32px; border-radius: 32px;">
+            {{ member.name }} ({{ member.displayName }}) <span class="label label-primary" ng-if="member.admin">管理者</span>
+          </a></td>
+          <td>{{ member.attendParty }}</td>
+          <td>
+            <input type="text" ng-model="member.memoByManager" class="form-control"></td>
+          <th style="text-align: right">
+            <button class="btn btn-danger" ng-click="cancel(member.id)">
+              <span class="glyphicon glyphicon-remove"></span> 参加キャンセル</button>
+            <button class="btn btn-primary" ng-click="addManager(member.id)" ng-if="!member.admin">
+              <span class="glyphicon glyphicon-plus"></span> 管理者にする</button>
+            <button class="btn btn-warning" ng-click="removeManager(member.id)" ng-if="member.admin">
+              <span class="glyphicon glyphicon-minus"></span> 管理者から外す</button>
+          </th>
+        </tr>
+      </table>
+
+    </div>
+
+  </div>
+</div>
+
+
