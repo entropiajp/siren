@@ -1,0 +1,53 @@
+<div ng-include="'views/header.html'" ng-controller="HeaderController"></div>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <si-alert si-alert="alert"></si-alert>
+      <h1>主催バンオフ</h1>
+      <div class="row">
+        <div class="col-md-3 well" ng-repeat="event in managedEvents">
+          <div style="text-align: center"><a ui-sref="edit_event({eventId: event.id})"><img ng-src="{{ event.logoImage }}" style="width: 144px; height: 144px; border-radius: 24px;"></a></div>
+          <h4 style="text-align: center"><a ui-sref="edit_event({eventId: event.id})">{{ event.name }}</a></h4>
+          <h5 style="text-align: center">{{ event.place }}</h5>
+          <h5 style="text-align: center">{{ event.startTime | date:'yyyy-MM-dd HH:mm' }}</h5>
+          <p>{{ event.description | limitTo:100 }}</p>
+        </div>
+      </div>
+
+      <h1>参加バンオフ</h1>
+      <div class="row">
+        <div class="col-md-3" ng-repeat="event in joinedEvents">
+          <div style="text-align: center"><a ui-sref="event({eventId: event.id})"><img ng-src="{{ event.logoImage }}" style="width: 144px; height: 144px; border-radius: 24px;"></a></div>
+          <h4 style="text-align: center">{{ event.name }}</h4>
+          <h5 style="text-align: center">{{ event.place }}</h5>
+          <h5 style="text-align: center">{{ event.startTime | date:'yyyy-MM-dd HH:mm' }}</h5>
+          <p>{{ event.description | limitTo:100 }}</p>
+        </div>
+      </div>
+
+      <h1>開催予定バンオフ</h1>
+      <div class="row">
+        <div class="col-md-3" ng-repeat="event in futureEvents">
+          <div style="text-align: center">
+            <a ui-sref="event({eventId: event.id})"><img ng-src="{{ event.logoImage }}" style="width: 144px; height: 144px; border-radius: 24px;"></a></div>
+          <h4 style="text-align: center">{{ event.name }}</h4>
+          <h5 style="text-align: center">{{ event.place }}</h5>
+          <h5 style="text-align: center">{{ event.startTime | date:'yyyy-MM-dd HH:mm' }}</h5>
+          <p>{{ event.description | limitTo:100 }}</p>
+        </div>
+      </div>
+
+      <h1>終了したバンオフ</h1>
+      <div class="row">
+        <div class="col-md-3" ng-repeat="event in pastEvents">
+          <div style="text-align: center"><img ng-src="{{ event.logoImage }}" style="width: 144px; height: 144px; border-radius: 24px;"></div>
+          <h4 style="text-align: center">{{ event.name }}</h4>
+          <h5 style="text-align: center">{{ event.place }}</h5>
+          <h5 style="text-align: center">{{ event.startTime | date:'yyyy-MM-dd HH:mm' }}</h5>
+          <p>{{ event.description | limitTo:100 }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
