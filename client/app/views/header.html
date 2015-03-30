@@ -1,0 +1,43 @@
+<nav class="navbar navbar-default navbar-fixed-top">
+  <button type="button" class="navbar-toggle" ng-init="isCollapsed = true" ng-click="isCollapsed = !isCollapsed" aria-expanded="false" aria-controls="navbar">
+    <span class="sr-only">Toggle navigation</span>
+    <span class="icon-bar"></span>
+    <span class="icon-bar"></span>
+    <span class="icon-bar"></span>
+  </button>
+  <div class="navbar-header">
+    <a class="navbar-brand" ui-sref="portal">sirens</a>
+  </div>
+  <div class="navbar-collapse navbar-responsive-collapse" ng-class="{collapse: isCollapsed}">
+    <ul class="nav navbar-nav navbar-right">
+      <li ui-sref-active="active"><a ui-sref="help"><span class="glyphicon glyphicon-info-sign"></span> ヘルプ</a></li>
+      <li ui-sref-active="active"><a ui-sref="new_tune"><span class="glyphicon glyphicon-music"></span> 楽曲登録</a></li>
+      <li ui-sref-active="active"><a ui-sref="new"><span class="glyphicon glyphicon-plus"></span> バンオフを企画する</a></li>
+      <li class="dropdown" dropdown>
+        <a href="" class="dropdown-toggle" data-toggle="dropdown" dropdown-toggle>参加バンオフ一覧 <span class="caret"></span></a>
+        <ul class="dropdown-menu" role="menu">
+          <li class="dropdown-header">参加</li>
+          <li ng-repeat="event in joinedEvents" ui-sref-active="active">
+            <a ui-sref="event({eventId: event.id})">{{ event.name }}</a>
+          </li>
+          <li class="divider"></li>
+          <li class="dropdown-header">管理者</li>
+          <li ng-repeat="event in managedEvents" ui-sref-active="active">
+            <a ui-sref="edit_event({eventId: event.id})">{{ event.name }}</a>
+          </li>
+        </ul>
+      </li>
+      <li class="dropdown" dropdown>
+        <a href="" class="dropdown-toggle" data-toggle="dropdown" dropdown-toggle>
+          <div class="navbar-loginuser">
+            <img ng-src="{{ user.imageUrl }}" width="36" height="36">
+            {{ user.name }}
+          </div>
+        </a>
+        <ul class="dropdown-menu" role="menu">
+          <li><a href="" ng-click="logout()">ログアウト</a></li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</nav>
