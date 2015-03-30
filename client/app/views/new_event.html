@@ -1,0 +1,53 @@
+<div ng-include="'views/header.html'" ng-controller="HeaderController"></div>
+<div class="container-fluid">
+  <h1>バンオフを企画する</h1>
+  <si-alert si-alert="alert"></si-alert>
+  <div class="alert alert-dismissable alert-info">
+    <ul>
+      <li><strong>この設定はいつでも変更できます。</strong></li>
+      <li>基本設定が終わると、すぐに参加者のユーザー登録が可能になります。Twitterなどで告知しましょう</li>
+      <li>同時に、あなたはこのバンオフの管理者(かつ参加者)になります。</li>
+    </ul>
+  </div>
+
+  <form class="form-horizontal" name="eventForm" novalidate>
+    <fieldset>
+      <div class="form-group">
+        <label for="eventName" class="col-lg-2 control-label">バンオフ名</label>
+        <div class="col-lg-4">
+          <input type="text" ng-model="eventName" ng-required="true" class="form-control" id="eventName" placeholder="例: 第xx回Sound Horizonバンオフ">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-lg-2 control-label">開催日</label>
+        <div class="col-lg-4">
+          <p class="input-group">
+            <input type="text" class="form-control" datepicker-popup="yyyy/MM/dd (EEE)"
+                   ng-model="scheduledDate" is-open="opened" min-date="minDate" datepicker-options="dateOptions"
+                   date-disabled="disabled(date, mode)" ng-required="true" close-text="Close"/>
+        <span class="input-group-btn">
+          <button type="button" class="btn btn-default" ng-click="open($event)">
+            <i class="glyphicon glyphicon-calendar"></i></button>
+        </span>
+          </p>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-lg-2 control-label">開催時間</label>
+
+        <div class="col-lg-4" style="display: table; vertical-align: top;">
+          <timepicker ng-model="startTime" hour-step="1" minute-step="10" show-meridian="false" ng-required="true" style="display:inline-block;"></timepicker>
+          <table style="display:inline-block">
+            <tr><td height="34"></td></tr><tr><td width="32" height="34" style="text-align: center">〜</td></tr><tr><td height="34"></td></tr>
+          </table>
+          <timepicker ng-model="endTime" hour-step="1" minute-step="10" show-meridian="false" ng-required="true" style="display:inline-block"></timepicker>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-lg-4 col-lg-offset-2">
+          <button ng-click="submit()" class="btn btn-primary btn-block" ng-disabled="eventForm.$invalid">バンオフを作成する</button>
+        </div>
+      </div>
+    </fieldset>
+  </form>
+</div>
