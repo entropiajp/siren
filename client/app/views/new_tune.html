@@ -21,8 +21,16 @@
         <tr>
           <td><input class="form-control" ng-model="newTune.name" ng-required="true"></td>
           <td><input class="form-control" ng-model="newTune.time" ng-required="true" placeholder="04:23"></td>
-          <td><input class="form-control" ng-model="newTune.artist" ng-required="true"></td>
-          <td><input class="form-control" ng-model="newTune.source"></td>
+          <td><autocomplete ng-model="newTune.artist"
+                            data="storedArtists"
+                            attr-input-class="form-control"
+                            autocomplete-required="true"
+                            attr-placeholder=""></autocomplete></td>
+          <td><autocomplete ng-model="newTune.source"
+                            data="storedSources"
+                            attr-input-class="form-control"
+                            autocomplete-required="false"
+                            attr-placeholder></autocomplete></td>
         </tr>
       </table>
       <button type="button" ng-click="addTune()" class="btn btn-block btn-primary" ng-disabled="newTuneForm.$invalid">楽曲を登録する</button>
