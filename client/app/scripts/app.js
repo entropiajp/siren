@@ -59,7 +59,12 @@
         .state("help", {
           url: "/help",
           templateUrl: "views/help.html"
-        });
+        })
+        .state("edit_enquete", {
+          url: "/event/:eventId/enquete/edit",
+          templateUrl: "views/edit_enquete.html",
+          controller: "EditEnqueteController"
+      });
 
       $urlRouterProvider.otherwise('/portal');
 
