@@ -8,14 +8,17 @@
 
       $scope.event = null;
 
-      if($scope.tunes != null) {
-        $scope.exceeded = $scope.tunes.filter(function(e){return e.voted;});
-      }
+      $scope.onClick = function() {
+        $scope.votedCount = $scope.tunes.filter(function(e){return e.voted;}).length;
+      };
 
       Event.find($stateParams.eventId).then(
         function(data){
           data.startTime = new Date(data.startTime);
           data.endTime = new Date(data.endTime);
+          if(data.voteLimit === null) {
+            data.voteLimit = 9999;
+          }
           $scope.event = data;
         }
       );
@@ -34,6 +37,7 @@
           }
 
           $scope.tunes = data;
+          $scope.votedCount = data.filter(function(e){return e.voted;}).length;
         }
       );
 

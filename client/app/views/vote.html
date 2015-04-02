@@ -5,8 +5,10 @@
 
     <div class="col-md-10 col-md-offset-2">
       <div ng-include="'views/member_menu.html'"></div>
-
-      <h1>アンケート回答</h1>
+      <h1>希望曲投票
+        <small ng-show="event.voteLimit < 9999">ただ今の上限曲数は {{ event.voteLimit }} 曲です。</small>
+        <small ng-if="event.voteLimit == 9999">ただ今の上限曲数はありません</small>
+      </h1>
       <si-alert si-alert="alert"></si-alert>
 
       <div class="alert alert-info">
@@ -19,7 +21,7 @@
         <input type="text" ng-model="search" class="form-control" id="search" placeholder="テキストで絞りこむ">
       </div>
       <form>
-        <button type="button" ng-click="vote()" class="btn btn-block btn-primary">回答する</button>
+        <button type="button" ng-click="vote()" ng-disabled="votedCount > event.voteLimit || votedCount == 0" class="btn btn-block btn-primary">回答する</button>
       </form>
       <table class="table table-hover">
         <thead>
@@ -32,7 +34,7 @@
         </tr>
         </thead>
         <tr ng-repeat="tune in tunes | filter:search">
-          <td><input type="checkbox" ng-model="tune.voted"></td>
+          <td><input type="checkbox" ng-model="tune.voted" ng-click="onClick()"></td>
           <td>{{ tune.name }}</td>
           <td>{{ tune.time | date:'mm:ss' }}</td>
           <td>{{ tune.artist }}</td>

@@ -2,6 +2,7 @@ package jp.entropia.sirens;
 
 import jp.entropia.sirens.exception.ForbiddenException;
 import jp.entropia.sirens.exception.ResourceNotFoundException;
+import jp.entropia.sirens.exception.VoteLimitExceededException;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -21,5 +22,11 @@ public class GlobalExceptionHandler {
 	@ExceptionHandler(value = ResourceNotFoundException.class)
 	@ResponseStatus(HttpStatus.NOT_FOUND)
 	public void ResourceNotFoundException() {}
+	
+	@ExceptionHandler(value = VoteLimitExceededException.class)
+	@ResponseStatus(HttpStatus.FORBIDDEN)
+    public String VoteLimitExceededException() {
+		return "投票曲数の制限を超えています";
+	}
 
 }
