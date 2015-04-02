@@ -48,4 +48,7 @@ public interface MemberDao {
 
     @Select
 	List<MemberModel> selectAllJoinedMember(Integer eventId);
+
+    @Select
+	Member selectByEventIdAndUserId(Integer eventId, String userId);
 }

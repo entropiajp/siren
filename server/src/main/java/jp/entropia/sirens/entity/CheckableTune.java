@@ -28,8 +28,8 @@ public class CheckableTune {
 	@Column(name = "source")
 	private String source;
 	
-	@Column(name = "is_candidate")
-	private boolean isCandidate;
+	@Column(name = "is_voted")
+	private boolean isVoted;
 
 	public Integer getId() {
 		return id;
@@ -79,12 +79,12 @@ public class CheckableTune {
 		this.source = source;
 	}
 
-	public boolean isCandidate() {
-		return isCandidate;
+	public boolean isVoted() {
+		return isVoted;
 	}
 
-	public void setCandidate(boolean isCandidate) {
-		this.isCandidate = isCandidate;
+	public void setVoted(boolean isVoted) {
+		this.isVoted = isVoted;
 	}
 	
 	

@@ -5,4 +5,4 @@ from
 where
   member_id = /* memberId */1
   and
-  candidate_id = /* candidateId */1
+  tune_id = /* tuneId */1

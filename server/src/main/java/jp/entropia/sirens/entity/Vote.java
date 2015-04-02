@@ -19,8 +19,14 @@ public class Vote {
 
     /**  */
     @Id
-    @Column(name = "candidate_id")
-    Integer candidateId;
+    @Column(name = "tune_id")
+    Integer tuneId;
+    
+    public Vote(){}
+    public Vote(Integer memberId, Integer tuneId) {
+    	this.memberId = memberId;
+    	this.tuneId = tuneId;
+    }
 
     /** 
      * Returns the memberId.
@@ -41,20 +47,20 @@ public class Vote {
     }
 
     /** 
-     * Returns the candidateId.
+     * Returns the tuneId.
      * 
-     * @return the candidateId
+     * @return the tuneId
      */
-    public Integer getCandidateId() {
-        return candidateId;
+    public Integer getTuneId() {
+        return tuneId;
     }
 
     /** 
-     * Sets the candidateId.
+     * Sets the tuneId.
      * 
-     * @param candidateId the candidateId
+     * @param tuneId the tuneId
      */
-    public void setCandidateId(Integer candidateId) {
-        this.candidateId = candidateId;
+    public void setTuneId(Integer tuneId) {
+        this.tuneId = tuneId;
     }
 }

@@ -59,7 +59,12 @@
           url: "/event/:eventId/enquete/edit",
           templateUrl: "views/edit_enquete.html",
           controller: "EditEnqueteController"
-      });
+        })
+        .state("vote", {
+          url: "/event/:eventId/vote",
+          templateUrl: "views/vote.html",
+          controller: "VoteController"
+        });
 
       $urlRouterProvider.otherwise('/portal');
 

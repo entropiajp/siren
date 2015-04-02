@@ -1,7 +1,11 @@
 package jp.entropia.sirens.dao;
 
+import java.util.List;
+
 import jp.entropia.sirens.ConfigAutowireable;
+import jp.entropia.sirens.entity.CheckableTune;
 import jp.entropia.sirens.entity.Vote;
+
 import org.seasar.doma.Dao;
 import org.seasar.doma.Delete;
 import org.seasar.doma.Insert;
@@ -16,11 +20,11 @@ public interface VoteDao {
 
     /**
      * @param memberId
-     * @param candidateId
+     * @param tuneId
      * @return the Vote entity
      */
     @Select
-    Vote selectById(Integer memberId, Integer candidateId);
+    Vote selectById(Integer memberId, Integer tuneId);
 
     /**
      * @param entity
@@ -42,4 +46,10 @@ public interface VoteDao {
      */
     @Delete
     int delete(Vote entity);
+
+	@Delete(sqlFile = true)
+	int deleteAll(Integer memberId);
+
+	@Select
+	List<CheckableTune> selectAllTunesWithVotes(Integer memberId);
 }

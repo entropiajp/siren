@@ -1,9 +1,8 @@
 <nav class="navbar navbar-inverse" style="margin-top: 20px">
   <ul class="nav navbar-nav">
-    <li ui-sref-active="active"><a ui-sref="edit_event({eventId: event.id})">バンオフ概要</a></li>
+    <li ui-sref-active="active"><a ui-sref="event({eventId: event.id})">バンオフ概要</a></li>
     <li ui-sref-active="active"><a ui-sref="edit_members({eventId: event.id})">参加者設定</a></li>
-    <li ui-sref-active="active"><a ui-sref="edit_candidate({eventId: event.id})"></a></li>
-    <li ui-sref-active="active"><a>アンケート編集・結果確認</a></li>
-    <li ui-sref-active="active"><a>エントリー</a></li>
+    <li ui-sref-active="active"><a ui-sref="vote({eventId: event.id})">アンケート回答</a></li>
+    <li ui-sref-active="active"><a>楽曲エントリー</a></li>
   </ul>
 </nav>

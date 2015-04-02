@@ -31,4 +31,8 @@ public class MemberService {
 	public int remove(Member member) {
 		return memberDao.delete(member);
 	}
+	
+	public Member findByEventIdAndUserId(Integer eventId, String userId) {
+		return memberDao.selectByEventIdAndUserId(eventId, userId);
+	}
 }
