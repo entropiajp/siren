@@ -66,11 +66,11 @@ public class EventController {
 		BeanUtils.copyProperties(model, event);
 		event.setStartTime(model.getStartTime().toLocalDateTime());
 		event.setEndTime(model.getEndTime().toLocalDateTime());
-		if(model.getEnqStartTime() != null) {
-			event.setEnqStartTime(model.getEnqStartTime().toLocalDateTime());
+		if(model.getVoteStartTime() != null) {
+			event.setVoteStartTime(model.getVoteStartTime().toLocalDateTime());
 		}
-		if(model.getEnqEndTime() != null) {
-			event.setEnqEndTime(model.getEnqEndTime().toLocalDateTime());
+		if(model.getVoteEndTime() != null) {
+			event.setVoteEndTime(model.getVoteEndTime().toLocalDateTime());
 		}
 		eventService.update(event);
 	}

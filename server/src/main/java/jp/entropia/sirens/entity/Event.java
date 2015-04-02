@@ -41,13 +41,17 @@ public class Event {
     @Column(name = "logo_image")
     String logoImage;
 
-    /** アンケート開始日時 */
-    @Column(name = "enq_start_time")
-    LocalDateTime enqStartTime;
+    /** 投票開始日時 */
+    @Column(name = "vote_start_time")
+    LocalDateTime voteStartTime;
 
-    /** アンケート終了日時 */
-    @Column(name = "enq_end_time")
-    LocalDateTime enqEndTime;
+    /** 投票終了日時 */
+    @Column(name = "vote_end_time")
+    LocalDateTime voteEndTime;
+
+    /** 投票上限曲数 */
+    @Column(name = "vote_limit")
+    Integer voteLimit;
 
     /** 説明文 */
     @Column(name = "description")
@@ -166,39 +170,57 @@ public class Event {
     }
 
     /** 
-     * Returns the enqStartTime.
+     * Returns the voteStartTime.
      * 
-     * @return the enqStartTime
+     * @return the voteStartTime
      */
-    public LocalDateTime getEnqStartTime() {
-        return enqStartTime;
+    public LocalDateTime getVoteStartTime() {
+        return voteStartTime;
     }
 
     /** 
-     * Sets the enqStartTime.
+     * Sets the voteStartTime.
      * 
-     * @param enqStartTime the enqStartTime
+     * @param voteStartTime the voteStartTime
      */
-    public void setEnqStartTime(LocalDateTime enqStartTime) {
-        this.enqStartTime = enqStartTime;
+    public void setVoteStartTime(LocalDateTime voteStartTime) {
+        this.voteStartTime = voteStartTime;
     }
 
     /** 
-     * Returns the enqEndTime.
+     * Returns the voteEndTime.
      * 
-     * @return the enqEndTime
+     * @return the voteEndTime
      */
-    public LocalDateTime getEnqEndTime() {
-        return enqEndTime;
+    public LocalDateTime getVoteEndTime() {
+        return voteEndTime;
     }
 
     /** 
-     * Sets the enqEndTime.
+     * Sets the voteEndTime.
      * 
-     * @param enqEndTime the enqEndTime
+     * @param voteEndTime the voteEndTime
      */
-    public void setEnqEndTime(LocalDateTime enqEndTime) {
-        this.enqEndTime = enqEndTime;
+    public void setVoteEndTime(LocalDateTime voteEndTime) {
+        this.voteEndTime = voteEndTime;
+    }
+
+    /** 
+     * Returns the voteLimit.
+     * 
+     * @return the voteLimit
+     */
+    public Integer getVoteLimit() {
+        return voteLimit;
+    }
+
+    /** 
+     * Sets the voteLimit.
+     * 
+     * @param voteLimit the voteLimit
+     */
+    public void setVoteLimit(Integer voteLimit) {
+        this.voteLimit = voteLimit;
     }
 
     /** 

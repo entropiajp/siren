@@ -10,8 +10,8 @@ public class EventModel {
 	private ZonedDateTime endTime;
 	private String place;
 	private String logoImage;
-	private ZonedDateTime enqStartTime;
-	private ZonedDateTime enqEndTime;
+	private ZonedDateTime voteStartTime;
+	private ZonedDateTime voteEndTime;
 	private String description;
 	
 	public Integer getId() {
@@ -50,17 +50,17 @@ public class EventModel {
 	public void setLogoImage(String logoImage) {
 		this.logoImage = logoImage;
 	}
-	public ZonedDateTime getEnqStartTime() {
-		return enqStartTime;
+	public ZonedDateTime getVoteStartTime() {
+		return voteStartTime;
 	}
-	public void setEnqStartTime(ZonedDateTime enqStartTime) {
-		this.enqStartTime = enqStartTime;
+	public void setVoteStartTime(ZonedDateTime voteStartTime) {
+		this.voteStartTime = voteStartTime;
 	}
-	public ZonedDateTime getEnqEndTime() {
-		return enqEndTime;
+	public ZonedDateTime getVoteEndTime() {
+		return voteEndTime;
 	}
-	public void setEnqEndTime(ZonedDateTime enqEndTime) {
-		this.enqEndTime = enqEndTime;
+	public void setVoteEndTime(ZonedDateTime voteEndTime) {
+		this.voteEndTime = voteEndTime;
 	}
 	public String getDescription() {
 		return description;

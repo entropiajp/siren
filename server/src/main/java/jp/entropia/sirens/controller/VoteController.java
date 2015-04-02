@@ -4,9 +4,12 @@ import java.security.Principal;
 import java.util.List;
 
 import jp.entropia.sirens.entity.CheckableTune;
+import jp.entropia.sirens.entity.Event;
 import jp.entropia.sirens.entity.Member;
 import jp.entropia.sirens.entity.Vote;
 import jp.entropia.sirens.exception.ForbiddenException;
+import jp.entropia.sirens.exception.VoteLimitExceededException;
+import jp.entropia.sirens.service.EventService;
 import jp.entropia.sirens.service.MemberService;
 import jp.entropia.sirens.service.VoteService;
 
@@ -25,6 +28,8 @@ public class VoteController {
 	private MemberService memberService;
 	@Autowired
 	private VoteService voteService;
+	@Autowired
+	private EventService eventService;
 
 	@RequestMapping(value="/{eventId}", method=RequestMethod.POST)
 	public void vote(@PathVariable("eventId") Integer eventId,
@@ -34,7 +39,10 @@ public class VoteController {
 			throw new ForbiddenException();
 		}
 		
-		// TODO 回答上限バリデーション
+		Event event = eventService.find(eventId);
+		if(votes.size() > event.getVoteLimit()) {
+			throw new VoteLimitExceededException();
+		}
 		
 		// TODO トランザクション制御
 		voteService.removeAll(loginMember.getId());
