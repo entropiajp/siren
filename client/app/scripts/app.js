@@ -41,11 +41,6 @@
           templateUrl: "views/edit_event.html",
           controller: "EditEventController"
         })
-        .state("edit_candidate", {
-          url: "/event/:eventId/candidate/edit",
-          templateUrl: "views/edit_candidate.html",
-          controller: "CandidateController"
-        })
         .state("edit_members", {
           url: "/event/:eventId/member/edit",
           templateUrl: "views/edit_members.html",

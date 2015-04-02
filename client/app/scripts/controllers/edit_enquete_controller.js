@@ -2,7 +2,7 @@
   'use strict';
 
   angular.module('clientApp')
-    .controller('EditEnqueteController', function ($scope, globalAlert, $state, $stateParams, Event, Tune, Candidate) {
+    .controller('EditEnqueteController', function ($scope, globalAlert, $state, $stateParams, Event, Tune) {
 
       $scope.alert = globalAlert.getAndClear();
 
