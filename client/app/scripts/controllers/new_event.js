@@ -37,14 +37,6 @@
         );
       };
 
-      $scope.today = function() {
-        $scope.scheduledDate = new Date();
-      };
-
-      $scope.clear = function () {
-        $scope.scheduledDate = null;
-      };
-
       $scope.open = function($event) {
         $event.preventDefault();
         $event.stopPropagation();
