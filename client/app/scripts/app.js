@@ -13,7 +13,8 @@
       'oitozero.ngSweetAlert',
       'angular-loading-bar',
       'autocomplete',
-      'config'
+      'config',
+      'nvd3'
     ])
     .config(function ($stateProvider, $httpProvider, $urlRouterProvider) {
       $stateProvider

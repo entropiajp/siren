@@ -20,10 +20,15 @@
         return Resource.query({eventId: eventId}).$promise;
       };
 
+      var findResult = function(eventId) {
+        return $resource(API_URL + '/votes/:eventId/result', {eventId: '@eventId'}).query({eventId: eventId}).$promise;
+      };
+
       return {
         findAll: findAll,
         saveAfterDelete: saveAfterDelete,
-        query: query
+        query: query,
+        findResult: findResult
       };
 
 

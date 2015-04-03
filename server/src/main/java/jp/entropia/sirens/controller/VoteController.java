@@ -7,9 +7,11 @@ import jp.entropia.sirens.entity.CheckableTune;
 import jp.entropia.sirens.entity.Event;
 import jp.entropia.sirens.entity.Member;
 import jp.entropia.sirens.entity.Vote;
+import jp.entropia.sirens.entity.VoteResult;
 import jp.entropia.sirens.exception.ForbiddenException;
 import jp.entropia.sirens.exception.VoteLimitExceededException;
 import jp.entropia.sirens.service.EventService;
+import jp.entropia.sirens.service.ManagerService;
 import jp.entropia.sirens.service.MemberService;
 import jp.entropia.sirens.service.VoteService;
 
@@ -30,6 +32,8 @@ public class VoteController {
 	private VoteService voteService;
 	@Autowired
 	private EventService eventService;
+	@Autowired
+	private ManagerService managerService;
 
 	@RequestMapping(value="/{eventId}", method=RequestMethod.POST)
 	public void vote(@PathVariable("eventId") Integer eventId,
@@ -57,5 +61,14 @@ public class VoteController {
 			throw new ForbiddenException();
 		}
 		return voteService.findAll(loginMember.getId());
+	}
+	
+	@RequestMapping(value="/{eventId}/result", method=RequestMethod.GET)
+	public List<VoteResult> getResult(@PathVariable("eventId") Integer eventId,
+			Principal principal) {
+		if(managerService.isManager(eventId, principal.getName()) == false) {
+			throw new ForbiddenException();
+		}
+		return voteService.findResult(eventId);
 	}
 }

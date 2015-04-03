@@ -2,7 +2,7 @@
   'use strict';
 
   angular.module('clientApp')
-    .controller('EditEnqueteController', function ($scope, globalAlert, $state, $stateParams, Event) {
+    .controller('EditEnqueteController', function ($scope, globalAlert, $state, $stateParams, Event, Vote) {
 
       $scope.alert = globalAlert.getAndClear();
       $scope.event = null;
@@ -62,6 +62,46 @@
         formatYear: 'yy',
         startingDay: 1,
         showWeeks: false
+      };
+
+      Vote.findResult($stateParams.eventId).then(
+        function(data){
+          $scope.data = [
+            {
+              "key": "Series1",
+              "color": "#d62728",
+              "values": null
+            }
+          ];
+          $scope.data[0].values = data.map(function(e){
+            return {
+              label: e.name,
+              value: e.count
+            };
+          });
+        }
+      );
+
+      $scope.options = {
+        chart: {
+          type: 'multiBarHorizontalChart',
+          height: 450,
+          x: function(d){return d.label;},
+          y: function(d){return d.value;},
+          //yErr: function(d){ return [-Math.abs(d.value * Math.random() * 0.3), Math.abs(d.value * Math.random() * 0.3)] },
+          showControls: false,
+          showValues: true,
+          transitionDuration: 500,
+          xAxis: {
+            showMaxMin: false
+          },
+          yAxis: {
+            axisLabel: '得票数',
+            tickFormat: function(d){
+              return d3.format(',.2f')(d);
+            }
+          }
+        }
       };
 
     });

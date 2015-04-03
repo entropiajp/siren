@@ -5,6 +5,7 @@ import java.util.List;
 import jp.entropia.sirens.ConfigAutowireable;
 import jp.entropia.sirens.entity.CheckableTune;
 import jp.entropia.sirens.entity.Vote;
+import jp.entropia.sirens.entity.VoteResult;
 
 import org.seasar.doma.Dao;
 import org.seasar.doma.Delete;
@@ -52,4 +53,7 @@ public interface VoteDao {
 
 	@Select
 	List<CheckableTune> selectAllTunesWithVotes(Integer memberId);
+
+	@Select
+	List<VoteResult> selectVoteResult(Integer eventId);
 }

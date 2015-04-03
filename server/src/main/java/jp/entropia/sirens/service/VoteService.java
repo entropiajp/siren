@@ -5,6 +5,7 @@ import java.util.List;
 import jp.entropia.sirens.dao.VoteDao;
 import jp.entropia.sirens.entity.CheckableTune;
 import jp.entropia.sirens.entity.Vote;
+import jp.entropia.sirens.entity.VoteResult;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,5 +36,9 @@ public class VoteService {
 	 */
 	public List<CheckableTune> findAll(Integer memberId) {
 		return voteDao.selectAllTunesWithVotes(memberId);
+	}
+
+	public List<VoteResult> findResult(Integer eventId) {
+		return voteDao.selectVoteResult(eventId);
 	}
 }
