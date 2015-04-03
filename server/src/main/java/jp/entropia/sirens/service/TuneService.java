@@ -4,7 +4,6 @@ import java.time.LocalTime;
 import java.util.List;
 
 import jp.entropia.sirens.dao.TuneDao;
-import jp.entropia.sirens.entity.CheckableTune;
 import jp.entropia.sirens.entity.Tune;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +15,8 @@ public class TuneService {
 	@Autowired
 	private TuneDao tuneDao;
 	
-	public List<CheckableTune> findAll(Integer eventId) {
-		return tuneDao.selectAll(eventId);
+	public List<Tune> findAll() {
+		return tuneDao.selectAll();
 	}
 
 	public boolean save(Tune tune) {

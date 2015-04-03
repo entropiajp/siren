@@ -3,7 +3,6 @@ package jp.entropia.sirens.dao;
 import java.util.List;
 
 import jp.entropia.sirens.ConfigAutowireable;
-import jp.entropia.sirens.entity.CheckableTune;
 import jp.entropia.sirens.entity.Tune;
 
 import org.seasar.doma.Dao;
@@ -47,7 +46,7 @@ public interface TuneDao {
     int delete(Tune entity);
     
     @Select
-    List<CheckableTune> selectAll(Integer eventId);
+    List<Tune> selectAll();
 
     @Select
 	List<String> selectStoredArtists();
