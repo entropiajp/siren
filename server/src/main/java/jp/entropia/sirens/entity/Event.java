@@ -57,9 +57,9 @@ public class Event {
     @Column(name = "description")
     String description;
 
-    /** 非公開フラグ */
-    @Column(name = "is_private")
-    boolean isPrivate;
+    /** 投票注意文 */
+    @Column(name = "vote_message")
+    String voteMessage;
 
     /** 
      * Returns the id.
@@ -242,20 +242,20 @@ public class Event {
     }
 
     /** 
-     * Returns the isPrivate.
+     * Returns the voteMessage.
      * 
-     * @return the isPrivate
+     * @return the voteMessage
      */
-    public boolean getIsPrivate() {
-        return isPrivate;
+    public String getVoteMessage() {
+        return voteMessage;
     }
 
     /** 
-     * Sets the isPrivate.
+     * Sets the voteMessage.
      * 
-     * @param isPrivate the isPrivate
+     * @param voteMessage the voteMessage
      */
-    public void setIsPrivate(boolean isPrivate) {
-        this.isPrivate = isPrivate;
+    public void setVoteMessage(String voteMessage) {
+        this.voteMessage = voteMessage;
     }
 }

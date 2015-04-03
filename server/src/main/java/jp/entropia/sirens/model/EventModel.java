@@ -13,6 +13,8 @@ public class EventModel {
 	private ZonedDateTime voteStartTime;
 	private ZonedDateTime voteEndTime;
 	private String description;
+	private String voteMessage;
+	private Integer voteLimit;
 	
 	public Integer getId() {
 		return id;
@@ -67,6 +69,18 @@ public class EventModel {
 	}
 	public void setDescription(String description) {
 		this.description = description;
+	}
+	public String getVoteMessage() {
+		return voteMessage;
+	}
+	public void setVoteMessage(String voteMessage) {
+		this.voteMessage = voteMessage;
+	}
+	public Integer getVoteLimit() {
+		return voteLimit;
+	}
+	public void setVoteLimit(Integer voteLimit) {
+		this.voteLimit = voteLimit;
 	}
 
 	
