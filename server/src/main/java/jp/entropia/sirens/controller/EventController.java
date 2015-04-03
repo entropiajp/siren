@@ -12,7 +12,6 @@ import jp.entropia.sirens.service.EventService;
 import jp.entropia.sirens.service.ManagerService;
 import jp.entropia.sirens.service.MemberService;
 
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -62,17 +61,7 @@ public class EventController {
 		if(managerService.isManager(eventId, principal.getName()) == false) {
 			throw new ForbiddenException();
 		}
-		Event event = new Event();
-		BeanUtils.copyProperties(model, event);
-		event.setStartTime(model.getStartTime().toLocalDateTime());
-		event.setEndTime(model.getEndTime().toLocalDateTime());
-		if(model.getVoteStartTime() != null) {
-			event.setVoteStartTime(model.getVoteStartTime().toLocalDateTime());
-		}
-		if(model.getVoteEndTime() != null) {
-			event.setVoteEndTime(model.getVoteEndTime().toLocalDateTime());
-		}
-		eventService.update(event);
+		eventService.update(eventService.convertObject(model));
 	}
 	
 	@RequestMapping(value="/{eventId}", method=RequestMethod.GET)
