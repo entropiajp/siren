@@ -2,8 +2,8 @@
   'use strict';
 
   angular.module('clientApp')
-    .factory('Member', function($resource){
-      var Resource = $resource('http://localhost:8081/members/:id', {id: '@id'},{
+    .factory('Member', function($resource, API_URL){
+      var Resource = $resource(API_URL + '/members/:id', {id: '@id'},{
         update: {method: 'PUT'},
         queryByEventId: {method: 'GET', params:{eventId: '@eventId'}, isArray: true},
         join: {method: 'POST', params:{eventId: '@eventId'}}

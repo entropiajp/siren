@@ -2,8 +2,8 @@
   'use strict';
 
   angular.module('clientApp')
-    .factory('Tune', function($resource){
-      var Resource = $resource('http://localhost:8081/tunes/:id', {id: '@id'},{
+    .factory('Tune', function($resource, API_URL){
+      var Resource = $resource(API_URL + '/tunes/:id', {id: '@id'},{
         update: {method: 'PUT'}
       });
 
@@ -24,11 +24,11 @@
       };
 
       var findArtists = function() {
-        return $resource('http://localhost:8081/tunes/artists').query().$promise;
+        return $resource(API_URL + '/tunes/artists').query().$promise;
       };
 
       var findSources = function() {
-        return $resource('http://localhost:8081/tunes/sources').query().$promise;
+        return $resource(API_URL + '/tunes/sources').query().$promise;
       };
 
       return {

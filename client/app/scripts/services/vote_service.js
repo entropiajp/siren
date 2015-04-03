@@ -2,8 +2,8 @@
   'use strict';
 
   angular.module('clientApp')
-    .factory('Vote', function($resource){
-      var Resource = $resource('http://localhost:8081/votes/:eventId', {eventId: '@eventId'},{
+    .factory('Vote', function($resource, API_URL){
+      var Resource = $resource(API_URL + '/votes/:eventId', {eventId: '@eventId'},{
         update: {method: 'PUT'},
         saveAfterDelete: {method: 'POST', params:{eventId: '@eventId'}, isArray: true}
       });

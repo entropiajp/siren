@@ -2,8 +2,8 @@
   'use strict';
 
   angular.module('clientApp')
-    .factory('Event', function($resource){
-      var Resource = $resource('http://localhost:8081/event/:id', {id: '@id'},{
+    .factory('Event', function($resource, API_URL){
+      var Resource = $resource(API_URL + '/event/:id', {id: '@id'},{
         update: {method: 'PUT'}
       });
 
@@ -24,19 +24,19 @@
       };
 
       var findManaged = function() {
-        return $resource('http://localhost:8081/event/managed').query().$promise;
+        return $resource(API_URL + '/event/managed').query().$promise;
       };
 
       var findJoined = function() {
-        return $resource('http://localhost:8081/event/joined').query().$promise;
+        return $resource(API_URL + '/event/joined').query().$promise;
       };
 
       var findFuture = function() {
-        return $resource('http://localhost:8081/event/future').query().$promise;
+        return $resource(API_URL + '/event/future').query().$promise;
       };
 
       var findPast = function() {
-        return $resource('http://localhost:8081/event/past').query().$promise;
+        return $resource(API_URL + '/event/past').query().$promise;
       };
 
       return {

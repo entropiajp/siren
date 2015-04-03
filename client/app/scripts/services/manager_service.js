@@ -2,8 +2,8 @@
   'use strict';
 
   angular.module('clientApp')
-    .factory('Manager', function($resource){
-      var Resource = $resource('http://localhost:8081/manager/:id', {id: '@id'},{
+    .factory('Manager', function($resource, API_URL){
+      var Resource = $resource(API_URL + '/manager/:id', {id: '@id'},{
         update: {method: 'PUT'}
       });
 
