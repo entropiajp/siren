@@ -15,7 +15,7 @@
       <div class="form-group">
         <label for="eventName" class="col-lg-2 control-label">バンオフ名</label>
         <div class="col-lg-4">
-          <input type="text" ng-model="eventName" ng-required="true" class="form-control" id="eventName" placeholder="例: 第xx回Sound Horizonバンオフ">
+          <input type="text" ng-model="event.name" ng-required="true" class="form-control" id="eventName" placeholder="例: 第xx回Sound Horizonバンオフ">
         </div>
       </div>
       <div class="form-group">
@@ -36,11 +36,11 @@
         <label class="col-lg-2 control-label">開催時間</label>
 
         <div class="col-lg-4" style="display: table; vertical-align: top;">
-          <timepicker ng-model="startTime" hour-step="1" minute-step="10" show-meridian="false" ng-required="true" style="display:inline-block;"></timepicker>
+          <timepicker ng-model="event.startTime" hour-step="1" minute-step="10" show-meridian="false" ng-required="true" style="display:inline-block;"></timepicker>
           <table style="display:inline-block">
             <tr><td height="34"></td></tr><tr><td width="32" height="34" style="text-align: center">〜</td></tr><tr><td height="34"></td></tr>
           </table>
-          <timepicker ng-model="endTime" hour-step="1" minute-step="10" show-meridian="false" ng-required="true" style="display:inline-block"></timepicker>
+          <timepicker ng-model="event.endTime" hour-step="1" minute-step="10" show-meridian="false" ng-required="true" style="display:inline-block"></timepicker>
         </div>
       </div>
       <div class="form-group">

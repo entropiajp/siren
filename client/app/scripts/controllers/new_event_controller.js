@@ -16,28 +16,21 @@
       };
       $scope.alert = globalAlert.getAndClear();
 
-      $scope.minDate = new Date();
-      $scope.startTime = new Date($scope.minDate.getFullYear(), $scope.minDate.getMonth(), $scope.minDate.getDate(), 11, 0, 0);
-      $scope.endTime = new Date($scope.minDate.getFullYear(), $scope.minDate.getMonth(), $scope.minDate.getDate(), 18, 0, 0);
-      $scope.eventName = '';
+      var d = new Date();
+      $scope.minDate = d;
+      $scope.event = {};
+      $scope.event.startTime = new Date(d.getFullYear(), d.getMonth(), d.getDate(), 11, 0, 0);
+      $scope.event.endTime = new Date(d.getFullYear(), d.getMonth(), d.getDate(), 18, 0, 0);
+      $scope.event.name = '';
       $scope.scheduledDate = null;
 
       $scope.submit = function() {
+        $scope.event.startTime = new Date($scope.scheduledDate.getFullYear(), $scope.scheduledDate.getMonth(), $scope.scheduledDate.getDate(),
+          $scope.event.startTime.getHours(), $scope.event.startTime.getMinutes(), 0);
+        $scope.event.endTime = new Date($scope.scheduledDate.getFullYear(), $scope.scheduledDate.getMonth(), $scope.scheduledDate.getDate(),
+          $scope.event.endTime.getHours(), $scope.event.endTime.getMinutes(), 0);
 
-        var Event = $resource('http://localhost:8081/event');
-
-        $scope.startTime = new Date($scope.scheduledDate.getFullYear(), $scope.scheduledDate.getMonth(), $scope.scheduledDate.getDate(),
-          $scope.startTime.getHours(), $scope.startTime.getMinutes(), 0);
-        $scope.endTime = new Date($scope.scheduledDate.getFullYear(), $scope.scheduledDate.getMonth(), $scope.scheduledDate.getDate(),
-          $scope.endTime.getHours(), $scope.endTime.getMinutes(), 0);
-
-        var event = new Event({
-          name: $scope.eventName,
-          startTime: $scope.startTime,
-          endTime: $scope.endTime
-        });
-
-        event.$save(
+        Event.save($scope.event).then(
           function() {
             globalAlert.set({type: 'success', msg: 'バンオフを作成しました！'});
             $state.go('portal');
