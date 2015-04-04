@@ -8,13 +8,17 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.security.Principal;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.social.connect.Connection;
 import org.springframework.social.connect.ConnectionRepository;
 import org.springframework.social.twitter.api.Twitter;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @ConfigurationProperties(prefix="sirens")
@@ -34,6 +38,12 @@ public class RootController {
 	@RequestMapping(value="/login")
 	public String login(Principal principal){
 		return "login";
+	}
+	
+	@RequestMapping(value="/logout", method=RequestMethod.POST)
+	@ResponseBody
+	public void logout(HttpServletRequest request) throws ServletException {
+		request.logout();
 	}
 	
 	@RequestMapping(value="/")

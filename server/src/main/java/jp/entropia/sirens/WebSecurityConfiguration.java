@@ -49,8 +49,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     	http
     	    .csrf().disable()
     	    .httpBasic().disable()
-            .logout().logoutUrl("/logout").deleteCookies("JSESSIONID").logoutSuccessUrl("/")
-            // TODO POST /logout してもセッションが破棄されない
+    	    .logout().logoutUrl("/hoge")
         .and()
 	        .apply(new SpringSocialConfigurer().postLoginUrl("http://localhost:9000/#/portal"))
 	    .and()
