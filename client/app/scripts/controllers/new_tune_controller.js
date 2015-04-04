@@ -2,19 +2,23 @@
   'use strict';
 
   angular.module('clientApp')
-    .controller('NewTuneController', function ($scope, globalAlert, $stateParams, Tune, $state, SweetAlert) {
+    .controller('NewTuneController', function ($scope, globalAlert, $stateParams, Tune, $state, SweetAlert, user, Event, UtilService) {
 
+      $scope.user = user;
+      $scope.managedEvents = Event.findManaged();
+      $scope.joinedEvents = Event.findJoined();
+      $scope.logout = function() {
+        UtilService.logout().success(
+          function (data, status, headers, config) {
+            $state.go('login');
+          }
+        );
+      };
       $scope.alert = globalAlert.getAndClear();
-      $scope.newTune = null;
-      $scope.storedArtists = null;
-      $scope.storedSources = null;
 
-      Tune.findArtists().then(function(data) {
-        $scope.storedArtists = data;
-      });
-      Tune.findSources().then(function(data) {
-        $scope.storedSources = data;
-      });
+      $scope.newTune = null;
+      $scope.storedArtists = Tune.findArtists();
+      $scope.storedSources = Tune.findSources();
 
       function convertTimeToDateObject(timeStr, date){
         var HHmmss = timeStr.split(':');

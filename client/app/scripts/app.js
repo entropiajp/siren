@@ -21,12 +21,14 @@
         .state("new", {
           url: "/event/new",
           templateUrl: "views/new_event.html",
-          controller: "NewEventController"
+          controller: "NewEventController",
+          resolve: { user: authenticate }
         })
         .state("portal", {
           url: "/portal",
           templateUrl: "views/portal.html",
-          controller: "PortalController"
+          controller: "PortalController",
+          resolve: { user: authenticate }
         })
         .state("login", {
           url: "/login",
@@ -36,37 +38,62 @@
         .state("event", {
           url: "/event/:eventId",
           templateUrl: "views/event.html",
-          controller: "EventController"
+          controller: "EventController",
+          resolve: { user: authenticate }
         })
         .state("edit_event", {
           url: "/event/:eventId/edit",
           templateUrl: "views/edit_event.html",
-          controller: "EditEventController"
+          controller: "EditEventController",
+          resolve: {
+            user: authenticate,
+            authorize: authorize
+          }
         })
         .state("edit_members", {
           url: "/event/:eventId/member/edit",
           templateUrl: "views/edit_members.html",
-          controller: "MemberController"
+          controller: "MemberController",
+          resolve: {
+            user: authenticate,
+            authorize: authorize
+          }
         })
         .state("new_tune", {
           url: "/tune/new",
           templateUrl: "views/new_tune.html",
-          controller: "NewTuneController"
+          controller: "NewTuneController",
+          resolve: { user: authenticate }
         })
         .state("help", {
           url: "/help",
-          templateUrl: "views/help.html"
+          templateUrl: "views/help.html",
+          controller: "HelpController",
+          resolve: { user: authenticate }
         })
         .state("edit_enquete", {
           url: "/event/:eventId/enquete/edit",
           templateUrl: "views/edit_enquete.html",
-          controller: "EditEnqueteController"
+          controller: "EditEnqueteController",
+          resolve: {
+            user: authenticate,
+            authorize: authorize
+          }
         })
         .state("vote", {
           url: "/event/:eventId/vote",
           templateUrl: "views/vote.html",
-          controller: "VoteController"
+          controller: "VoteController",
+          resolve: { user: authenticate }
         });
+
+      function authenticate(UtilService) {
+        return UtilService.findUser();
+      }
+
+      function authorize(Event, $stateParams) {
+        return Event.isManager($stateParams.eventId);
+      }
 
       $urlRouterProvider.otherwise('/portal');
 
@@ -91,5 +118,21 @@
           };
         }
       );
+    })
+    .run(function ($rootScope, $state, globalAlert) {
+      $rootScope.$on('$stateChangeError', function(e, toState, toParams, fromState, fromParams, error) {
+        console.log(e, toState, toParams, fromState, fromParams, error);
+        // 認証チェック
+        if(error.status === 401) {
+          $state.go('login');
+          e.preventDefault();
+        }
+        // 認可チェック
+        if(error.status === 403) {
+          globalAlert.set({type: 'error', msg: '管理者のみ許可されたページです'});
+          $state.go('portal');
+          e.preventDefault();
+        }
+      });
     });
 })();

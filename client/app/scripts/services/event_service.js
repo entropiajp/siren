@@ -24,19 +24,23 @@
       };
 
       var findManaged = function() {
-        return $resource(API_URL + '/event/managed').query().$promise;
+        return $resource(API_URL + '/event/managed').query();
       };
 
       var findJoined = function() {
-        return $resource(API_URL + '/event/joined').query().$promise;
+        return $resource(API_URL + '/event/joined').query();
       };
 
       var findFuture = function() {
-        return $resource(API_URL + '/event/future').query().$promise;
+        return $resource(API_URL + '/event/future').query();
       };
 
       var findPast = function() {
-        return $resource(API_URL + '/event/past').query().$promise;
+        return $resource(API_URL + '/event/past').query();
+      };
+
+      var isManager = function(id) {
+        return $resource(API_URL + '/event/:id/is-manager').get({id: id}).$promise;
       };
 
       return {
@@ -47,7 +51,8 @@
         findManaged: findManaged,
         findJoined: findJoined,
         findFuture: findFuture,
-        findPast: findPast
+        findPast: findPast,
+        isManager: isManager
       };
 
 

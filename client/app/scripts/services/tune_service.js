@@ -24,11 +24,11 @@
       };
 
       var findArtists = function() {
-        return $resource(API_URL + '/tunes/artists').query().$promise;
+        return $resource(API_URL + '/tunes/artists').query();
       };
 
       var findSources = function() {
-        return $resource(API_URL + '/tunes/sources').query().$promise;
+        return $resource(API_URL + '/tunes/sources').query();
       };
 
       return {

@@ -90,6 +90,12 @@ public class EventController {
 		return eventService.findFutureEvents();
 	}
 	
+	@RequestMapping(value="/{eventId}/is-manager", method=RequestMethod.GET)
+	public void isCurrentUserManager(@PathVariable("eventId") Integer eventId, Principal principal) {
+		if(managerService.isManager(eventId, principal.getName()) == false) {
+			throw new ForbiddenException();
+		}
+	}
 	
 	
 }

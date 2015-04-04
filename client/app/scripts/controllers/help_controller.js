@@ -2,7 +2,7 @@
   'use strict';
 
   angular.module('clientApp')
-    .controller('PortalController', function ($scope, globalAlert, user, Event, UtilService) {
+    .controller('HelpController', function ($scope, globalAlert, user, Event, UtilService) {
 
       $scope.user = user;
       $scope.managedEvents = Event.findManaged();

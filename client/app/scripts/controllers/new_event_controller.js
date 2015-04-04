@@ -2,14 +2,25 @@
   'use strict';
 
   angular.module('clientApp')
-    .controller('NewEventController', function ($scope, $resource, $state, globalAlert) {
+    .controller('NewEventController', function ($scope, $resource, $state, globalAlert, user, Event, UtilService) {
+
+      $scope.user = user;
+      $scope.managedEvents = Event.findManaged();
+      $scope.joinedEvents = Event.findJoined();
+      $scope.logout = function() {
+        UtilService.logout().success(
+          function (data, status, headers, config) {
+            $state.go('login');
+          }
+        );
+      };
+      $scope.alert = globalAlert.getAndClear();
+
       $scope.minDate = new Date();
       $scope.startTime = new Date($scope.minDate.getFullYear(), $scope.minDate.getMonth(), $scope.minDate.getDate(), 11, 0, 0);
       $scope.endTime = new Date($scope.minDate.getFullYear(), $scope.minDate.getMonth(), $scope.minDate.getDate(), 18, 0, 0);
       $scope.eventName = '';
       $scope.scheduledDate = null;
-
-      $scope.alert = globalAlert.getAndClear();
 
       $scope.submit = function() {
 
@@ -32,7 +43,7 @@
             $state.go('portal');
           },
           function() {
-            $scope.alert = {type: 'danger', msg: 'おや、失敗しました'};
+            $scope.alert = {type: 'error', msg: 'おや、失敗しました'};
           }
         );
       };
