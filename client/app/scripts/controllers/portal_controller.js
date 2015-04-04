@@ -16,8 +16,6 @@
       };
       $scope.alert = globalAlert.getAndClear();
 
-      $scope.managedEvents = Event.findManaged();
-      $scope.joinedEvents = Event.findJoined();
       $scope.futureEvents = Event.findFuture();
       $scope.pastEvents = Event.findPast();
 
