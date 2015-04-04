@@ -2,6 +2,7 @@ package jp.entropia.sirens.controller;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import jp.entropia.sirens.entity.Event;
 import jp.entropia.sirens.entity.Manager;
@@ -71,23 +72,35 @@ public class EventController {
 	}
 	
 	@RequestMapping(value="/managed", method=RequestMethod.GET)
-	public List<Event> getEventManagedByLoginUser(Principal principal) {
-		return eventService.findManagedEvents(principal.getName());
+	public List<EventModel> getEventManagedByLoginUser(Principal principal) {
+		return eventService.findManagedEvents(principal.getName())
+				.stream()
+				.map(e -> eventService.convertObject(e))
+				.collect(Collectors.toList());
 	}
 	
 	@RequestMapping(value="/joined", method=RequestMethod.GET)
-	public List<Event> getEventJoinedByLoginUser(Principal principal) {
-		return eventService.findJoinedEvents(principal.getName());
+	public List<EventModel> getEventJoinedByLoginUser(Principal principal) {
+		return eventService.findJoinedEvents(principal.getName())
+				.stream()
+				.map(e -> eventService.convertObject(e))
+				.collect(Collectors.toList());
 	}
 	
 	@RequestMapping(value="/past", method=RequestMethod.GET)
-	public List<Event> getPastEvent() {
-		return eventService.findPastEvents();
+	public List<EventModel> getPastEvent() {
+		return eventService.findPastEvents()
+				.stream()
+				.map(e -> eventService.convertObject(e))
+				.collect(Collectors.toList());
 	}
 	
 	@RequestMapping(value="/future", method=RequestMethod.GET)
-	public List<Event> getFutureEvent() {
-		return eventService.findFutureEvents();
+	public List<EventModel> getFutureEvent() {
+		return eventService.findFutureEvents()
+				.stream()
+				.map(e -> eventService.convertObject(e))
+				.collect(Collectors.toList());
 	}
 	
 	@RequestMapping(value="/{eventId}/is-manager", method=RequestMethod.GET)

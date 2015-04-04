@@ -1,5 +1,6 @@
 package jp.entropia.sirens.service;
 
+import java.time.ZoneId;
 import java.util.List;
 
 import jp.entropia.sirens.dao.EventDao;
@@ -56,6 +57,20 @@ public class EventService {
 			event.setVoteEndTime(model.getVoteEndTime().toLocalDateTime());
 		}
 		return event;
+	}
+	
+	public EventModel convertObject(Event event) {
+		EventModel model = new EventModel();
+		BeanUtils.copyProperties(event, model);
+		model.setStartTime(event.getStartTime().atZone(ZoneId.of("Z")));
+		model.setEndTime(event.getEndTime().atZone(ZoneId.of("Z")));
+		if(event.getVoteStartTime() != null) {
+			model.setVoteStartTime(event.getVoteStartTime().atZone(ZoneId.of("Z")));
+		}
+		if(event.getVoteEndTime() != null) {
+			model.setVoteEndTime(event.getVoteEndTime().atZone(ZoneId.of("Z")));
+		}
+		return model;
 	}
 	
 	
