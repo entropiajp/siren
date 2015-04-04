@@ -83,6 +83,9 @@
               if (response.status === 401) {
                 $location.path('/login');
               }
+              if (response.status === 0) {
+                $location.path('/login');
+              }
               return $q.reject(response);
             }
           };
