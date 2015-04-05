@@ -14,7 +14,8 @@
       'angular-loading-bar',
       'autocomplete',
       'config',
-      'nvd3'
+      'nvd3',
+      'angularFileUpload'
     ])
     .config(function ($stateProvider, $httpProvider, $urlRouterProvider) {
       $stateProvider

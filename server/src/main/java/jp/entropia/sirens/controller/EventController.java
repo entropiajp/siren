@@ -1,5 +1,7 @@
 package jp.entropia.sirens.controller;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.security.Principal;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -19,8 +21,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping(value="/event")
@@ -107,6 +112,34 @@ public class EventController {
 	public void isCurrentUserManager(@PathVariable("eventId") Integer eventId, Principal principal) {
 		if(managerService.isManager(eventId, principal.getName()) == false) {
 			throw new ForbiddenException();
+		}
+	}
+	
+	@RequestMapping(value="/{eventId}/image", method=RequestMethod.POST)
+	public @ResponseBody UploadFileResponse uploadImage(@PathVariable("eventId") Integer eventId,
+			@RequestParam("file") MultipartFile file, Principal principal) {
+		if (!file.isEmpty()) {
+			String fileName = file.getOriginalFilename();
+			// TODO S3にアップロードするように変更
+			Path path = Paths.get("/Users/koyama/Dev/sirens/server/src/main/resources/static/", file.getOriginalFilename());
+            try {
+                file.transferTo(path.toFile());
+                Event event = eventService.find(eventId);
+                event.setLogoImage(fileName);
+                eventService.update(event);
+                return new UploadFileResponse("You sucessfully uploaded " + fileName);
+            } catch (Exception e) {
+                return new UploadFileResponse("You failed to upload " + fileName + " => " + e.getMessage());
+            }
+        } else {
+            return new UploadFileResponse("You failed to upload because the file was empty.");
+        }
+	}
+	
+	private class UploadFileResponse {
+		public String message;
+		public UploadFileResponse(String message) {
+			this.message = message;
 		}
 	}
 	

@@ -65,6 +65,17 @@
         showWeeks: false
       };
 
+      $scope.progress = 0;
+      $scope.progressText = '';
+      $scope.onFileDropped = function(files) {
+        Event.uploadFile(files, $stateParams.eventId)
+          .progress(function (evt) {
+            $scope.progress = parseInt(100.0 * evt.loaded / evt.total);
+          })
+          .success(function (data, status, headers, config) {
+            $scope.progressText = config.file.name + 'のアップロードが完了しました！'
+          });
+      };
 
     });
 

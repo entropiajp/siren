@@ -2,7 +2,7 @@
   'use strict';
 
   angular.module('clientApp')
-    .factory('Event', function($resource, API_URL){
+    .factory('Event', function($resource, API_URL, $upload){
       var Resource = $resource(API_URL + '/event/:id', {id: '@id'},{
         update: {method: 'PUT'}
       });
@@ -43,6 +43,13 @@
         return $resource(API_URL + '/event/:id/is-manager').get({id: id}).$promise;
       };
 
+      var uploadFile = function(files, eventId) {
+        return $upload.upload({
+          url: API_URL + '/event/' + eventId + '/image',
+          file: files[0]
+        });
+      };
+
       return {
         find: find,
         save: save,
@@ -52,7 +59,8 @@
         findJoined: findJoined,
         findFuture: findFuture,
         findPast: findPast,
-        isManager: isManager
+        isManager: isManager,
+        uploadFile: uploadFile
       };
 
 

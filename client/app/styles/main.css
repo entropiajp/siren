@@ -72,3 +72,15 @@ nav {
     background-color: gray;
     opacity: 0.5;
 }
+
+.drop-box {
+    border: 2px dashed #333;
+    padding: 20px;
+    margin-bottom: 10px;
+    text-align:center;
+}
+
+.dragover {
+    border: 2px dashed darkred;
+    background-color:#DDD;
+}

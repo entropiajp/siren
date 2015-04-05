@@ -62,6 +62,12 @@
           </div>
         </fieldset>
       </form>
+
+      <h3>バンオフ画像アップロード</h3>
+      <div ng-file-drop ng-file-select ng-model="file" class="drop-box" drag-over-class="dragover"
+           ng-file-change="onFileDropped(file)" ng-multiple="false" allow-dir="false" accept=".jpg,.png,.gif">画像をドラッグ & ドロップする<br>
+        またはクリックしてコンピュータから写真を選択する</div>
+      <progressbar value="progress" class="progress-striped">{{ progressText }}</progressbar>
     </div>
 
   </div>
