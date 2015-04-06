@@ -2,7 +2,7 @@
   'use strict';
 
   angular.module('clientApp')
-    .controller('EditEventController', function ($scope, globalAlert, $stateParams, user, Event, UtilService) {
+    .controller('EditEventController', function ($scope, globalAlert, $stateParams, user, Event, UtilService, $state) {
 
       $scope.user = user;
       $scope.managedEvents = Event.findManaged();
@@ -21,6 +21,8 @@
         function(data){
           data.startTime = new Date(data.startTime);
           data.endTime = new Date(data.endTime);
+          data.voteStartTime = (data.voteStartTime == null) ? null : new Date(data.voteStartTime);
+          data.voteEndTime = (data.voteEndTime == null) ? null : new Date(data.voteEndTime);
           $scope.event = data;
           $scope.scheduledDate = data.startTime;
         });
@@ -74,6 +76,11 @@
           })
           .success(function (data, status, headers, config) {
             $scope.progressText = config.file.name + 'のアップロードが完了しました！'
+            $scope.event.logoImage = data.message;
+          })
+          .error(function (data, status, headers, config) {
+            $scope.progress = 0;
+            $scope.progressText = 'ファイルアップロードが失敗しました。もう一度試してください'
           });
       };
 

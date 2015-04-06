@@ -1,5 +1,6 @@
 package jp.entropia.sirens.controller;
 
+import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.security.Principal;
@@ -14,6 +15,7 @@ import jp.entropia.sirens.model.EventModel;
 import jp.entropia.sirens.service.EventService;
 import jp.entropia.sirens.service.ManagerService;
 import jp.entropia.sirens.service.MemberService;
+import jp.entropia.sirens.service.S3Service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,6 +29,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.amazonaws.services.s3.transfer.Upload;
+
 @RestController
 @RequestMapping(value="/event")
 public class EventController {
@@ -37,6 +41,10 @@ public class EventController {
 	private MemberService memberService;
 	@Autowired
 	private ManagerService managerService;
+	@Autowired
+	private S3Service s3Service;
+	
+	private static final String s3Url = "https://s3-ap-northeast-1.amazonaws.com/band.sirens/event/";
 	
 	@ResponseStatus(HttpStatus.CREATED)
 	@RequestMapping(method=RequestMethod.POST)
@@ -120,16 +128,17 @@ public class EventController {
 			@RequestParam("file") MultipartFile file, Principal principal) {
 		if (!file.isEmpty()) {
 			String fileName = file.getOriginalFilename();
-			// TODO S3にアップロードするように変更
-			Path path = Paths.get("/Users/koyama/Dev/sirens/server/src/main/resources/static/", file.getOriginalFilename());
             try {
-                file.transferTo(path.toFile());
+            	File f = File.createTempFile(fileName, null);
+            	file.transferTo(f);
+            	Upload upload = s3Service.uploadImage(fileName, f);
+            	upload.waitForCompletion();
                 Event event = eventService.find(eventId);
-                event.setLogoImage(fileName);
+                event.setLogoImage(s3Url + fileName);
                 eventService.update(event);
-                return new UploadFileResponse("You sucessfully uploaded " + fileName);
+                return new UploadFileResponse(s3Url + fileName);
             } catch (Exception e) {
-                return new UploadFileResponse("You failed to upload " + fileName + " => " + e.getMessage());
+                return new UploadFileResponse(e.getMessage());
             }
         } else {
             return new UploadFileResponse("You failed to upload because the file was empty.");

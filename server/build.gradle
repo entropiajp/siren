@@ -34,6 +34,8 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-security")
     compile("org.springframework.boot:spring-boot-starter-social-twitter")
     compile("org.springframework.social:spring-social-security:1.1.0.RELEASE")
+    compile("org.springframework.cloud:spring-cloud-aws-context:1.0.0.RELEASE")
+    compile("org.springframework.cloud:spring-cloud-aws-autoconfigure:1.0.0.RELEASE")
     compile("org.thymeleaf.extras:thymeleaf-extras-springsecurity3:2.1.1.RELEASE")
     compile("org.seasar.doma:doma:2.1.0")
     compile("org.hibernate:hibernate-validator")
