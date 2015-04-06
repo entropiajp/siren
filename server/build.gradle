@@ -3,7 +3,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.2.1.RELEASE")
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.2.3.RELEASE")
     }
 }
 
@@ -41,7 +41,7 @@ dependencies {
     compile("org.hibernate:hibernate-validator")
     compile("mysql:mysql-connector-java:5.1.30")
     compile("net.sourceforge.nekohtml:nekohtml:1.9.20")
-    compile("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.5.1")
+    compile("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.5.2")
     testCompile("junit:junit:4.12")
 }
 
