@@ -10,7 +10,7 @@
 </div>
 <div class="col-sm-2 sidebar">
   <div style="width: 100%; text-align: center; font-size:10px; margin-bottom: 20px">
-    <img ng-src="{{ event.logoImage }}" style="width: 144px; height: 144px;"><br>
+    <img ng-src="{{ event.logoImage }}" width="144"><br>
     <h4>{{ event.name }}</h4>
     <h5><a ng-href="http://www.google.co.jp/search?q={{ event.place }}">{{ event.place }}</a></h5>
     <h5>{{ event.startTime | date:'yyyy/MM/dd(EEE) HH:mm' }} - {{ event.endTime | date:'HH:mm' }}</h5>
