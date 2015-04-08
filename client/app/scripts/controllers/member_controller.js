@@ -2,7 +2,7 @@
   'use strict';
 
   angular.module('clientApp')
-    .controller('MemberController', function ($scope, globalAlert, $stateParams, Member, Manager, $state, SweetAlert, user, Event, UtilService) {
+    .controller('MemberController', function ($scope, globalAlert, $stateParams, Member, Manager, $state, SweetAlert, user, Event, UtilService, $rootScope, HeadlineService) {
 
       $scope.user = user;
       $scope.managedEvents = Event.findManaged();
@@ -16,6 +16,12 @@
       };
       $scope.alert = globalAlert.getAndClear();
       $scope.event = null;
+      $scope.headline = HeadlineService.get();
+
+      $rootScope.$on('onReceived', function(event, data) {
+        $scope.headline = data;
+        $scope.$apply();
+      });
 
       Event.find($stateParams.eventId).then(
         function(data){
