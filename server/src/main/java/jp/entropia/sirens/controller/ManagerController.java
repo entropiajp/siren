@@ -4,11 +4,10 @@ import java.security.Principal;
 
 import jp.entropia.sirens.entity.Manager;
 import jp.entropia.sirens.exception.ForbiddenException;
+import jp.entropia.sirens.service.ActivityService;
 import jp.entropia.sirens.service.ManagerService;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.MessageSource;
-import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -22,9 +21,7 @@ public class ManagerController {
 	@Autowired
 	private ManagerService managerService;
 	@Autowired
-	private SimpMessagingTemplate template;
-	@Autowired
-	private MessageSource messageSource;
+	private ActivityService activityService;
 	
 	@RequestMapping(method=RequestMethod.POST)
 	public void add(@RequestBody Manager manager, Principal principal) {
@@ -32,7 +29,7 @@ public class ManagerController {
 			throw new ForbiddenException();
 		}
 		managerService.save(manager);
-		template.convertAndSend("/topic/greetings", messageSource.getMessage("headline.addManager", null, null));
+		activityService.publish("headline.addManager");
 	}
 	
 	@RequestMapping(method=RequestMethod.DELETE)
