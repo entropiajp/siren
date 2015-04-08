@@ -28,6 +28,11 @@ public class MemberController {
 	@Autowired
 	private ActivityService activityService;
 	
+	/**
+	 * イベントの全参加者を取得する
+	 * @param eventId イベントID
+	 * @return
+	 */
 	@RequestMapping(method=RequestMethod.GET)
 	public List<MemberModel> getAllJoinedMember(
 			@RequestParam(required = false, value = "eventId") Integer eventId){

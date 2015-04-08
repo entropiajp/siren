@@ -7,6 +7,7 @@ import jp.entropia.sirens.service.UsersService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -16,7 +17,7 @@ public class UserController {
 	@Autowired
 	private UsersService usersService;
 	
-	@RequestMapping(value="")
+	@RequestMapping(method=RequestMethod.GET)
 	public User getUser(Principal principal) {
 		return usersService.getCurrentUser(principal.getName());
 	}

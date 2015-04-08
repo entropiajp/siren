@@ -36,7 +36,7 @@ public class TuneController {
 	 * @param model 楽曲情報
 	 */
 	@RequestMapping(method=RequestMethod.POST)
-	public void save(@RequestBody TuneModel model) {
+	public void add(@RequestBody TuneModel model) {
 		Tune tune = new Tune();
 		tune.setName(model.getName());
 		tune.setTime(tuneService.convertStringToLocalTime(model.getTime()));
