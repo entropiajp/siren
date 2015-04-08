@@ -44,6 +44,7 @@ public class ManagerController {
 		manager.setEventId(eventId);
 		manager.setMemberId(memberId);
 		managerService.remove(manager);
+		activityService.publish("headline.removeManager");
 	}
 
 }

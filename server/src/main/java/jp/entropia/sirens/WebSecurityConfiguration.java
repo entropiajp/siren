@@ -51,7 +51,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     	    .httpBasic().disable()
     	    .logout().logoutUrl("/hoge")
         .and()
-	        .apply(new SpringSocialConfigurer().postLoginUrl("http://localhost:9000/#/portal"))
+	        .apply(new SpringSocialConfigurer().postLoginUrl("/nowloading"))
 	    .and()
 	        .exceptionHandling().defaultAuthenticationEntryPointFor(
                     ajaxAuthenticationEntryPoint(),

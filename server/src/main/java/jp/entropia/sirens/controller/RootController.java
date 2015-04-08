@@ -11,8 +11,11 @@ import java.security.Principal;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
+import jp.entropia.sirens.service.ActivityService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.MessageSource;
 import org.springframework.social.connect.ConnectionRepository;
 import org.springframework.social.twitter.api.Twitter;
 import org.springframework.stereotype.Controller;
@@ -28,6 +31,9 @@ public class RootController {
     private ConnectionRepository connectionRepository;
     
     private String profileImageDir = "/Users/koyama/Dropbox/";
+    
+    @Autowired
+	private ActivityService activityService;
 
     @Autowired
     public RootController(Twitter twitter, ConnectionRepository connectionRepository) {
@@ -38,6 +44,12 @@ public class RootController {
 	@RequestMapping(value="/login")
 	public String login(Principal principal){
 		return "login";
+	}
+	
+	@RequestMapping(value="/nowloading")
+	public String postLogin() {
+		activityService.publish("headline.login");
+		return "redirect:http://localhost:9000/#/portal";
 	}
 	
 	@RequestMapping(value="/logout", method=RequestMethod.POST)
