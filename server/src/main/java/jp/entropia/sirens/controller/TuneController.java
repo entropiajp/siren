@@ -4,6 +4,7 @@ import java.util.List;
 
 import jp.entropia.sirens.entity.Tune;
 import jp.entropia.sirens.model.TuneModel;
+import jp.entropia.sirens.service.ActivityService;
 import jp.entropia.sirens.service.TuneService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,8 @@ public class TuneController {
 	
 	@Autowired
 	private TuneService tuneService;
+	@Autowired
+	private ActivityService activityService;
 	
 	/**
 	 * 全ての楽曲情報を取得する
@@ -40,6 +43,7 @@ public class TuneController {
 		tune.setArtist(model.getArtist());
 		tune.setSource(model.getSource());
 		tuneService.save(tune);
+		activityService.publish("headline.addTune");
 	}
 	
 	@RequestMapping(value="/artists", method=RequestMethod.GET)

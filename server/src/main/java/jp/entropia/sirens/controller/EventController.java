@@ -10,6 +10,7 @@ import jp.entropia.sirens.entity.Manager;
 import jp.entropia.sirens.entity.Member;
 import jp.entropia.sirens.exception.ForbiddenException;
 import jp.entropia.sirens.model.EventModel;
+import jp.entropia.sirens.service.ActivityService;
 import jp.entropia.sirens.service.EventService;
 import jp.entropia.sirens.service.ManagerService;
 import jp.entropia.sirens.service.MemberService;
@@ -41,6 +42,8 @@ public class EventController {
 	private ManagerService managerService;
 	@Autowired
 	private S3Service s3Service;
+	@Autowired
+	private ActivityService activityService;
 	
 	private static final String s3Url = "https://s3-ap-northeast-1.amazonaws.com/band.sirens/event/";
 	
@@ -66,6 +69,8 @@ public class EventController {
 		manager.setEventId(event.getId());
 		manager.setMemberId(member.getId());
 		managerService.save(manager);
+		
+		activityService.publish("headline.addEvent");
 	}
 	
 	@RequestMapping(value="/{eventId}", method=RequestMethod.PUT)
@@ -74,6 +79,7 @@ public class EventController {
 			throw new ForbiddenException();
 		}
 		eventService.update(eventService.convertObject(model));
+		activityService.publish("headline.updateEvent");
 	}
 	
 	@RequestMapping(value="/{eventId}", method=RequestMethod.GET)
@@ -134,6 +140,7 @@ public class EventController {
                 Event event = eventService.find(eventId);
                 event.setLogoImage(s3Url + fileName);
                 eventService.update(event);
+                activityService.publish("headline.uploadEventImage");
                 return new UploadFileResponse(s3Url + fileName);
             } catch (Exception e) {
                 return new UploadFileResponse(e.getMessage());

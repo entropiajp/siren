@@ -10,6 +10,7 @@ import jp.entropia.sirens.entity.Vote;
 import jp.entropia.sirens.entity.VoteResult;
 import jp.entropia.sirens.exception.ForbiddenException;
 import jp.entropia.sirens.exception.VoteLimitExceededException;
+import jp.entropia.sirens.service.ActivityService;
 import jp.entropia.sirens.service.EventService;
 import jp.entropia.sirens.service.ManagerService;
 import jp.entropia.sirens.service.MemberService;
@@ -34,6 +35,8 @@ public class VoteController {
 	private EventService eventService;
 	@Autowired
 	private ManagerService managerService;
+	@Autowired
+	private ActivityService activityService;
 
 	@RequestMapping(value="/{eventId}", method=RequestMethod.POST)
 	public void vote(@PathVariable("eventId") Integer eventId,
@@ -51,6 +54,7 @@ public class VoteController {
 		// TODO トランザクション制御
 		voteService.removeAll(loginMember.getId());
 		votes.stream().forEach(c -> voteService.save(new Vote(loginMember.getId(), c)));
+		activityService.publish("headline.vote");
 	}
 	
 	@RequestMapping(value="/{eventId}", method=RequestMethod.GET)

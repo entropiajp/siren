@@ -6,6 +6,7 @@ import java.util.List;
 import jp.entropia.sirens.entity.Member;
 import jp.entropia.sirens.entity.MemberModel;
 import jp.entropia.sirens.exception.ForbiddenException;
+import jp.entropia.sirens.service.ActivityService;
 import jp.entropia.sirens.service.ManagerService;
 import jp.entropia.sirens.service.MemberService;
 
@@ -24,6 +25,8 @@ public class MemberController {
 	private MemberService memberService;
 	@Autowired
 	private ManagerService managerService;
+	@Autowired
+	private ActivityService activityService;
 	
 	@RequestMapping(method=RequestMethod.GET)
 	public List<MemberModel> getAllJoinedMember(
@@ -43,6 +46,7 @@ public class MemberController {
 		member.setEventId(eventId);
 		member.setUserid(principal.getName());
 		memberService.save(member);
+		activityService.publish("headline.join");
 	}
 	
 	/**
@@ -58,6 +62,7 @@ public class MemberController {
 			throw new ForbiddenException();
 		}
 		memberService.remove(member);
+		activityService.publish("headline.cancel");
 	}
 
 }
