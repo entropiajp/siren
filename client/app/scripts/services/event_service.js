@@ -19,6 +19,10 @@
         return Resource.update(entity).$promise;
       };
 
+      var query = function() {
+        return Resource.query().$promise;
+      };
+
       var remove = function() {
 
       };
@@ -54,6 +58,7 @@
         find: find,
         save: save,
         update: update,
+        query: query,
         remove: remove,
         findManaged: findManaged,
         findJoined: findJoined,

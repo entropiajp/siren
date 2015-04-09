@@ -5,7 +5,9 @@ import java.util.List;
 
 import jp.entropia.sirens.dao.EventDao;
 import jp.entropia.sirens.entity.Event;
+import jp.entropia.sirens.entity.EventPortalEntity;
 import jp.entropia.sirens.model.EventModel;
+import jp.entropia.sirens.model.EventPortalModel;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,6 +73,18 @@ public class EventService {
 			model.setVoteEndTime(event.getVoteEndTime().atZone(ZoneId.of("Z")));
 		}
 		return model;
+	}
+
+	public List<EventPortalEntity> findAll(String userId) {
+		return eventDao.selectAll(userId);
+	}
+
+	public EventPortalModel convertObject(EventPortalEntity entity) {
+		EventPortalModel model = new EventPortalModel();
+		BeanUtils.copyProperties(entity, model);
+		model.setStartTime(entity.getStartTime().atZone(ZoneId.of("Z")));
+		model.setEndTime(entity.getEndTime().atZone(ZoneId.of("Z")));
+		return model;	
 	}
 	
 	

@@ -16,8 +16,17 @@
       };
       $scope.alert = globalAlert.getAndClear();
 
-      $scope.futureEvents = Event.findFuture();
-      $scope.pastEvents = Event.findPast();
+      Event.query().then(
+        function(data) {
+          // ng-ifでDateの比較をしたいので変換
+          data.map(function(e){
+            e.endTime = new Date(e.endTime);
+            return e;
+          });
+          $scope.events = data;
+        }
+      );
+      $scope.now = new Date();
 
     });
 

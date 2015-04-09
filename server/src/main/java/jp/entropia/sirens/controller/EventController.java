@@ -6,10 +6,12 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import jp.entropia.sirens.entity.Event;
+import jp.entropia.sirens.entity.EventPortalEntity;
 import jp.entropia.sirens.entity.Manager;
 import jp.entropia.sirens.entity.Member;
 import jp.entropia.sirens.exception.ForbiddenException;
 import jp.entropia.sirens.model.EventModel;
+import jp.entropia.sirens.model.EventPortalModel;
 import jp.entropia.sirens.service.ActivityService;
 import jp.entropia.sirens.service.EventService;
 import jp.entropia.sirens.service.ManagerService;
@@ -86,6 +88,14 @@ public class EventController {
 	public Event get(@PathVariable("eventId") Integer eventId) {
 		Event event = eventService.find(eventId);
 		return event;
+	}
+	
+	@RequestMapping(value="", method=RequestMethod.GET)
+	public List<EventPortalModel> getAll(Principal principal) {
+		return eventService.findAll(principal.getName())
+				.stream()
+				.map(e -> eventService.convertObject(e))
+				.collect(Collectors.toList());
 	}
 	
 	@RequestMapping(value="/managed", method=RequestMethod.GET)
