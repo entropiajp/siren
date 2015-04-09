@@ -12,7 +12,6 @@
       'ui.router',
       'oitozero.ngSweetAlert',
       'angular-loading-bar',
-      'autocomplete',
       'config',
       'nvd3',
       'angularFileUpload'
