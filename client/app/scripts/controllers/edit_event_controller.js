@@ -16,6 +16,7 @@
       };
       $scope.alert = globalAlert.getAndClear();
       $scope.event = null;
+      $scope.scheduledDate = null;
 
       Event.find($stateParams.eventId).then(
         function(data){
@@ -28,10 +29,12 @@
         });
 
       $scope.$watch('scheduledDate', function(newDate, oldDate) {
-        $scope.event.startTime = new Date(newDate.getFullYear(), newDate.getMonth(), newDate.getDate(),
-          $scope.event.startTime.getHours(), $scope.event.startTime.getMinutes(), 0);
-        $scope.event.endTime = new Date(newDate.getFullYear(), newDate.getMonth(), newDate.getDate(),
-          $scope.event.endTime.getHours(), $scope.event.endTime.getMinutes(), 0);
+        if($scope.event != null && newDate != null) {
+          $scope.event.startTime = new Date(newDate.getFullYear(), newDate.getMonth(), newDate.getDate(),
+            $scope.event.startTime.getHours(), $scope.event.startTime.getMinutes(), 0);
+          $scope.event.endTime = new Date(newDate.getFullYear(), newDate.getMonth(), newDate.getDate(),
+            $scope.event.endTime.getHours(), $scope.event.endTime.getMinutes(), 0);
+        }
       });
 
       $scope.submit = function() {

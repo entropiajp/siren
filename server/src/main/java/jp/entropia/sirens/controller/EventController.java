@@ -85,9 +85,8 @@ public class EventController {
 	}
 	
 	@RequestMapping(value="/{eventId}", method=RequestMethod.GET)
-	public Event get(@PathVariable("eventId") Integer eventId) {
-		Event event = eventService.find(eventId);
-		return event;
+	public EventModel get(@PathVariable("eventId") Integer eventId) {
+		return eventService.convertObject(eventService.find(eventId));
 	}
 	
 	@RequestMapping(value="", method=RequestMethod.GET)
