@@ -47,7 +47,7 @@ public class VoteController {
 		}
 		
 		Event event = eventService.find(eventId);
-		if(votes.size() > event.getVoteLimit()) {
+		if(event.getVoteLimit() != null && votes.size() > event.getVoteLimit()) {
 			throw new VoteLimitExceededException();
 		}
 		
