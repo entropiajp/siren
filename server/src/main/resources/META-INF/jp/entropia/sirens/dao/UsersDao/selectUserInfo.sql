@@ -1,4 +1,5 @@
-select 
+select
+  UserProfile.userId,
   UserProfile.name,
   UserConnection.imageUrl
 from users

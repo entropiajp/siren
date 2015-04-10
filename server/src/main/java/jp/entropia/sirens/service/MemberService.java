@@ -4,7 +4,7 @@ import java.util.List;
 
 import jp.entropia.sirens.dao.MemberDao;
 import jp.entropia.sirens.entity.Member;
-import jp.entropia.sirens.entity.MemberModel;
+import jp.entropia.sirens.entity.MemberEntity;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,7 +19,7 @@ public class MemberService {
 		return memberDao.insert(member);
 	}
 	
-	public List<MemberModel> findAllJoinedMember(Integer eventId) {
+	public List<MemberEntity> findAllJoinedMember(Integer eventId) {
 		return memberDao.selectAllJoinedMember(eventId);
 	}
 	

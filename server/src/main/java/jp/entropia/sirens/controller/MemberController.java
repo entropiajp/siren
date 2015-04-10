@@ -4,7 +4,7 @@ import java.security.Principal;
 import java.util.List;
 
 import jp.entropia.sirens.entity.Member;
-import jp.entropia.sirens.entity.MemberModel;
+import jp.entropia.sirens.entity.MemberEntity;
 import jp.entropia.sirens.exception.ForbiddenException;
 import jp.entropia.sirens.service.ActivityService;
 import jp.entropia.sirens.service.ManagerService;
@@ -34,7 +34,7 @@ public class MemberController {
 	 * @return
 	 */
 	@RequestMapping(method=RequestMethod.GET)
-	public List<MemberModel> getAllJoinedMember(
+	public List<MemberEntity> getAllJoinedMember(
 			@RequestParam(required = false, value = "eventId") Integer eventId){
 		return memberService.findAllJoinedMember(eventId);
 	}

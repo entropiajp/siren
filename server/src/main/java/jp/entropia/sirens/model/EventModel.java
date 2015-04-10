@@ -8,13 +8,16 @@ public class EventModel {
 	private String name;
 	private ZonedDateTime startTime;
 	private ZonedDateTime endTime;
-	private String place;
 	private String logoImage;
+	private String place;
 	private ZonedDateTime voteStartTime;
 	private ZonedDateTime voteEndTime;
 	private String description;
 	private String voteMessage;
 	private Integer voteLimit;
+	private Integer memberCount;
+	private boolean isMember;
+	private boolean isManager;
 	
 	public Integer getId() {
 		return id;
@@ -40,17 +43,17 @@ public class EventModel {
 	public void setEndTime(ZonedDateTime endTime) {
 		this.endTime = endTime;
 	}
-	public String getPlace() {
-		return place;
-	}
-	public void setPlace(String place) {
-		this.place = place;
-	}
 	public String getLogoImage() {
 		return logoImage;
 	}
 	public void setLogoImage(String logoImage) {
 		this.logoImage = logoImage;
+	}
+	public String getPlace() {
+		return place;
+	}
+	public void setPlace(String place) {
+		this.place = place;
 	}
 	public ZonedDateTime getVoteStartTime() {
 		return voteStartTime;
@@ -82,6 +85,22 @@ public class EventModel {
 	public void setVoteLimit(Integer voteLimit) {
 		this.voteLimit = voteLimit;
 	}
-
-	
+	public Integer getMemberCount() {
+		return memberCount;
+	}
+	public void setMemberCount(Integer memberCount) {
+		this.memberCount = memberCount;
+	}
+	public boolean isMember() {
+		return isMember;
+	}
+	public void setMember(boolean isMember) {
+		this.isMember = isMember;
+	}
+	public boolean isManager() {
+		return isManager;
+	}
+	public void setManager(boolean isManager) {
+		this.isManager = isManager;
+	}
 }

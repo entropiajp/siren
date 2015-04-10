@@ -5,7 +5,6 @@ import java.util.List;
 import jp.entropia.sirens.ConfigAutowireable;
 import jp.entropia.sirens.entity.Event;
 import jp.entropia.sirens.entity.EventPortalEntity;
-import jp.entropia.sirens.model.EventModel;
 
 import org.seasar.doma.Dao;
 import org.seasar.doma.Delete;
@@ -61,4 +60,7 @@ public interface EventDao {
 
     @Select
 	List<EventPortalEntity> selectAll(String userId);
+    
+    @Select
+    EventPortalEntity selectByIdAndUserId(Integer id, String userId);
 }

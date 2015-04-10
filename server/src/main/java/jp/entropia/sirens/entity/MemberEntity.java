@@ -4,10 +4,13 @@ import org.seasar.doma.Column;
 import org.seasar.doma.Entity;
 
 @Entity
-public class MemberModel {
+public class MemberEntity {
 
 	@Column(name = "id")
 	private Integer id;
+	
+	@Column(name = "userId")
+	private String userId;
 	
 	@Column(name = "name")
 	private String name;
@@ -32,6 +35,12 @@ public class MemberModel {
 	}
 	public void setId(Integer id) {
 		this.id = id;
+	}
+	public String getUserId() {
+		return userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 	public String getName() {
 		return name;

@@ -4,7 +4,7 @@ import java.util.List;
 
 import jp.entropia.sirens.ConfigAutowireable;
 import jp.entropia.sirens.entity.Member;
-import jp.entropia.sirens.entity.MemberModel;
+import jp.entropia.sirens.entity.MemberEntity;
 
 import org.seasar.doma.Dao;
 import org.seasar.doma.Delete;
@@ -47,7 +47,7 @@ public interface MemberDao {
     int delete(Member entity);
 
     @Select
-	List<MemberModel> selectAllJoinedMember(Integer eventId);
+	List<MemberEntity> selectAllJoinedMember(Integer eventId);
 
     @Select
 	Member selectByEventIdAndUserId(Integer eventId, String userId);

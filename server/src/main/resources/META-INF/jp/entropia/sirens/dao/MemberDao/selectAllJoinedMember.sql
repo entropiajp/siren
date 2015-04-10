@@ -1,5 +1,6 @@
 select
   member.id,
+  UserProfile.userId,
   UserProfile.name,
   UserConnection.displayName,
   UserConnection.profileUrl,

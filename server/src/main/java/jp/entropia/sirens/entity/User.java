@@ -5,9 +5,16 @@ import org.seasar.doma.Entity;
 @Entity
 public class User {
 
+	private String userId;
 	private String name;
 	private String imageUrl;
 	
+	public String getUserId() {
+		return userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
 	public String getName() {
 		return name;
 	}

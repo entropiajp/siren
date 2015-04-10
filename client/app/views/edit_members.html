@@ -32,11 +32,11 @@
           <td>
             <input type="text" ng-model="member.memoByManager" class="form-control"></td>
           <th style="text-align: right">
-            <button class="btn btn-danger" ng-click="cancel(member.id)">
+            <button class="btn btn-danger" ng-click="cancel(member.id)" ng-disabled="user.userId == member.userId">
               <span class="glyphicon glyphicon-remove"></span> 参加キャンセル</button>
             <button class="btn btn-primary" ng-click="addManager(member.id)" ng-if="!member.admin">
               <span class="glyphicon glyphicon-plus"></span> 管理者にする</button>
-            <button class="btn btn-warning" ng-click="removeManager(member.id)" ng-if="member.admin">
+            <button class="btn btn-warning" ng-click="removeManager(member.id)" ng-if="member.admin" ng-disabled="user.userId == member.userId">
               <span class="glyphicon glyphicon-minus"></span> 管理者から外す</button>
           </th>
         </tr>
