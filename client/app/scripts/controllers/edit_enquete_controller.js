@@ -87,22 +87,25 @@
       $scope.options = {
         chart: {
           type: 'multiBarHorizontalChart',
-          height: 450,
           x: function(d){return d.label;},
           y: function(d){return d.value;},
-          //yErr: function(d){ return [-Math.abs(d.value * Math.random() * 0.3), Math.abs(d.value * Math.random() * 0.3)] },
           showControls: false,
           showValues: true,
           transitionDuration: 500,
           xAxis: {
             showMaxMin: false
           },
-          yAxis: {
-            axisLabel: '得票数',
-            tickFormat: function(d){
-              return d3.format(',.2f')(d);
-            }
-          }
+          valueFormat: function(d){return d;},
+          showYAxis: false,
+          showLegend: false,
+          margin: {
+            top: 0,
+            right: 20,
+            bottom: 50,
+            left: 300
+          },
+          tooltips: false
+
         }
       };
 
