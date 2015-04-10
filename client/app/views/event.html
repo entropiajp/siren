@@ -10,7 +10,7 @@
         <div class="col-md-12" ng-bind-html="event.description | linky | nl2br">
         </div>
       </div>
-      <button ng-click="join()" class="btn btn-primary btn-block">このバンオフに参加する</button>
+      <button ng-click="join()" class="btn btn-primary btn-block" ng-disabled="event.member">このバンオフに参加する</button>
     </div>
   </div>
 </div>
