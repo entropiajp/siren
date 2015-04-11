@@ -54,8 +54,9 @@
             if (isConfirm) {
               Tune.save($scope.newTune).then(
                 function () {
-                  globalAlert.set({type: 'success', msg: '楽曲を登録しました。ご協力ありがとうございます。'});
-                  $state.reload();
+                  var msg = $scope.newTune.artist + ' / ' + $scope.newTune.name + ' を登録しました。';
+                  $scope.alert = {type: 'success', msg: msg};
+                  $scope.newTune.name = '';
                 },
                 function () {
                   $scope.alert = {type: 'warning', msg: 'おや、失敗しました'};

@@ -1,6 +1,6 @@
 <div ng-include="'views/header.html'"></div>
   <div class="container-fluid">
-    <si-alert si-alert="alert"></si-alert>
+    <div style="margin-top:20px;" ng-if="alert !== {}"><si-alert si-alert="alert"></si-alert></div>
     <h1>楽曲登録</h1>
     <div class="alert alert-info">
       <ul>
