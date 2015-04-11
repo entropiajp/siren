@@ -3,10 +3,12 @@ package jp.entropia.sirens.controller;
 import java.security.Principal;
 import java.util.List;
 
+import jp.entropia.sirens.entity.Event;
 import jp.entropia.sirens.entity.Member;
 import jp.entropia.sirens.entity.MemberEntity;
 import jp.entropia.sirens.exception.ForbiddenException;
 import jp.entropia.sirens.service.ActivityService;
+import jp.entropia.sirens.service.EventService;
 import jp.entropia.sirens.service.ManagerService;
 import jp.entropia.sirens.service.MemberService;
 
@@ -27,6 +29,8 @@ public class MemberController {
 	private ManagerService managerService;
 	@Autowired
 	private ActivityService activityService;
+	@Autowired
+	private EventService eventService;
 	
 	/**
 	 * イベントの全参加者を取得する
@@ -48,8 +52,11 @@ public class MemberController {
 	public void join(@RequestParam(required = true, value = "eventId") Integer eventId,
 			Principal principal) {
 		Member member = new Member();
+		Event event = eventService.find(eventId);
 		member.setEventId(eventId);
 		member.setUserid(principal.getName());
+		member.setStartTime(event.getStartTime());
+		member.setEndTime(event.getEndTime());
 		memberService.save(member);
 		activityService.publish("headline.join");
 	}

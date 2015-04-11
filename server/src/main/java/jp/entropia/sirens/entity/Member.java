@@ -1,6 +1,7 @@
 package jp.entropia.sirens.entity;
 
-import java.time.LocalTime;
+import java.time.LocalDateTime;
+
 import org.seasar.doma.Column;
 import org.seasar.doma.Entity;
 import org.seasar.doma.GeneratedValue;
@@ -35,11 +36,11 @@ public class Member {
 
     /** 参加開始時刻 */
     @Column(name = "start_time")
-    LocalTime startTime;
+    LocalDateTime startTime;
 
     /** 参加終了時刻 */
     @Column(name = "end_time")
-    LocalTime endTime;
+    LocalDateTime endTime;
 
     /** 備考 */
     @Column(name = "free_space")
@@ -126,7 +127,7 @@ public class Member {
      * 
      * @return the startTime
      */
-    public LocalTime getStartTime() {
+    public LocalDateTime getStartTime() {
         return startTime;
     }
 
@@ -135,7 +136,7 @@ public class Member {
      * 
      * @param startTime the startTime
      */
-    public void setStartTime(LocalTime startTime) {
+    public void setStartTime(LocalDateTime startTime) {
         this.startTime = startTime;
     }
 
@@ -144,7 +145,7 @@ public class Member {
      * 
      * @return the endTime
      */
-    public LocalTime getEndTime() {
+    public LocalDateTime getEndTime() {
         return endTime;
     }
 
@@ -153,7 +154,7 @@ public class Member {
      * 
      * @param endTime the endTime
      */
-    public void setEndTime(LocalTime endTime) {
+    public void setEndTime(LocalDateTime endTime) {
         this.endTime = endTime;
     }
 
