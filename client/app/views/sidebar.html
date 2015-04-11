@@ -8,26 +8,23 @@
     <h5>{{ event.startTime | date:'yyyy/MM/dd(EEE) HH:mm' }} - {{ event.endTime | date:'HH:mm' }}</h5>
   </div>
 </div>
-<div class="col-sm-2 sidebar">
-  <div style="width: 100%; text-align: center; font-size:10px; margin-bottom: 20px">
-    <img ng-src="{{ event.logoImage }}" width="144"><br>
-    <h4>{{ event.name }}</h4>
-    <h5><a ng-href="http://www.google.co.jp/search?q={{ event.place }}">{{ event.place }}</a></h5>
-    <h5>{{ event.startTime | date:'yyyy/MM/dd(EEE) HH:mm' }} - {{ event.endTime | date:'HH:mm' }}</h5>
-  </div>
-  <ul class="nav nav-sidebar">
-    <li class="active"><a href="#">Overview <span class="sr-only">(current)</span></a></li>
-    <li><img src="http://pbs.twimg.com/profile_images/475307182401912832/Bba58WYt_normal.jpeg"
-                style="height: 32px; border-radius: 32px; border: 1px solid #999;" alt="{{ user.username }}"> こや</li>
-    <li><a><img src="http://pbs.twimg.com/profile_images/475307182401912832/Bba58WYt_normal.jpeg"
-                style="height: 32px; border-radius: 32px; border: 1px solid #999;" alt="{{ user.username }}"> こや</a></li>
-    <li><a><img src="http://pbs.twimg.com/profile_images/475307182401912832/Bba58WYt_normal.jpeg"
-                style="height: 32px; border-radius: 32px; border: 1px solid #999;" alt="{{ user.username }}"> こや</a></li>
-    <li><a><img src="http://pbs.twimg.com/profile_images/475307182401912832/Bba58WYt_normal.jpeg"
-                style="height: 32px; border-radius: 32px; border: 1px solid #999;" alt="{{ user.username }}"> こや</a></li>
-    <li><a><img src="http://pbs.twimg.com/profile_images/475307182401912832/Bba58WYt_normal.jpeg"
-                style="height: 32px; border-radius: 32px; border: 1px solid #999;" alt="{{ user.username }}"> こや</a></li>
-    <li><a><img src="http://pbs.twimg.com/profile_images/475307182401912832/Bba58WYt_normal.jpeg"
-                style="height: 32px; border-radius: 32px; border: 1px solid #999;" alt="{{ user.username }}"> こや</a></li>
-  </ul>
+<div class="col-sm-3 visible-md visible-lg" style="margin-top: 20px">
+    <div class="pin" style="position: fixed; width: 24%;">
+      <div class="past" ng-if="event.endTime < now">終了</div>
+      <div>
+        <a ui-sref="edit_event({eventId: event.id})" ng-show="event.manager"><img ng-src="{{ event.logoImage }}" style="width:100%"></a>
+        <a ui-sref="event({eventId: event.id})" ng-hide="event.manager"><img ng-src="{{ event.logoImage }}" style="width:100%"></a>
+      </div>
+      <div class="info">
+        <span class="label label-primary" ng-show="event.manager">管理者</span>
+        <span class="label label-success" ng-show="!event.manager && event.member">参加</span>
+        <h3>
+          <a ui-sref="edit_event({eventId: event.id})" ng-show="event.manager">{{ event.name }}</a>
+          <a ui-sref="event({eventId: event.id})" ng-hide="event.manager">{{ event.name }}</a>
+        </h3>
+        <div style="color: #777"><span class="glyphicon glyphicon-calendar"></span> {{ event.startTime | date:'yyyy/MM/dd(EEE) HH:mm' }}</div>
+        <div style="color: #777"><span class="glyphicon glyphicon-map-marker"></span> {{ event.place }}</div>
+        <p>{{ event.description | limitTo:100 }}</p>
+      </div>
+    </div>
 </div>
