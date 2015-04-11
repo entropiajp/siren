@@ -1,10 +1,10 @@
-<div ng-include="'views/header.html'"></div>
+<div ng-include="'views/includes/header.html'"></div>
 <div class="container-fluid">
   <div class="row">
-    <div ng-include="'views/sidebar.html'"></div>
+    <div ng-include="'views/includes/sidebar.html'"></div>
 
     <div class="col-md-9">
-      <div ng-include="'views/member_menu.html'"></div>
+      <div ng-include="'views/includes/member_menu.html'"></div>
       <h1>希望曲投票
         <small ng-if="event.voteLimit < 9999">ただいまの上限曲数は {{ event.voteLimit }} 曲です。</small>
         <small ng-if="event.voteLimit == 9999">ただいまの上限曲数はありません</small>

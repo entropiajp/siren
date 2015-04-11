@@ -1,10 +1,10 @@
-<div ng-include="'views/header.html'"></div>
+<div ng-include="'views/includes/header.html'"></div>
 <div class="container-fluid">
   <div class="row">
-    <div ng-include="'views/sidebar.html'"></div>
+    <div ng-include="'views/includes/sidebar.html'"></div>
 
     <div class="col-md-9">
-      <div ng-include="'views/member_menu.html'"></div>
+      <div ng-include="'views/includes/member_menu.html'"></div>
       <si-alert si-alert="alert"></si-alert>
       <div class="row">
         <div class="col-md-12" ng-bind-html="event.description | linky | nl2br">
