@@ -33,13 +33,18 @@
         return Resource.join({eventId: eventId}).$promise;
       };
 
+      var findMy = function(eventId) {
+        return $resource(API_URL + '/members/my').get({eventId: eventId}).$promise;
+      };
+
       return {
         find: find,
         save: save,
         update: update,
         query: queryByEventId,
         remove: remove,
-        join: join
+        join: join,
+        findMy: findMy
       };
 
 

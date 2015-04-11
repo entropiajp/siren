@@ -1,0 +1,52 @@
+<div ng-include="'views/includes/header.html'"></div>
+<div class="container-fluid">
+  <div class="row">
+    <div ng-include="'views/includes/sidebar.html'"></div>
+
+    <div class="col-md-9">
+      <div ng-include="'views/includes/member_menu.html'"></div>
+
+      <h1>自分の情報</h1>
+      <si-alert si-alert="alert"></si-alert>
+
+      <form class="form-horizontal" name="eventForm" novalidate>
+        <fieldset>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">
+              参加時間<br>
+              <button class="btn btn-primary" ng-click="copy()" style="margin-top: 7px;">フル参加</button>
+            </label>
+
+            <div class="col-sm-10">
+              <timepicker ng-model="my.startTime" hour-step="1" minute-step="10" show-meridian="false" ng-required="true" style="display:inline-block;"></timepicker>
+              <table style="display:inline-block">
+                <tr><td height="34"></td></tr><tr><td width="32" height="34" style="text-align: center">〜</td></tr><tr><td height="34"></td></tr>
+              </table>
+              <timepicker ng-model="my.endTime" hour-step="1" minute-step="10" show-meridian="false" ng-required="true" style="display:inline-block"></timepicker>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="eventName" class="col-sm-2 control-label">打ち上げ</label>
+            <div class="col-sm-10">
+              <input type="text" ng-model="my.attendParty" class="form-control" id="eventPlace" placeholder="例: 参加、未定">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">主催へ連絡</label>
+
+            <div class="col-sm-10">
+              <textarea ng-model="my.freeSpace" class="form-control" rows="10"
+                placeholder="ここに入力された内容は主催だけが見ることができます"></textarea>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-sm-10 col-sm-offset-2">
+              <button ng-click="submit()" class="btn btn-primary btn-block" ng-disabled="eventForm.$invalid">更新する</button>
+            </div>
+          </div>
+        </fieldset>
+      </form>
+
+    </div>
+  </div>
+</div>

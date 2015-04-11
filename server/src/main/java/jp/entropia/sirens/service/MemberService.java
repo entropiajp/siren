@@ -1,11 +1,14 @@
 package jp.entropia.sirens.service;
 
+import java.time.ZoneId;
 import java.util.List;
 
 import jp.entropia.sirens.dao.MemberDao;
 import jp.entropia.sirens.entity.Member;
 import jp.entropia.sirens.entity.MemberEntity;
+import jp.entropia.sirens.model.MemberModel;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,5 +37,21 @@ public class MemberService {
 	
 	public Member findByEventIdAndUserId(Integer eventId, String userId) {
 		return memberDao.selectByEventIdAndUserId(eventId, userId);
+	}
+
+	public MemberModel convertObject(Member member) {
+        MemberModel model = new MemberModel();
+        BeanUtils.copyProperties(member, model);
+        if(member.getStartTime() != null) {
+            model.setStartTime(member.getStartTime().atZone(ZoneId.of("Z")));
+        }
+        if(member.getEndTime() != null) {
+            model.setEndTime(member.getEndTime().atZone(ZoneId.of("Z")));
+        }
+        return model;
+    }
+
+	public boolean update(Member member) {
+		return memberDao.update(member) > 0;
 	}
 }

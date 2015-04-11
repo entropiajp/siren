@@ -7,6 +7,8 @@ import jp.entropia.sirens.entity.Event;
 import jp.entropia.sirens.entity.Member;
 import jp.entropia.sirens.entity.MemberEntity;
 import jp.entropia.sirens.exception.ForbiddenException;
+import jp.entropia.sirens.model.EventModel;
+import jp.entropia.sirens.model.MemberModel;
 import jp.entropia.sirens.service.ActivityService;
 import jp.entropia.sirens.service.EventService;
 import jp.entropia.sirens.service.ManagerService;
@@ -14,6 +16,7 @@ import jp.entropia.sirens.service.MemberService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -75,6 +78,38 @@ public class MemberController {
 		}
 		memberService.remove(member);
 		activityService.publish("headline.cancel");
+	}
+	
+	/**
+	 * ログインユーザのイベント参加者としての情報を取得する
+	 * @param eventId イベントID
+	 * @param principal
+	 * @return
+	 */
+	@RequestMapping(value="/my", method=RequestMethod.GET)
+	public MemberModel getCurrentMember(@RequestParam(required = true, value = "eventId") Integer eventId,
+			Principal principal) {
+		return memberService.convertObject(
+				memberService.findByEventIdAndUserId(eventId, principal.getName()));
+	}
+	
+	/**
+	 * メンバ情報を更新する
+	 * @param memberId メンバID
+	 * @param model 受信データ
+	 * @param principal
+	 */
+	@RequestMapping(value="/{memberId}", method=RequestMethod.PUT)
+	public void update(@PathVariable("memberId") Integer memberId, @RequestBody MemberModel model, Principal principal) {
+		Member member = memberService.select(memberId);
+		if(member == null) {
+			throw new ForbiddenException();
+		}
+		member.setStartTime(model.getStartTime().toLocalDateTime());
+		member.setEndTime(model.getEndTime().toLocalDateTime());
+		member.setAttendParty(model.getAttendParty());
+		member.setFreeSpace(model.getFreeSpace());
+		memberService.update(member);
 	}
 
 }

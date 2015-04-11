@@ -85,6 +85,12 @@
           templateUrl: "views/vote.html",
           controller: "VoteController",
           resolve: { user: authenticate }
+        })
+        .state("event_my", {
+          url: "/event/:eventId/my",
+          templateUrl: "views/event_my.html",
+          controller: "EventMyController",
+          resolve: { user: authenticate }
         });
 
       function authenticate(UtilService) {
