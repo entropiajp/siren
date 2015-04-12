@@ -7,6 +7,8 @@
       $scope.alert = globalAlert.getAndClear();
       $scope.event = null;
       $scope.scheduledDate = null;
+      $scope.progress = 0;
+      $scope.progressText = '';
 
       var d = new Date();
       d.setHours(0);
@@ -63,9 +65,8 @@
         showWeeks: false
       };
 
-      $scope.progress = 0;
-      $scope.progressText = '';
       $scope.onFileDropped = function(files) {
+        $scope.progressText = '';
         Event.uploadFile(files, $stateParams.eventId)
           .progress(function (evt) {
             $scope.progress = parseInt(100.0 * evt.loaded / evt.total);

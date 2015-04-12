@@ -5,6 +5,8 @@
     .controller('PortalController', function ($scope, globalAlert, user, Event) {
 
       $scope.alert = globalAlert.getAndClear();
+      $scope.events = null;
+      $scope.now = new Date();
 
       Event.query().then(
         function(data) {
@@ -16,7 +18,6 @@
           $scope.events = data;
         }
       );
-      $scope.now = new Date();
 
     });
 

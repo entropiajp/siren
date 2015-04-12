@@ -8,10 +8,11 @@
 
       var d = new Date();
       $scope.minDate = d;
-      $scope.event = {};
-      $scope.event.startTime = new Date(d.getFullYear(), d.getMonth(), d.getDate(), 11, 0, 0);
-      $scope.event.endTime = new Date(d.getFullYear(), d.getMonth(), d.getDate(), 18, 0, 0);
-      $scope.event.name = '';
+      $scope.event = {
+        startTime: new Date(d.getFullYear(), d.getMonth(), d.getDate(), 11, 0, 0),
+        endTime: new Date(d.getFullYear(), d.getMonth(), d.getDate(), 18, 0, 0),
+        name: ''
+      };
       $scope.scheduledDate = null;
 
       $scope.submit = function() {
@@ -34,7 +35,6 @@
       $scope.open = function($event) {
         $event.preventDefault();
         $event.stopPropagation();
-
         $scope.opened = true;
       };
 

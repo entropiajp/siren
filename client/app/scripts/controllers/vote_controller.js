@@ -6,6 +6,8 @@
 
       $scope.alert = globalAlert.getAndClear();
       $scope.event = null;
+      $scope.tunes = null;
+      $scope.votedCount = null;
 
       $scope.onClick = function() {
         $scope.votedCount = $scope.tunes.filter(function(e){return e.voted;}).length;

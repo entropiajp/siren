@@ -9,6 +9,7 @@
       $scope.newTune = null;
       $scope.storedArtists = Tune.findArtists();
       $scope.storedSources = Tune.findSources();
+      $scope.tunes = null;
 
       Tune.query().then(
         function(data) {

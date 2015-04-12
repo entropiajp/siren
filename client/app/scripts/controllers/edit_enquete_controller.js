@@ -6,6 +6,10 @@
 
       $scope.alert = globalAlert.getAndClear();
       $scope.event = null;
+      $scope.result = null;
+      $scope.resultForGraph = null;
+      $scope.tunes = null;
+
 
       Event.find($stateParams.eventId).then(
         function(data){
@@ -64,7 +68,6 @@
             left: 300
           },
           tooltips: false
-
         }
       };
 

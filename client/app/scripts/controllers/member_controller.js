@@ -7,6 +7,7 @@
       $scope.alert = globalAlert.getAndClear();
       $scope.event = null;
       $scope.user = user;
+      $scope.members = null;
 
       Event.find($stateParams.eventId).then(
         function(data){

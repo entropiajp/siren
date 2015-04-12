@@ -5,6 +5,7 @@
     .controller('EventController', function ($scope, globalAlert, $stateParams, SweetAlert, Member, Event) {
 
       $scope.alert = globalAlert.getAndClear();
+      $scope.event = null;
 
       Event.find($stateParams.eventId).then(
         function(data){
