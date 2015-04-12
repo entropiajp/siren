@@ -6,15 +6,19 @@ public class EventModel {
 
 	private Integer id;
 	private String name;
+	private String place;
 	private ZonedDateTime startTime;
 	private ZonedDateTime endTime;
-	private String place;
 	private String imageUrl;
+	private String description;
 	private ZonedDateTime voteStartTime;
 	private ZonedDateTime voteEndTime;
-	private String description;
 	private String voteMessage;
 	private Integer voteLimit;
+	private ZonedDateTime joinStartTime;
+    private ZonedDateTime joinEndTime;
+    private String joinMessage;
+    private Integer joinLimit;
 	private Integer memberCount;
 	private boolean isMember;
 	private boolean isManager;
@@ -30,6 +34,12 @@ public class EventModel {
 	}
 	public void setName(String name) {
 		this.name = name;
+	}
+	public String getPlace() {
+		return place;
+	}
+	public void setPlace(String place) {
+		this.place = place;
 	}
 	public ZonedDateTime getStartTime() {
 		return startTime;
@@ -49,11 +59,11 @@ public class EventModel {
 	public void setImageUrl(String imageUrl) {
 		this.imageUrl = imageUrl;
 	}
-	public String getPlace() {
-		return place;
+	public String getDescription() {
+		return description;
 	}
-	public void setPlace(String place) {
-		this.place = place;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 	public ZonedDateTime getVoteStartTime() {
 		return voteStartTime;
@@ -67,12 +77,6 @@ public class EventModel {
 	public void setVoteEndTime(ZonedDateTime voteEndTime) {
 		this.voteEndTime = voteEndTime;
 	}
-	public String getDescription() {
-		return description;
-	}
-	public void setDescription(String description) {
-		this.description = description;
-	}
 	public String getVoteMessage() {
 		return voteMessage;
 	}
@@ -84,6 +88,30 @@ public class EventModel {
 	}
 	public void setVoteLimit(Integer voteLimit) {
 		this.voteLimit = voteLimit;
+	}
+	public ZonedDateTime getJoinStartTime() {
+		return joinStartTime;
+	}
+	public void setJoinStartTime(ZonedDateTime joinStartTime) {
+		this.joinStartTime = joinStartTime;
+	}
+	public ZonedDateTime getJoinEndTime() {
+		return joinEndTime;
+	}
+	public void setJoinEndTime(ZonedDateTime joinEndTime) {
+		this.joinEndTime = joinEndTime;
+	}
+	public String getJoinMessage() {
+		return joinMessage;
+	}
+	public void setJoinMessage(String joinMessage) {
+		this.joinMessage = joinMessage;
+	}
+	public Integer getJoinLimit() {
+		return joinLimit;
+	}
+	public void setJoinLimit(Integer joinLimit) {
+		this.joinLimit = joinLimit;
 	}
 	public Integer getMemberCount() {
 		return memberCount;
@@ -103,4 +131,6 @@ public class EventModel {
 	public void setManager(boolean isManager) {
 		this.isManager = isManager;
 	}
+	
+	
 }

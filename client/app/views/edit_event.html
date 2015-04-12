@@ -6,26 +6,26 @@
     <div class="col-md-9">
       <div ng-include="'views/includes/admin_menu.html'"></div>
 
-      <h1>バンオフ情報設定</h1>
+      <h1>基本情報</h1>
       <si-alert si-alert="alert"></si-alert>
 
       <form class="form-horizontal" name="eventForm" novalidate>
         <fieldset>
           <div class="form-group">
             <label for="eventName" class="col-sm-2 control-label">バンオフ名</label>
-            <div class="col-sm-6">
+            <div class="col-sm-9">
               <input type="text" ng-model="event.name" ng-required="true" class="form-control" id="eventName" placeholder="例: 第xx回Sound Horizonバンオフ">
             </div>
           </div>
           <div class="form-group">
             <label class="col-sm-2 control-label">開催日</label>
-            <div class="col-sm-6">
+            <div class="col-sm-9">
               <p class="input-group">
                 <input type="text" placeholder="例: 2015/08/08" class="form-control" datepicker-popup="yyyy/MM/dd (EEE)"
-                       ng-model="scheduledDate" is-open="opened" min-date="minDate" datepicker-options="dateOptions"
+                       ng-model="scheduledDate" is-open="openedScheduledDate" min-date="minDate" datepicker-options="dateOptions"
                        date-disabled="disabled(date, mode)" ng-required="true" close-text="Close"/>
             <span class="input-group-btn">
-              <button type="button" class="btn btn-default" ng-click="open($event)">
+              <button type="button" class="btn btn-default" ng-click="open($event, 'openedScheduledDate')">
                 <i class="glyphicon glyphicon-calendar"></i></button>
             </span>
               </p>
@@ -34,7 +34,7 @@
           <div class="form-group">
             <label class="col-sm-2 control-label">開催時間</label>
 
-            <div class="col-sm-6" style="display: table; vertical-align: top;">
+            <div class="col-sm-9" style="display: table; vertical-align: top;">
               <timepicker ng-model="event.startTime" hour-step="1" minute-step="10" show-meridian="false" ng-required="true" style="display:inline-block;"></timepicker>
               <table style="display:inline-block">
                 <tr><td height="34"></td></tr><tr><td width="32" height="34" style="text-align: center">〜</td></tr><tr><td height="34"></td></tr>
@@ -44,30 +44,147 @@
           </div>
           <div class="form-group">
             <label for="eventName" class="col-sm-2 control-label">場所</label>
-            <div class="col-sm-6">
+            <div class="col-sm-9">
               <input type="text" ng-model="event.place" class="form-control" id="eventPlace" placeholder="例: G-ROKS下高井戸スタジオ">
             </div>
           </div>
           <div class="form-group">
             <label class="col-sm-2 control-label">説明文</label>
 
-            <div class="col-sm-6">
+            <div class="col-sm-9">
               <textarea ng-model="event.description" class="form-control" rows="20"></textarea>
             </div>
           </div>
           <div class="form-group">
-            <div class="col-sm-4 col-sm-offset-2">
+            <div class="col-sm-9 col-sm-offset-2">
               <button ng-click="submit()" class="btn btn-primary btn-block" ng-disabled="eventForm.$invalid">更新する</button>
             </div>
           </div>
         </fieldset>
       </form>
 
-      <h3>バンオフ画像アップロード</h3>
+      <h2>バンオフ画像アップロード</h2>
       <div ng-file-drop ng-file-select ng-model="file" class="drop-box" drag-over-class="dragover"
            ng-file-change="onFileDropped(file)" ng-multiple="false" allow-dir="false" accept=".jpg,.png,.gif">画像をドラッグ & ドロップする<br>
         またはクリックしてコンピュータから写真を選択する</div>
       <progressbar value="progress" class="progress-striped">{{ progressText }}</progressbar>
+
+      <h2>希望曲投票設定</h2>
+      <form class="form-horizontal" name="editEnqueteForm" novalidate>
+        <fieldset>
+          <div class="form-group">
+            <label class="col-sm-2 col-xs-2 control-label" style="height:102px; padding-top:41px;">投票開始</label>
+            <div class="col-sm-3 col-xs-6" style="height:102px; padding-top:34px;">
+              <p class="input-group">
+                <input type="text" placeholder="例: 2015/08/08" class="form-control" datepicker-popup="yyyy/MM/dd (EEE)"
+                       ng-model="event.voteStartTime" is-open="openedVoteStartTime" min-date="minDate" datepicker-options="dateOptions"
+                       date-disabled="disabled(date, mode)" ng-required="true" close-text="Close"/>
+                <span class="input-group-btn">
+                  <button type="button" class="btn btn-default" ng-click="open($event, 'openedVoteStartTime')">
+                    <i class="glyphicon glyphicon-calendar"></i></button>
+                </span>
+              </p>
+            </div>
+            <div class="col-sm-2 col-xs-4">
+              <timepicker ng-model="event.voteStartTime" hour-step="1" minute-step="10" show-meridian="false" ng-required="true"></timepicker>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 col-xs-2 control-label" style="height:102px; padding-top:41px;">投票終了</label>
+            <div class="col-sm-3 col-xs-6" style="height:102px; padding-top:34px;">
+              <p class="input-group">
+                <input type="text" placeholder="例: 2015/08/08" class="form-control" datepicker-popup="yyyy/MM/dd (EEE)"
+                       ng-model="event.voteEndTime" is-open="openedVoteEndTime" min-date="minDate" datepicker-options="dateOptions"
+                       date-disabled="disabled(date, mode)" ng-required="true" close-text="Close"/>
+                <span class="input-group-btn">
+                  <button type="button" class="btn btn-default" ng-click="open($event, 'openedVoteEndTime')">
+                    <i class="glyphicon glyphicon-calendar"></i></button>
+                </span>
+              </p>
+            </div>
+            <div class="col-sm-2 col-xs-4">
+              <timepicker ng-model="event.voteEndTime" hour-step="1" minute-step="10" show-meridian="false" ng-required="true"></timepicker>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="voteLimit" class="col-sm-2 col-xs-2 control-label">投票上限曲数</label>
+            <div class="col-sm-3 col-xs-6">
+              <input type="number" ng-model="event.voteLimit" class="form-control" id="voteLimit" min="0">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-2 control-label">主催からの注意</label>
+            <div class="col-md-9">
+              <textarea ng-model="event.voteMessage" class="form-control" rows="10" ng-required="true"
+                        placeholder="今回のバンオフで演奏可能な曲のジャンル・アーティスト・作品などを指定してください。"></textarea>
+            </div>
+          </div>
+        </fieldset>
+        <div class="form-group">
+          <div class="col-md-9 col-md-offset-2">
+            <button ng-click="submit()" class="btn btn-primary btn-block">更新する</button>
+          </div>
+        </div>
+      </form>
+
+      <h2>エントリー設定</h2>
+      <form class="form-horizontal" name="editEnqueteForm" novalidate>
+        <fieldset>
+          <div class="form-group">
+            <label class="col-sm-2 col-xs-2 control-label" style="height:102px; padding-top:41px;">エントリー開始</label>
+            <div class="col-sm-3 col-xs-6" style="height:102px; padding-top:34px;">
+              <p class="input-group">
+                <input type="text" placeholder="例: 2015/08/08" class="form-control" datepicker-popup="yyyy/MM/dd (EEE)"
+                       ng-model="event.joinStartTime" is-open="openedJoinStartTime" min-date="minDate" datepicker-options="dateOptions"
+                       date-disabled="disabled(date, mode)" ng-required="true" close-text="Close"/>
+                <span class="input-group-btn">
+                  <button type="button" class="btn btn-default" ng-click="open($event, 'openedJoinStartTime')">
+                    <i class="glyphicon glyphicon-calendar"></i></button>
+                </span>
+              </p>
+            </div>
+            <div class="col-sm-2 col-xs-4">
+              <timepicker ng-model="event.joinStartTime" hour-step="1" minute-step="10" show-meridian="false" ng-required="true"></timepicker>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 col-xs-2 control-label" style="height:102px; padding-top:41px;">エントリー終了</label>
+            <div class="col-sm-3 col-xs-6" style="height:102px; padding-top:34px;">
+              <p class="input-group">
+                <input type="text" placeholder="例: 2015/08/08" class="form-control" datepicker-popup="yyyy/MM/dd (EEE)"
+                       ng-model="event.joinEndTime" is-open="openedJoinEndTime" min-date="minDate" datepicker-options="dateOptions"
+                       date-disabled="disabled(date, mode)" ng-required="true" close-text="Close"/>
+                <span class="input-group-btn">
+                  <button type="button" class="btn btn-default" ng-click="open($event, 'openedJoinEndTime')">
+                    <i class="glyphicon glyphicon-calendar"></i></button>
+                </span>
+              </p>
+            </div>
+            <div class="col-sm-2 col-xs-4">
+              <timepicker ng-model="event.joinEndTime" hour-step="1" minute-step="10" show-meridian="false" ng-required="true"></timepicker>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="joinLimit" class="col-sm-2 col-xs-2 control-label">エントリー上限曲数</label>
+            <div class="col-sm-3 col-xs-6">
+              <input type="number" ng-model="event.joinLimit" class="form-control" id="joinLimit" min="0">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-2 control-label">主催からの注意</label>
+            <div class="col-md-9">
+              <textarea ng-model="event.joinMessage" class="form-control" rows="10" ng-required="true"
+                        placeholder="エントリーに際して独自ルールが有る場合など、参加者に周知したい内容はここに入力してください。"></textarea>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-md-9 col-md-offset-2">
+              <button ng-click="submit()" class="btn btn-primary btn-block">更新する</button>
+            </div>
+          </div>
+        </fieldset>
+      </form>
+
     </div>
 
   </div>

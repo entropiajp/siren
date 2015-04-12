@@ -6,76 +6,14 @@
     <div class="col-md-9">
       <div ng-include="'views/includes/admin_menu.html'"></div>
 
-      <h1>アンケート</h1>
+      <h1>投票結果確認・エントリー可能曲設定</h1>
       <si-alert si-alert="alert"></si-alert>
 
-      <h2>アンケート設定</h2>
-      <div class="alert alert-info">
-        <ul>
-          <li>演奏希望曲のアンケート受付期間と、投票上限曲数を設定します</li>
-          <li>ここで変更した設定はただちに反映されます</li>
-        </ul>
-      </div>
-      <form class="form-horizontal" name="editEnqueteForm" novalidate>
-        <fieldset>
-          <div class="form-group">
-            <label class="col-sm-2 col-xs-2 control-label" style="height:102px; padding-top:41px;">開始日時</label>
-            <div class="col-sm-3 col-xs-6" style="height:102px; padding-top:34px;">
-              <p class="input-group">
-                <input type="text" placeholder="例: 2015/08/08" class="form-control" datepicker-popup="yyyy/MM/dd (EEE)"
-                       ng-model="event.voteStartTime" is-open="opened1" min-date="minDate" datepicker-options="dateOptions"
-                       date-disabled="disabled(date, mode)" ng-required="true" close-text="Close"/>
-                <span class="input-group-btn">
-                  <button type="button" class="btn btn-default" ng-click="open1($event)">
-                    <i class="glyphicon glyphicon-calendar"></i></button>
-                </span>
-              </p>
-            </div>
-            <div class="col-sm-2 col-xs-4">
-              <timepicker ng-model="event.voteStartTime" hour-step="1" minute-step="10" show-meridian="false" ng-required="true"></timepicker>
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="col-sm-2 col-xs-2 control-label" style="height:102px; padding-top:41px;">終了日時</label>
-            <div class="col-sm-3 col-xs-6" style="height:102px; padding-top:34px;">
-              <p class="input-group">
-                <input type="text" placeholder="例: 2015/08/08" class="form-control" datepicker-popup="yyyy/MM/dd (EEE)"
-                       ng-model="event.voteEndTime" is-open="opened2" min-date="minDate" datepicker-options="dateOptions"
-                       date-disabled="disabled(date, mode)" ng-required="true" close-text="Close"/>
-                <span class="input-group-btn">
-                  <button type="button" class="btn btn-default" ng-click="open2($event)">
-                    <i class="glyphicon glyphicon-calendar"></i></button>
-                </span>
-              </p>
-            </div>
-            <div class="col-sm-2 col-xs-4">
-              <timepicker ng-model="event.voteEndTime" hour-step="1" minute-step="10" show-meridian="false" ng-required="true"></timepicker>
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="voteLimit" class="col-sm-2 col-xs-2 control-label">投票上限曲数</label>
-            <div class="col-sm-3 col-xs-6">
-              <input type="number" ng-model="event.voteLimit" class="form-control" id="voteLimit" min="0">
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="col-md-2 control-label">主催からの注意</label>
-
-            <div class="col-md-9">
-              <textarea ng-model="event.voteMessage" class="form-control" rows="10" ng-required="true"
-                placeholder="今回のバンオフで演奏可能な曲のジャンル・アーティスト・作品などを指定してください。"></textarea>
-            </div>
-          </div>
-          <div class="form-group">
-            <div class="col-md-9 col-md-offset-2">
-              <button ng-click="submit()" class="btn btn-primary btn-block" ng-disabled="editEnqueteForm.$invalid">更新する</button>
-            </div>
-          </div>
-        </fieldset>
-      </form>
-
-      <h2>アンケート結果確認</h2>
+      <h2>投票結果確認</h2>
       <nvd3 options='options' data='data'></nvd3>
+
+      <h2>エントリー可能曲設定</h2>
+
     </div>
 
 

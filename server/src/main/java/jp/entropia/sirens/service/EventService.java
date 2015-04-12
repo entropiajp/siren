@@ -61,6 +61,12 @@ public class EventService {
 		if(model.getVoteEndTime() != null) {
 			event.setVoteEndTime(model.getVoteEndTime().toLocalDateTime());
 		}
+		if(model.getJoinStartTime() != null) {
+            event.setJoinStartTime(model.getJoinStartTime().toLocalDateTime());
+        }
+        if(model.getJoinEndTime() != null) {
+            event.setJoinEndTime(model.getJoinEndTime().toLocalDateTime());
+        }
 		return event;
 	}
 	
@@ -75,6 +81,12 @@ public class EventService {
 		if(event.getVoteEndTime() != null) {
 			model.setVoteEndTime(event.getVoteEndTime().atZone(ZoneId.of("Z")));
 		}
+		if(event.getJoinStartTime() != null) {
+            model.setJoinStartTime(event.getJoinStartTime().atZone(ZoneId.of("Z")));
+        }
+        if(event.getJoinEndTime() != null) {
+            model.setJoinEndTime(event.getJoinEndTime().atZone(ZoneId.of("Z")));
+        }
 		return model;
 	}
 
@@ -87,6 +99,18 @@ public class EventService {
 		BeanUtils.copyProperties(entity, model);
 		model.setStartTime(entity.getStartTime().atZone(ZoneId.of("Z")));
 		model.setEndTime(entity.getEndTime().atZone(ZoneId.of("Z")));
+		if(entity.getVoteStartTime() != null) {
+			model.setVoteStartTime(entity.getVoteStartTime().atZone(ZoneId.of("Z")));
+		}
+		if(entity.getVoteEndTime() != null) {
+			model.setVoteEndTime(entity.getVoteEndTime().atZone(ZoneId.of("Z")));
+		}
+		if(entity.getJoinStartTime() != null) {
+            model.setJoinStartTime(entity.getJoinStartTime().atZone(ZoneId.of("Z")));
+        }
+        if(entity.getJoinEndTime() != null) {
+            model.setJoinEndTime(entity.getJoinEndTime().atZone(ZoneId.of("Z")));
+        }
 		return model;	
 	}
 	

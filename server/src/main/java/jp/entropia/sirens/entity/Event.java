@@ -41,6 +41,10 @@ public class Event {
     @Column(name = "image_url")
     String imageUrl;
 
+    /** 説明文 */
+    @Column(name = "description")
+    String description;
+
     /** 投票開始日時 */
     @Column(name = "vote_start_time")
     LocalDateTime voteStartTime;
@@ -53,13 +57,25 @@ public class Event {
     @Column(name = "vote_limit")
     Integer voteLimit;
 
-    /** 説明文 */
-    @Column(name = "description")
-    String description;
-
     /** 投票注意文 */
     @Column(name = "vote_message")
     String voteMessage;
+
+    /** エントリー開始日時 */
+    @Column(name = "join_start_time")
+    LocalDateTime joinStartTime;
+
+    /** エントリー終了日時 */
+    @Column(name = "join_end_time")
+    LocalDateTime joinEndTime;
+
+    /** エントリー上限曲数 */
+    @Column(name = "join_limit")
+    Integer joinLimit;
+
+    /** エントリー注意文 */
+    @Column(name = "join_message")
+    String joinMessage;
 
     /** 
      * Returns the id.
@@ -168,13 +184,23 @@ public class Event {
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
     }
+
+    /** 
+     * Returns the description.
      * 
+     * @return the description
      */
+    public String getDescription() {
+        return description;
     }
 
     /** 
+     * Sets the description.
      * 
+     * @param description the description
      */
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     /** 
@@ -232,24 +258,6 @@ public class Event {
     }
 
     /** 
-     * Returns the description.
-     * 
-     * @return the description
-     */
-    public String getDescription() {
-        return description;
-    }
-
-    /** 
-     * Sets the description.
-     * 
-     * @param description the description
-     */
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    /** 
      * Returns the voteMessage.
      * 
      * @return the voteMessage
@@ -265,5 +273,77 @@ public class Event {
      */
     public void setVoteMessage(String voteMessage) {
         this.voteMessage = voteMessage;
+    }
+
+    /** 
+     * Returns the joinStartTime.
+     * 
+     * @return the joinStartTime
+     */
+    public LocalDateTime getJoinStartTime() {
+        return joinStartTime;
+    }
+
+    /** 
+     * Sets the joinStartTime.
+     * 
+     * @param joinStartTime the joinStartTime
+     */
+    public void setJoinStartTime(LocalDateTime joinStartTime) {
+        this.joinStartTime = joinStartTime;
+    }
+
+    /** 
+     * Returns the joinEndTime.
+     * 
+     * @return the joinEndTime
+     */
+    public LocalDateTime getJoinEndTime() {
+        return joinEndTime;
+    }
+
+    /** 
+     * Sets the joinEndTime.
+     * 
+     * @param joinEndTime the joinEndTime
+     */
+    public void setJoinEndTime(LocalDateTime joinEndTime) {
+        this.joinEndTime = joinEndTime;
+    }
+
+    /** 
+     * Returns the joinLimit.
+     * 
+     * @return the joinLimit
+     */
+    public Integer getJoinLimit() {
+        return joinLimit;
+    }
+
+    /** 
+     * Sets the joinLimit.
+     * 
+     * @param joinLimit the joinLimit
+     */
+    public void setJoinLimit(Integer joinLimit) {
+        this.joinLimit = joinLimit;
+    }
+
+    /** 
+     * Returns the joinMessage.
+     * 
+     * @return the joinMessage
+     */
+    public String getJoinMessage() {
+        return joinMessage;
+    }
+
+    /** 
+     * Sets the joinMessage.
+     * 
+     * @param joinMessage the joinMessage
+     */
+    public void setJoinMessage(String joinMessage) {
+        this.joinMessage = joinMessage;
     }
 }

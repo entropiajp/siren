@@ -18,12 +18,19 @@
       $scope.event = null;
       $scope.scheduledDate = null;
 
+      var d = new Date();
+      d.setHours(0);
+      d.setMinutes(0);
+      d.setSeconds(0);
+
       Event.find($stateParams.eventId).then(
         function(data){
           data.startTime = new Date(data.startTime);
           data.endTime = new Date(data.endTime);
-          data.voteStartTime = (data.voteStartTime == null) ? null : new Date(data.voteStartTime);
-          data.voteEndTime = (data.voteEndTime == null) ? null : new Date(data.voteEndTime);
+          data.voteStartTime = (data.voteStartTime == null) ? d : new Date(data.voteStartTime);
+          data.voteEndTime = (data.voteEndTime == null) ? d : new Date(data.voteEndTime);
+          data.joinStartTime = (data.joinStartTime == null) ? d : new Date(data.joinStartTime);
+          data.joinEndTime = (data.joinEndTime == null) ? d : new Date(data.joinEndTime);
           $scope.event = data;
           $scope.scheduledDate = data.startTime;
         });
@@ -39,6 +46,11 @@
 
       $scope.submit = function() {
 
+        if($scope.event.voteStartTime === d) $scope.event.voteStartTime = null;
+        if($scope.event.voteEndTime === d) $scope.event.voteEndTime = null;
+        if($scope.event.joinStartTime === d) $scope.event.joinStartTime = null;
+        if($scope.event.joinEndTime === d) $scope.event.joinEndTime = null;
+
         Event.update($scope.event).then(
           function() {
             $scope.alert = {type: 'success', msg: 'バンオフ情報を編集しました！'};
@@ -49,19 +61,10 @@
         );
       };
 
-      $scope.today = function() {
-        $scope.scheduledDate = new Date();
-      };
-
-      $scope.clear = function () {
-        $scope.scheduledDate = null;
-      };
-
-      $scope.open = function($event) {
+      $scope.open = function($event, caller) {
         $event.preventDefault();
         $event.stopPropagation();
-
-        $scope.opened = true;
+        $scope[caller] = true;
       };
 
       $scope.dateOptions = {
