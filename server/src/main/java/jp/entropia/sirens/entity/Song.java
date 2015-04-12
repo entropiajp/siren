@@ -2,6 +2,8 @@ package jp.entropia.sirens.entity;
 
 import org.seasar.doma.Column;
 import org.seasar.doma.Entity;
+import org.seasar.doma.GeneratedValue;
+import org.seasar.doma.GenerationType;
 import org.seasar.doma.Id;
 import org.seasar.doma.Table;
 
@@ -14,8 +16,13 @@ public class Song {
 
     /** 演奏曲ID */
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     Integer id;
+
+    /** イベントID */
+    @Column(name = "event_id")
+    Integer eventId;
 
     /** 曲ID */
     @Column(name = "tune_id")
@@ -28,6 +35,12 @@ public class Song {
     /** 演奏順 */
     @Column(name = "song_order")
     Integer songOrder;
+    
+    public Song(){};
+    public Song(Integer eventId, Integer tuneId) {
+    	this.eventId = eventId;
+    	this.tuneId = tuneId;
+    }
 
     /** 
      * Returns the id.
@@ -45,6 +58,24 @@ public class Song {
      */
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    /** 
+     * Returns the eventId.
+     * 
+     * @return the eventId
+     */
+    public Integer getEventId() {
+        return eventId;
+    }
+
+    /** 
+     * Sets the eventId.
+     * 
+     * @param eventId the eventId
+     */
+    public void setEventId(Integer eventId) {
+        this.eventId = eventId;
     }
 
     /** 

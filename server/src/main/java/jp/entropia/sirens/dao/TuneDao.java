@@ -4,6 +4,7 @@ import java.util.List;
 
 import jp.entropia.sirens.ConfigAutowireable;
 import jp.entropia.sirens.entity.Tune;
+import jp.entropia.sirens.entity.TuneWithCandidate;
 
 import org.seasar.doma.Dao;
 import org.seasar.doma.Delete;
@@ -53,5 +54,8 @@ public interface TuneDao {
     
     @Select
 	List<String> selectStoredSources();
+    
+    @Select
+	List<TuneWithCandidate> selectAllTunesWithCandidate(Integer eventId);
     
 }

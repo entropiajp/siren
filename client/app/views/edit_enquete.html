@@ -10,10 +10,42 @@
       <si-alert si-alert="alert"></si-alert>
 
       <h2>投票結果確認</h2>
-      <nvd3 options='options' data='data'></nvd3>
+      <nvd3 options='options' data='resultForGraph'></nvd3>
+      <form>
+        <button type="button" ng-click="checkVotedTunes()" class="btn btn-block btn-default">投票があった曲全てにチェック</button>
+      </form>
 
       <h2>エントリー可能曲設定</h2>
-
+      <div class="alert alert-info">
+        <ul>
+          <li>参加者はエントリー可能曲の範囲でエントリーできます</li>
+          <li>上記投票結果を参考にすることもできますが、主催の裁量でエントリー可能曲を設定できます</li>
+        </ul>
+      </div>
+      <div class="form-group">
+        <input type="text" ng-model="search" class="form-control" id="search" placeholder="テキストで絞りこむ">
+      </div>
+      <form>
+        <button type="button" ng-click="submit()" class="btn btn-block btn-primary">設定する</button>
+      </form>
+      <table class="table table-hover">
+        <thead>
+        <tr>
+          <th>設定</th>
+          <th>楽曲名</th>
+          <th>演奏時間</th>
+          <th>アーティスト</th>
+          <th>出典</th>
+        </tr>
+        </thead>
+        <tr ng-repeat="tune in tunes | filter:search">
+          <td><input type="checkbox" ng-model="tune.candidate" ng-click="onClick()"></td>
+          <td>{{ tune.name }}</td>
+          <td>{{ tune.time | date:'mm:ss' }}</td>
+          <td>{{ tune.artist }}</td>
+          <td>{{ tune.source }}</td>
+        </tr>
+      </table>
     </div>
 
 

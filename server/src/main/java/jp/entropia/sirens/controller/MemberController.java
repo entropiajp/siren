@@ -7,7 +7,6 @@ import jp.entropia.sirens.entity.Event;
 import jp.entropia.sirens.entity.Member;
 import jp.entropia.sirens.entity.MemberEntity;
 import jp.entropia.sirens.exception.ForbiddenException;
-import jp.entropia.sirens.model.EventModel;
 import jp.entropia.sirens.model.MemberModel;
 import jp.entropia.sirens.service.ActivityService;
 import jp.entropia.sirens.service.EventService;
@@ -60,6 +59,7 @@ public class MemberController {
 		member.setUserid(principal.getName());
 		member.setStartTime(event.getStartTime());
 		member.setEndTime(event.getEndTime());
+		member.setAttendParty("未定");
 		memberService.save(member);
 		activityService.publish("headline.join");
 	}

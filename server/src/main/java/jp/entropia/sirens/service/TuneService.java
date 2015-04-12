@@ -4,7 +4,9 @@ import java.time.LocalTime;
 import java.util.List;
 
 import jp.entropia.sirens.dao.TuneDao;
+import jp.entropia.sirens.entity.CheckableTune;
 import jp.entropia.sirens.entity.Tune;
+import jp.entropia.sirens.entity.TuneWithCandidate;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -44,5 +46,9 @@ public class TuneService {
 	
 	public List<String> findStoredSources() {
 		return tuneDao.selectStoredSources();
+	}
+	
+	public List<TuneWithCandidate> findAll(Integer eventId) {
+		return tuneDao.selectAllTunesWithCandidate(eventId);
 	}
 }

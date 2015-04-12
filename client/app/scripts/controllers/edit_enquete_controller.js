@@ -2,7 +2,7 @@
   'use strict';
 
   angular.module('clientApp')
-    .controller('EditEnqueteController', function ($scope, globalAlert, $state, $stateParams, Event, Vote, user, UtilService) {
+    .controller('EditEnqueteController', function ($scope, globalAlert, $state, $stateParams, Event, Vote, user, UtilService, Tune, Song) {
 
       $scope.user = user;
       $scope.managedEvents = Event.findManaged();
@@ -34,48 +34,17 @@
         }
       );
 
-      $scope.submit = function() {
-
-        Event.update($scope.event).then(
-          function() {
-            $scope.alert = {type: 'success', msg: 'バンオフ情報を編集しました！'};
-          },
-          function() {
-            $scope.alert = {type: 'danger', msg: 'おや、失敗しました'};
-          }
-        );
-      };
-
-      $scope.open1 = function($event) {
-        $event.preventDefault();
-        $event.stopPropagation();
-
-        $scope.opened1 = true;
-      };
-
-      $scope.open2 = function($event) {
-        $event.preventDefault();
-        $event.stopPropagation();
-
-        $scope.opened2 = true;
-      };
-
-      $scope.dateOptions = {
-        formatYear: 'yy',
-        startingDay: 1,
-        showWeeks: false
-      };
-
       Vote.findResult($stateParams.eventId).then(
         function(data){
-          $scope.data = [
+          $scope.result = data;
+          $scope.resultForGraph = [
             {
               "key": "Series1",
               "color": "#d62728",
               "values": null
             }
           ];
-          $scope.data[0].values = data.map(function(e){
+          $scope.resultForGraph[0].values = data.map(function(e){
             return {
               label: e.name,
               value: e.count
@@ -107,6 +76,43 @@
           tooltips: false
 
         }
+      };
+
+      Tune.findAllWithCandidates($stateParams.eventId).then(
+        function(data) {
+          // 受け取ったjsonでは演奏時間が'HH:mm:ss' or 'HH:mm'で表されているので、これをDateオブジェクトに変換
+          var now = new Date();
+          for(var i=0; i<data.length; i++) {
+            data[i].time = UtilService.convertTimeToDateObject(data[i].time, now);
+          }
+          $scope.tunes = data;
+        }
+      );
+
+      $scope.checkVotedTunes = function() {
+        $scope.result.forEach(function(r){
+          for(var i=0; i<$scope.tunes.length; i++) {
+            if(r.tuneId === $scope.tunes[i].id) {
+              $scope.tunes[i].candidate = true;
+              break;
+            }
+          }
+        });
+      };
+
+      $scope.submit = function() {
+        var songs = $scope.tunes
+          .filter(function(e){return e.candidate;})
+          .map(function(e){return e.id;});
+        Song.saveAll($stateParams.eventId, songs).then(
+          function () {
+            globalAlert.set({type: 'success', msg: 'エントリー可能曲を設定しました'});
+            $state.reload();
+          },
+          function () {
+            $scope.alert = {type: 'warning', msg: 'おや、失敗しました'};
+          }
+        );
       };
 
     });

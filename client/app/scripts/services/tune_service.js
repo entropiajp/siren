@@ -31,13 +31,18 @@
         return $resource(API_URL + '/tunes/sources').query();
       };
 
+      var findAllWithCandidates = function(eventId) {
+        return $resource(API_URL + '/tunes/with-candidates').query({eventId: eventId}).$promise;
+      };
+
       return {
         find: find,
         save: save,
         update: update,
         query: query,
         findArtists: findArtists,
-        findSources: findSources
+        findSources: findSources,
+        findAllWithCandidates: findAllWithCandidates
       };
 
 
