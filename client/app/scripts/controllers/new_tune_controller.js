@@ -20,21 +20,12 @@
       $scope.storedArtists = Tune.findArtists();
       $scope.storedSources = Tune.findSources();
 
-      function convertTimeToDateObject(timeStr, date){
-        var HHmmss = timeStr.split(':');
-        if(HHmmss[2] === undefined) {
-          return new Date(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), HHmmss[1], 0);
-        } else {
-          return new Date(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), HHmmss[1], HHmmss[2]);
-        }
-      }
-
       Tune.query().then(
         function(data) {
           // 受け取ったjsonでは演奏時間が'HH:mm:ss' or 'HH:mm'で表されているので、これをDateオブジェクトに変換
           var now = new Date();
           for(var i=0; i<data.length; i++) {
-            data[i].time = convertTimeToDateObject(data[i].time, now);
+            data[i].time = UtilService.convertTimeToDateObject(data[i].time, now);
           }
           $scope.tunes = data;
         }

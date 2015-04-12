@@ -38,12 +38,7 @@
           // 受け取ったjsonでは演奏時間が'HH:mm:ss' or 'HH:mm'で表されているので、これをDateオブジェクトに変換
           var now = new Date();
           for(var i=0; i<data.length; i++) {
-            var HHmmss = data[i].time.split(':');
-            if(HHmmss[2] === undefined) {
-              data[i].time = new Date(now.getFullYear(), now.getMonth(), now.getDate(), now.getHours(), HHmmss[1], 0);
-            } else {
-              data[i].time = new Date(now.getFullYear(), now.getMonth(), now.getDate(), now.getHours(), HHmmss[1], HHmmss[2]);
-            }
+            data[i].time = UtilService.convertTimeToDateObject(data[i].time, now);
           }
 
           $scope.tunes = data;
