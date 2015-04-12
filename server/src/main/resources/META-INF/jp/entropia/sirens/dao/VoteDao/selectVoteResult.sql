@@ -9,3 +9,5 @@ where
   member.event_id = /* eventId */1
 group by
   tune_id
+order by
+  count desc
