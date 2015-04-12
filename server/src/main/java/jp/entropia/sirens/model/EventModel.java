@@ -8,8 +8,8 @@ public class EventModel {
 	private String name;
 	private ZonedDateTime startTime;
 	private ZonedDateTime endTime;
-	private String logoImage;
 	private String place;
+	private String imageUrl;
 	private ZonedDateTime voteStartTime;
 	private ZonedDateTime voteEndTime;
 	private String description;
@@ -43,11 +43,11 @@ public class EventModel {
 	public void setEndTime(ZonedDateTime endTime) {
 		this.endTime = endTime;
 	}
-	public String getLogoImage() {
-		return logoImage;
+	public String getImageUrl() {
+		return imageUrl;
 	}
-	public void setLogoImage(String logoImage) {
-		this.logoImage = logoImage;
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
 	}
 	public String getPlace() {
 		return place;

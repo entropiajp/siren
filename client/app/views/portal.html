@@ -6,8 +6,8 @@
   <div class="pin" ng-repeat="event in events" style="position: relative">
     <div class="past" ng-if="event.endTime < now">終了</div>
     <div>
-      <a ui-sref="edit_event({eventId: event.id})" ng-show="event.manager"><img ng-src="{{ event.logoImage }}" style="width:100%"></a>
-      <a ui-sref="event({eventId: event.id})" ng-hide="event.manager"><img ng-src="{{ event.logoImage }}" style="width:100%"></a>
+      <a ui-sref="edit_event({eventId: event.id})" ng-show="event.manager"><img ng-src="{{ event.imageUrl }}" style="width:100%"></a>
+      <a ui-sref="event({eventId: event.id})" ng-hide="event.manager"><img ng-src="{{ event.imageUrl }}" style="width:100%"></a>
     </div>
     <div class="info">
       <span class="label label-primary" ng-show="event.manager">管理者</span>

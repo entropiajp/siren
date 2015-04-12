@@ -37,9 +37,9 @@ public class Event {
     @Column(name = "end_time")
     LocalDateTime endTime;
 
-    /** ロゴ画像 */
-    @Column(name = "logo_image")
-    String logoImage;
+    /** ロゴ画像URL */
+    @Column(name = "image_url")
+    String imageUrl;
 
     /** 投票開始日時 */
     @Column(name = "vote_start_time")
@@ -152,21 +152,29 @@ public class Event {
     }
 
     /** 
-     * Returns the logoImage.
+     * Returns the imageUrl.
      * 
-     * @return the logoImage
+     * @return the imageUrl
      */
-    public String getLogoImage() {
-        return logoImage;
+    public String getImageUrl() {
+        return imageUrl;
     }
 
     /** 
-     * Sets the logoImage.
+     * Sets the imageUrl.
      * 
-     * @param logoImage the logoImage
+     * @param imageUrl the imageUrl
      */
-    public void setLogoImage(String logoImage) {
-        this.logoImage = logoImage;
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+     * 
+     */
+    }
+
+    /** 
+     * 
+     */
     }
 
     /** 

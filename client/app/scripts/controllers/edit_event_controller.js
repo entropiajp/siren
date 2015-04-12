@@ -79,7 +79,7 @@
           })
           .success(function (data, status, headers, config) {
             $scope.progressText = config.file.name + 'のアップロードが完了しました！'
-            $scope.event.logoImage = data.message;
+            $scope.event.imageUrl = data.message;
           })
           .error(function (data, status, headers, config) {
             $scope.progress = 0;

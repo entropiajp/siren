@@ -145,7 +145,7 @@ public class EventController {
             	Upload upload = s3Service.uploadImage(fileName, f);
             	upload.waitForCompletion();
                 Event event = eventService.find(eventId);
-                event.setLogoImage(s3Url + fileName);
+                event.setImageUrl(s3Url + fileName);
                 eventService.update(event);
                 activityService.publish("headline.uploadEventImage");
                 return new UploadFileResponse(s3Url + fileName);

@@ -2,7 +2,7 @@ select
   event.id,
   event.name,
   event.place,
-  event.logo_image,
+  event.image_url,
   event.start_time,
   event.end_time,
   event.description,
