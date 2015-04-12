@@ -24,7 +24,8 @@
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
 
-    <div ui-view></div>
+    <div ui-view="header"></div>
+    <div ui-view="content"></div>
 
     <!-- build:js(.) scripts/oldieshim.js -->
     <!--[if lt IE 9]>
@@ -75,6 +76,7 @@
         <script src="scripts/controllers/new_event_controller.js"></script>
         <script src="scripts/controllers/login_controller.js"></script>
         <script src="scripts/controllers/portal_controller.js"></script>
+    <script src="scripts/controllers/header_controller.js"></script>
     <script src="scripts/controllers/event_controller.js"></script>
     <script src="scripts/controllers/new_tune_controller.js"></script>
     <script src="scripts/controllers/edit_enquete_controller.js"></script>

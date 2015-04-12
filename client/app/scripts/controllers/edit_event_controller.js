@@ -2,18 +2,8 @@
   'use strict';
 
   angular.module('clientApp')
-    .controller('EditEventController', function ($scope, globalAlert, $stateParams, user, Event, UtilService, $state) {
+    .controller('EditEventController', function ($scope, globalAlert, $stateParams, Event) {
 
-      $scope.user = user;
-      $scope.managedEvents = Event.findManaged();
-      $scope.joinedEvents = Event.findJoined();
-      $scope.logout = function() {
-        UtilService.logout().success(
-          function (data, status, headers, config) {
-            $state.go('login');
-          }
-        );
-      };
       $scope.alert = globalAlert.getAndClear();
       $scope.event = null;
       $scope.scheduledDate = null;

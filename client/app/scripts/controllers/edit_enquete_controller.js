@@ -2,18 +2,8 @@
   'use strict';
 
   angular.module('clientApp')
-    .controller('EditEnqueteController', function ($scope, globalAlert, $state, $stateParams, Event, Vote, user, UtilService, Tune, Song) {
+    .controller('EditEnqueteController', function ($scope, globalAlert, $state, $stateParams, Event, Vote, UtilService, Tune, Song) {
 
-      $scope.user = user;
-      $scope.managedEvents = Event.findManaged();
-      $scope.joinedEvents = Event.findJoined();
-      $scope.logout = function() {
-        UtilService.logout().success(
-          function (data, status, headers, config) {
-            $state.go('login');
-          }
-        );
-      };
       $scope.alert = globalAlert.getAndClear();
       $scope.event = null;
 

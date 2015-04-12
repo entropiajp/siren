@@ -20,31 +20,67 @@
       $stateProvider
         .state("new", {
           url: "/event/new",
-          templateUrl: "views/new_event.html",
-          controller: "NewEventController",
+          views: {
+            'header': {
+              templateUrl: "views/includes/header.html",
+              controller: "HeaderController"
+            },
+            'content': {
+              templateUrl: "views/new_event.html",
+              controller: "NewEventController"
+            }
+          },
           resolve: { user: authenticate }
         })
         .state("portal", {
           url: "/portal",
-          templateUrl: "views/portal.html",
-          controller: "PortalController",
+          views: {
+            'header': {
+              templateUrl: "views/includes/header.html",
+              controller: "HeaderController"
+            },
+            'content': {
+              templateUrl: "views/portal.html",
+              controller: "PortalController"
+            }
+          },
           resolve: { user: authenticate }
         })
         .state("login", {
           url: "/login",
-          templateUrl: "views/login.html",
-          controller: "LoginController"
+          views: {
+            'content': {
+              templateUrl: "views/login.html",
+              controller: "LoginController"
+            }
+          }
         })
         .state("event", {
           url: "/event/:eventId",
-          templateUrl: "views/event.html",
-          controller: "EventController",
+          views: {
+            'header': {
+              templateUrl: "views/includes/header.html",
+              controller: "HeaderController"
+            },
+            'content': {
+              templateUrl: "views/event.html",
+              controller: "EventController"
+            }
+          },
           resolve: { user: authenticate }
         })
         .state("edit_event", {
           url: "/event/:eventId/edit",
-          templateUrl: "views/edit_event.html",
-          controller: "EditEventController",
+          views: {
+            'header': {
+              templateUrl: "views/includes/header.html",
+              controller: "HeaderController"
+            },
+            'content': {
+              templateUrl: "views/edit_event.html",
+              controller: "EditEventController"
+            }
+          },
           resolve: {
             user: authenticate,
             authorize: authorize
@@ -52,8 +88,16 @@
         })
         .state("edit_members", {
           url: "/event/:eventId/member/edit",
-          templateUrl: "views/edit_members.html",
-          controller: "MemberController",
+          views: {
+            'header': {
+              templateUrl: "views/includes/header.html",
+              controller: "HeaderController"
+            },
+            'content': {
+              templateUrl: "views/edit_members.html",
+              controller: "MemberController"
+            }
+          },
           resolve: {
             user: authenticate,
             authorize: authorize
@@ -61,20 +105,44 @@
         })
         .state("new_tune", {
           url: "/tune/new",
-          templateUrl: "views/new_tune.html",
-          controller: "NewTuneController",
+          views: {
+            'header': {
+              templateUrl: "views/includes/header.html",
+              controller: "HeaderController"
+            },
+            'content': {
+              templateUrl: "views/new_tune.html",
+              controller: "NewTuneController"
+            }
+          },
           resolve: { user: authenticate }
         })
         .state("help", {
           url: "/help",
-          templateUrl: "views/help.html",
-          controller: "HelpController",
+          views: {
+            'header': {
+              templateUrl: "views/includes/header.html",
+              controller: "HeaderController"
+            },
+            'content': {
+              templateUrl: "views/help.html",
+              controller: "HelpController"
+            }
+          },
           resolve: { user: authenticate }
         })
         .state("edit_enquete", {
           url: "/event/:eventId/enquete/edit",
-          templateUrl: "views/edit_enquete.html",
-          controller: "EditEnqueteController",
+          views: {
+            'header': {
+              templateUrl: "views/includes/header.html",
+              controller: "HeaderController"
+            },
+            'content': {
+              templateUrl: "views/edit_enquete.html",
+              controller: "EditEnqueteController"
+            }
+          },
           resolve: {
             user: authenticate,
             authorize: authorize
@@ -82,14 +150,30 @@
         })
         .state("vote", {
           url: "/event/:eventId/vote",
-          templateUrl: "views/vote.html",
-          controller: "VoteController",
+          views: {
+            'header': {
+              templateUrl: "views/includes/header.html",
+              controller: "HeaderController"
+            },
+            'content': {
+              templateUrl: "views/vote.html",
+              controller: "VoteController"
+            }
+          },
           resolve: { user: authenticate }
         })
         .state("event_my", {
           url: "/event/:eventId/my",
-          templateUrl: "views/event_my.html",
-          controller: "EventMyController",
+          views: {
+            'header': {
+              templateUrl: "views/includes/header.html",
+              controller: "HeaderController"
+            },
+            'content': {
+              templateUrl: "views/event_my.html",
+              controller: "EventMyController"
+            }
+          },
           resolve: { user: authenticate }
         });
 

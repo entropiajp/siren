@@ -2,18 +2,8 @@
   'use strict';
 
   angular.module('clientApp')
-    .controller('NewTuneController', function ($scope, globalAlert, $stateParams, Tune, $state, SweetAlert, user, Event, UtilService) {
+    .controller('NewTuneController', function ($scope, globalAlert, $stateParams, Tune, $state, SweetAlert, UtilService) {
 
-      $scope.user = user;
-      $scope.managedEvents = Event.findManaged();
-      $scope.joinedEvents = Event.findJoined();
-      $scope.logout = function() {
-        UtilService.logout().success(
-          function (data, status, headers, config) {
-            $state.go('login');
-          }
-        );
-      };
       $scope.alert = globalAlert.getAndClear();
 
       $scope.newTune = null;

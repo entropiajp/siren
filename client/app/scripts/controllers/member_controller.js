@@ -2,26 +2,11 @@
   'use strict';
 
   angular.module('clientApp')
-    .controller('MemberController', function ($scope, globalAlert, $stateParams, Member, Manager, $state, SweetAlert, user, Event, UtilService, $rootScope, HeadlineService) {
+    .controller('MemberController', function ($scope, globalAlert, $stateParams, Member, Manager, $state, SweetAlert, Event, user) {
 
-      $scope.user = user;
-      $scope.managedEvents = Event.findManaged();
-      $scope.joinedEvents = Event.findJoined();
-      $scope.logout = function() {
-        UtilService.logout().success(
-          function (data, status, headers, config) {
-            $state.go('login');
-          }
-        );
-      };
       $scope.alert = globalAlert.getAndClear();
       $scope.event = null;
-      $scope.headline = HeadlineService.get();
-
-      $rootScope.$on('onReceived', function(event, data) {
-        $scope.headline = data;
-        $scope.$apply();
-      });
+      $scope.user = user;
 
       Event.find($stateParams.eventId).then(
         function(data){

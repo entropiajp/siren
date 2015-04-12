@@ -1,56 +1,52 @@
-<div ng-include="'views/includes/header.html'"></div>
-  <div class="container-fluid">
-    <div style="margin-top:20px;" ng-if="alert !== {}"><si-alert si-alert="alert"></si-alert></div>
-    <h1>楽曲登録</h1>
-    <div class="alert alert-info">
-      <ul>
-        <li><strong>すでに登録されている楽曲は、新規に登録しないようにお願いします</strong></li>
-        <li>ライブバージョン、アルバムバージョンなど、同名の曲でも別バージョンである場合は登録OKです</li>
-      </ul>
-    </div>
-    <form name="newTuneForm">
-      <table class="table">
-        <thead>
-        <tr>
-          <th>楽曲名 <span class="label label-danger">必須</span></th>
-          <th>演奏時間 <span class="label label-danger">必須</span></th>
-          <th>アーティスト <span class="label label-danger">必須</span></th>
-          <th>出典(アルバム名・作品名・ライブ名など) <span class="label label-default">任意</span></th>
-        </tr>
-        </thead>
-        <tr>
-          <td><input class="form-control" ng-model="newTune.name" ng-required="true"></td>
-          <td><input class="form-control" ng-model="newTune.time" ng-required="true" placeholder="04:23"></td>
-          <td><input type="text" ng-model="newTune.artist"
-                     typeahead="artist for artist in storedArtists | filter:$viewValue"
-                     ng-required="true" class="form-control"></td>
-          <td><input type="text" ng-model="newTune.source"
-                     typeahead="source for source in storedSources | filter:$viewValue"
-                     ng-required="false" class="form-control"></td>
-        </tr>
-      </table>
-      <button type="button" ng-click="addTune()" class="btn btn-block btn-primary" ng-disabled="newTuneForm.$invalid">楽曲を登録する</button>
-    </form>
-    <div class="alert alert-danger" ng-show="results.length > 0 && newTune.name != null" style="margin-top: 20px">
-      以下の曲はすでに登録されています！入力しようとしている曲は以下の曲ではありませんか？
-    </div>
-    <table class="table table-hover" ng-show="results.length > 0 && newTune.name != null">
+<div class="container-fluid">
+  <div style="margin-top:20px;" ng-if="alert !== {}"><si-alert si-alert="alert"></si-alert></div>
+  <h1>楽曲登録</h1>
+  <div class="alert alert-info">
+    <ul>
+      <li><strong>すでに登録されている楽曲は、新規に登録しないようにお願いします</strong></li>
+      <li>ライブバージョン、アルバムバージョンなど、同名の曲でも別バージョンである場合は登録OKです</li>
+    </ul>
+  </div>
+  <form name="newTuneForm">
+    <table class="table">
       <thead>
       <tr>
-        <th>楽曲名</th>
-        <th>演奏時間</th>
-        <th>アーティスト</th>
-        <th>出典</th>
+        <th>楽曲名 <span class="label label-danger">必須</span></th>
+        <th>演奏時間 <span class="label label-danger">必須</span></th>
+        <th>アーティスト <span class="label label-danger">必須</span></th>
+        <th>出典(アルバム名・作品名・ライブ名など) <span class="label label-default">任意</span></th>
       </tr>
       </thead>
-      <tr ng-repeat="tune in tunes | filter:newTune.name as results">
-        <td>{{ tune.name }}</td>
-        <td>{{ tune.time | date:'mm:ss' }}</td>
-        <td>{{ tune.artist }}</td>
-        <td>{{ tune.source }}</td>
+      <tr>
+        <td><input class="form-control" ng-model="newTune.name" ng-required="true"></td>
+        <td><input class="form-control" ng-model="newTune.time" ng-required="true" placeholder="04:23"></td>
+        <td><input type="text" ng-model="newTune.artist"
+                   typeahead="artist for artist in storedArtists | filter:$viewValue"
+                   ng-required="true" class="form-control"></td>
+        <td><input type="text" ng-model="newTune.source"
+                   typeahead="source for source in storedSources | filter:$viewValue"
+                   ng-required="false" class="form-control"></td>
       </tr>
     </table>
+    <button type="button" ng-click="addTune()" class="btn btn-block btn-primary" ng-disabled="newTuneForm.$invalid">楽曲を登録する</button>
+  </form>
+  <div class="alert alert-danger" ng-show="results.length > 0 && newTune.name != null" style="margin-top: 20px">
+    以下の曲はすでに登録されています！入力しようとしている曲は以下の曲ではありませんか？
   </div>
+  <table class="table table-hover" ng-show="results.length > 0 && newTune.name != null">
+    <thead>
+    <tr>
+      <th>楽曲名</th>
+      <th>演奏時間</th>
+      <th>アーティスト</th>
+      <th>出典</th>
+    </tr>
+    </thead>
+    <tr ng-repeat="tune in tunes | filter:newTune.name as results">
+      <td>{{ tune.name }}</td>
+      <td>{{ tune.time | date:'mm:ss' }}</td>
+      <td>{{ tune.artist }}</td>
+      <td>{{ tune.source }}</td>
+    </tr>
+  </table>
 </div>
-
-
