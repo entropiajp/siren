@@ -22,5 +22,9 @@ public class SongService {
 	public List<SongEntity> findAll(Integer eventId) {
 		return songDao.selectAll(eventId);
 	}
+	
+	public Song find(Integer songId) {
+		return songDao.selectById(songId);
+	}
 
 }

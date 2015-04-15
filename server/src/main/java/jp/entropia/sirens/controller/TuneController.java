@@ -1,5 +1,6 @@
 package jp.entropia.sirens.controller;
 
+import java.security.Principal;
 import java.util.List;
 
 import jp.entropia.sirens.entity.Tune;
@@ -38,14 +39,14 @@ public class TuneController {
 	 * @param model 楽曲情報
 	 */
 	@RequestMapping(method=RequestMethod.POST)
-	public void add(@RequestBody TuneModel model) {
+	public void add(@RequestBody TuneModel model, Principal principal) {
 		Tune tune = new Tune();
 		tune.setName(model.getName());
 		tune.setTime(tuneService.convertStringToLocalTime(model.getTime()));
 		tune.setArtist(model.getArtist());
 		tune.setSource(model.getSource());
 		tuneService.save(tune);
-		activityService.publish("headline.addTune");
+		activityService.publish(principal.getName(), "headline.addTune", tune.getName());
 	}
 	
 	@RequestMapping(value="/artists", method=RequestMethod.GET)

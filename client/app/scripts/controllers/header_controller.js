@@ -2,7 +2,7 @@
   'use strict';
 
   angular.module('clientApp')
-    .controller('HeaderController', function ($scope, globalAlert, user, Event, UtilService, $state, $rootScope, HeadlineService) {
+    .controller('HeaderController', function ($scope, globalAlert, user, Event, UtilService, $state, $rootScope, HeadlineService, $timeout) {
 
       $scope.user = user;
       $scope.managedEvents = Event.findManaged();
@@ -15,10 +15,16 @@
           }
         );
       };
-      $scope.headline = HeadlineService.get();
+      $scope.activity = null;
+      $scope.visible = true;
       $rootScope.$on('onReceived', function(event, data) {
-        $scope.headline = data;
-        $scope.$apply();
+        $scope.$apply(function(){
+          $scope.visible = false;
+        });
+        $timeout(function(){
+          $scope.activity = data;
+          $scope.visible = true;
+        }, 1000);
       });
 
     });

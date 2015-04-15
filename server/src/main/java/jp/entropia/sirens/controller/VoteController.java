@@ -54,7 +54,7 @@ public class VoteController {
 		// TODO トランザクション制御
 		voteService.removeAll(loginMember.getId());
 		votes.stream().forEach(c -> voteService.save(new Vote(loginMember.getId(), c)));
-		activityService.publish("headline.vote");
+		activityService.publish(principal.getName(), "headline.vote", event.getName());
 	}
 	
 	@RequestMapping(value="/{eventId}", method=RequestMethod.GET)

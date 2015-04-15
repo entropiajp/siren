@@ -22,8 +22,9 @@ public class RootController {
 	private ActivityService activityService;
 	
 	@RequestMapping(value="/nowloading")
-	public String postLogin() {
-		activityService.publish("headline.login");
+	public String postLogin(Principal principal) {
+		activityService.publish(principal.getName(), "headline.login");
+		// TODO URLのproperties変数化
 		return "redirect:http://localhost:9000/#/portal";
 	}
 	

@@ -26,7 +26,7 @@ public class MemberService {
 		return memberDao.selectAllJoinedMember(eventId);
 	}
 	
-	public Member select(Integer id) {
+	public Member find(Integer id) {
 		return memberDao.selectById(id);
 	}
 	

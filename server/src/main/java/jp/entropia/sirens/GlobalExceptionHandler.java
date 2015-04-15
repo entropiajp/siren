@@ -1,5 +1,6 @@
 package jp.entropia.sirens;
 
+import jp.entropia.sirens.exception.AlreadyJoinedException;
 import jp.entropia.sirens.exception.ForbiddenException;
 import jp.entropia.sirens.exception.ResourceNotFoundException;
 import jp.entropia.sirens.exception.VoteLimitExceededException;
@@ -27,6 +28,12 @@ public class GlobalExceptionHandler {
 	@ResponseStatus(HttpStatus.FORBIDDEN)
     public String VoteLimitExceededException() {
 		return "投票曲数の制限を超えています";
+	}
+	
+	@ExceptionHandler(value = AlreadyJoinedException.class)
+	@ResponseStatus(HttpStatus.FORBIDDEN)
+    public String AlreadyJoinedException() {
+		return "誰かがすでにエントリー済みです";
 	}
 
 }

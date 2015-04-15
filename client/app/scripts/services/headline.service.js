@@ -9,7 +9,7 @@
       stompClient.connect({}, function(frame) {
         console.log('Connected: ' + frame);
         stompClient.subscribe('/topic/greetings', function(data){
-          m = data.body;
+          m = angular.fromJson(data.body);
           $rootScope.$broadcast('onReceived', m);
         });
       });

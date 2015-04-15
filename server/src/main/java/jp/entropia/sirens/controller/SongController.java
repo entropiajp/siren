@@ -5,12 +5,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import jp.entropia.sirens.entity.Event;
 import jp.entropia.sirens.entity.RoleEntity;
 import jp.entropia.sirens.entity.Song;
 import jp.entropia.sirens.entity.SongEntity;
 import jp.entropia.sirens.exception.ForbiddenException;
 import jp.entropia.sirens.model.SongModel;
 import jp.entropia.sirens.service.ActivityService;
+import jp.entropia.sirens.service.EventService;
 import jp.entropia.sirens.service.ManagerService;
 import jp.entropia.sirens.service.RoleService;
 import jp.entropia.sirens.service.SongService;
@@ -34,6 +36,8 @@ public class SongController {
 	private SongService songService;
 	@Autowired
 	private RoleService roleService;
+	@Autowired
+	private EventService eventService;
 	
 	@RequestMapping(method=RequestMethod.POST)
 	public void add(@RequestParam("eventId") Integer eventId, @RequestBody List<Integer> selectedTuneIds, Principal principal) {
@@ -41,7 +45,8 @@ public class SongController {
 			throw new ForbiddenException();
 		}
 		selectedTuneIds.stream().forEach(e -> songService.save(new Song(eventId, e)));
-		activityService.publish("headline.addSongs");
+		Event event = eventService.find(eventId);
+		activityService.publish(principal.getName(), "headline.addSongs", event.getName());
 	}
 	
 	@RequestMapping(method=RequestMethod.GET)

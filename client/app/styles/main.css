@@ -169,3 +169,28 @@ nav {
     margin-left: auto;
     margin-right: auto;
 }
+
+.animated {
+    opacity: 1;
+}
+
+.animated.ng-hide-add.ng-hide-add-active,
+.animated.ng-hide-remove.ng-hide-remove-active {
+    -webkit-transition: all linear 0.5s;
+    transition: all linear 0.5s;
+}
+
+.animated.ng-hide {
+    opacity: 0;
+}
+
+.activity {
+    font-size: 10px;
+}
+
+.activity img {
+    margin-right: 5px;
+    margin-top: -2px;
+    border-radius: 18px;
+    border: 1px solid #888;
+}

@@ -29,7 +29,7 @@ public class ManagerController {
 			throw new ForbiddenException();
 		}
 		managerService.save(manager);
-		activityService.publish("headline.addManager");
+		activityService.publish(principal.getName(), "headline.addManager", activityService.getEventNameAndManagerName(manager));
 	}
 	
 	@RequestMapping(method=RequestMethod.DELETE)
@@ -44,7 +44,7 @@ public class ManagerController {
 		manager.setEventId(eventId);
 		manager.setMemberId(memberId);
 		managerService.remove(manager);
-		activityService.publish("headline.removeManager");
+		activityService.publish(principal.getName(), "headline.removeManager", activityService.getEventNameAndManagerName(manager));
 	}
 
 }

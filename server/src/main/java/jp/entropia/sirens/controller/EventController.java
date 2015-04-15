@@ -31,7 +31,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.amazonaws.services.s3.transfer.Upload;
 
 @RestController
-@RequestMapping(value="/event")
+@RequestMapping(value = "/event")
 public class EventController {
 
 	@Autowired
@@ -48,7 +48,7 @@ public class EventController {
 	private static final String s3Url = "https://s3-ap-northeast-1.amazonaws.com/band.sirens/event/";
 	
 	@ResponseStatus(HttpStatus.CREATED)
-	@RequestMapping(method=RequestMethod.POST)
+	@RequestMapping(method = RequestMethod.POST)
 	public void create(@RequestBody EventModel model, Principal principal) {
 		// TODO DomaのLocalTransaction使う
 		Event event = new Event();
@@ -69,100 +69,101 @@ public class EventController {
 		manager.setEventId(event.getId());
 		manager.setMemberId(member.getId());
 		managerService.save(manager);
-		
-		activityService.publish("headline.addEvent");
+
+		activityService.publish(principal.getName(), "headline.addEvent", event.getName());
 	}
-	
-	@RequestMapping(value="/{eventId}", method=RequestMethod.PUT)
-	public void update(@PathVariable("eventId") Integer eventId, @RequestBody EventModel model, Principal principal) {
-		if(managerService.isManager(eventId, principal.getName()) == false) {
+
+	@RequestMapping(value = "/{eventId}", method = RequestMethod.PUT)
+	public void update(@PathVariable("eventId") Integer eventId,
+			@RequestBody EventModel model, Principal principal) {
+		if (managerService.isManager(eventId, principal.getName()) == false) {
 			throw new ForbiddenException();
 		}
 		eventService.update(eventService.convertObject(model));
-		activityService.publish("headline.updateEvent");
+		activityService.publish(principal.getName(), "headline.updateEvent", model.getName());
 	}
-	
-	@RequestMapping(value="/{eventId}", method=RequestMethod.GET)
-	public EventModel get(@PathVariable("eventId") Integer eventId, Principal principal) {
-		return eventService.convertObject(eventService.find(eventId, principal.getName()));
+
+	@RequestMapping(value = "/{eventId}", method = RequestMethod.GET)
+	public EventModel get(@PathVariable("eventId") Integer eventId,
+			Principal principal) {
+		return eventService.convertObject(eventService.find(eventId,
+				principal.getName()));
 	}
-	
-	@RequestMapping(value="", method=RequestMethod.GET)
+
+	@RequestMapping(value = "", method = RequestMethod.GET)
 	public List<EventModel> getAll(Principal principal) {
-		return eventService.findAll(principal.getName())
-				.stream()
+		return eventService.findAll(principal.getName()).stream()
 				.map(e -> eventService.convertObject(e))
 				.collect(Collectors.toList());
 	}
-	
-	@RequestMapping(value="/managed", method=RequestMethod.GET)
+
+	@RequestMapping(value = "/managed", method = RequestMethod.GET)
 	public List<EventModel> getEventManagedByLoginUser(Principal principal) {
-		return eventService.findManagedEvents(principal.getName())
-				.stream()
+		return eventService.findManagedEvents(principal.getName()).stream()
 				.map(e -> eventService.convertObject(e))
 				.collect(Collectors.toList());
 	}
-	
-	@RequestMapping(value="/joined", method=RequestMethod.GET)
+
+	@RequestMapping(value = "/joined", method = RequestMethod.GET)
 	public List<EventModel> getEventJoinedByLoginUser(Principal principal) {
-		return eventService.findJoinedEvents(principal.getName())
-				.stream()
+		return eventService.findJoinedEvents(principal.getName()).stream()
 				.map(e -> eventService.convertObject(e))
 				.collect(Collectors.toList());
 	}
-	
-	@RequestMapping(value="/past", method=RequestMethod.GET)
+
+	@RequestMapping(value = "/past", method = RequestMethod.GET)
 	public List<EventModel> getPastEvent() {
-		return eventService.findPastEvents()
-				.stream()
+		return eventService.findPastEvents().stream()
 				.map(e -> eventService.convertObject(e))
 				.collect(Collectors.toList());
 	}
-	
-	@RequestMapping(value="/future", method=RequestMethod.GET)
+
+	@RequestMapping(value = "/future", method = RequestMethod.GET)
 	public List<EventModel> getFutureEvent() {
-		return eventService.findFutureEvents()
-				.stream()
+		return eventService.findFutureEvents().stream()
 				.map(e -> eventService.convertObject(e))
 				.collect(Collectors.toList());
 	}
-	
-	@RequestMapping(value="/{eventId}/is-manager", method=RequestMethod.GET)
-	public void isCurrentUserManager(@PathVariable("eventId") Integer eventId, Principal principal) {
-		if(managerService.isManager(eventId, principal.getName()) == false) {
+
+	@RequestMapping(value = "/{eventId}/is-manager", method = RequestMethod.GET)
+	public void isCurrentUserManager(@PathVariable("eventId") Integer eventId,
+			Principal principal) {
+		if (managerService.isManager(eventId, principal.getName()) == false) {
 			throw new ForbiddenException();
 		}
 	}
-	
-	@RequestMapping(value="/{eventId}/image", method=RequestMethod.POST)
-	public @ResponseBody UploadFileResponse uploadImage(@PathVariable("eventId") Integer eventId,
+
+	@RequestMapping(value = "/{eventId}/image", method = RequestMethod.POST)
+	public @ResponseBody UploadFileResponse uploadImage(
+			@PathVariable("eventId") Integer eventId,
 			@RequestParam("file") MultipartFile file, Principal principal) {
 		if (!file.isEmpty()) {
 			String fileName = file.getOriginalFilename();
-            try {
-            	File f = File.createTempFile(fileName, null);
-            	file.transferTo(f);
-            	Upload upload = s3Service.uploadImage(fileName, f);
-            	upload.waitForCompletion();
-                Event event = eventService.find(eventId);
-                event.setImageUrl(s3Url + fileName);
-                eventService.update(event);
-                activityService.publish("headline.uploadEventImage");
-                return new UploadFileResponse(s3Url + fileName);
-            } catch (Exception e) {
-                return new UploadFileResponse(e.getMessage());
-            }
-        } else {
-            return new UploadFileResponse("You failed to upload because the file was empty.");
-        }
+			try {
+				File f = File.createTempFile(fileName, null);
+				file.transferTo(f);
+				Upload upload = s3Service.uploadImage(fileName, f);
+				upload.waitForCompletion();
+				Event event = eventService.find(eventId);
+				event.setImageUrl(s3Url + fileName);
+				eventService.update(event);
+				activityService.publish(principal.getName(), "headline.uploadEventImage", event.getName());
+				return new UploadFileResponse(s3Url + fileName);
+			} catch (Exception e) {
+				return new UploadFileResponse(e.getMessage());
+			}
+		} else {
+			return new UploadFileResponse(
+					"You failed to upload because the file was empty.");
+		}
 	}
 	
 	private class UploadFileResponse {
 		public String message;
+
 		public UploadFileResponse(String message) {
 			this.message = message;
 		}
 	}
-	
-	
+
 }

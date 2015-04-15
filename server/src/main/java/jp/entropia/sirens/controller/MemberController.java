@@ -61,7 +61,7 @@ public class MemberController {
 		member.setEndTime(event.getEndTime());
 		member.setAttendParty("未定");
 		memberService.save(member);
-		activityService.publish("headline.join");
+		activityService.publish(principal.getName(), "headline.join", event.getName());
 	}
 	
 	/**
@@ -72,12 +72,13 @@ public class MemberController {
 	@RequestMapping(value="/{memberId}", method=RequestMethod.DELETE)
 	public void cancel(@PathVariable("memberId") Integer memberId,
 			Principal principal) {
-		Member member = memberService.select(memberId);
+		Member member = memberService.find(memberId);
 		if(managerService.isManager(member.getEventId(), principal.getName()) == false) {
 			throw new ForbiddenException();
 		}
 		memberService.remove(member);
-		activityService.publish("headline.cancel");
+		Event event = eventService.find(member.getEventId());
+		activityService.publish(principal.getName(), "headline.cancel", event.getName());
 	}
 	
 	/**
@@ -101,7 +102,7 @@ public class MemberController {
 	 */
 	@RequestMapping(value="/{memberId}", method=RequestMethod.PUT)
 	public void update(@PathVariable("memberId") Integer memberId, @RequestBody MemberModel model, Principal principal) {
-		Member member = memberService.select(memberId);
+		Member member = memberService.find(memberId);
 		if(member == null) {
 			throw new ForbiddenException();
 		}
