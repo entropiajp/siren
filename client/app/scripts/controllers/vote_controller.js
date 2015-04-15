@@ -2,12 +2,14 @@
   'use strict';
 
   angular.module('clientApp')
-    .controller('VoteController', function ($scope, globalAlert, $state, $stateParams, Tune, Vote, Event, UtilService) {
+    .controller('VoteController', function ($scope, globalAlert, $state, $stateParams, Tune, Vote, Event, UtilService, my) {
 
       $scope.alert = globalAlert.getAndClear();
       $scope.event = null;
       $scope.tunes = null;
       $scope.votedCount = null;
+      $scope.my = my;
+      $scope.isMember = (my !== null);
 
       $scope.onClick = function() {
         $scope.votedCount = $scope.tunes.filter(function(e){return e.voted;}).length;

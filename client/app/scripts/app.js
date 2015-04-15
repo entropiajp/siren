@@ -83,7 +83,7 @@
           },
           resolve: {
             user: authenticate,
-            authorize: authorize
+            manager: manager
           }
         })
         .state("edit_members", {
@@ -100,7 +100,7 @@
           },
           resolve: {
             user: authenticate,
-            authorize: authorize
+            manager: manager
           }
         })
         .state("new_tune", {
@@ -145,7 +145,7 @@
           },
           resolve: {
             user: authenticate,
-            authorize: authorize
+            manager: manager
           }
         })
         .state("vote", {
@@ -160,7 +160,10 @@
               controller: "VoteController"
             }
           },
-          resolve: { user: authenticate }
+          resolve: {
+            user: authenticate,
+            my: member
+          }
         })
         .state("event_my", {
           url: "/event/:eventId/my",
@@ -174,7 +177,10 @@
               controller: "EventMyController"
             }
           },
-          resolve: { user: authenticate }
+          resolve: {
+            user: authenticate,
+            my: member
+          }
         })
         .state("entry", {
           url: "/event/:eventId/entry",
@@ -188,15 +194,25 @@
               controller: "EntryController"
             }
           },
-          resolve: { user: authenticate }
+          resolve: {
+            user: authenticate,
+            my: member
+          }
         });
 
       function authenticate(UtilService) {
         return UtilService.findUser();
       }
 
-      function authorize(Event, $stateParams) {
+      function manager(Event, $stateParams) {
         return Event.isManager($stateParams.eventId);
+      }
+
+      function member(Member, $stateParams) {
+        var data = Member.findMy($stateParams.eventId);
+        data.startTime = new Date(data.startTime);
+        data.endTime = new Date(data.endTime);
+        return data;
       }
 
       $urlRouterProvider.otherwise('/portal');

@@ -2,10 +2,12 @@
   'use strict';
 
   angular.module('clientApp')
-    .controller('EventMyController', function ($scope, globalAlert, $stateParams, SweetAlert, Member, Event) {
+    .controller('EventMyController', function ($scope, globalAlert, $stateParams, SweetAlert, Member, Event, my) {
 
       $scope.alert = globalAlert.getAndClear();
       $scope.event = null;
+      $scope.my = my;
+      $scope.isMember = (my !== null);
 
       Event.find($stateParams.eventId).then(
         function(data){
@@ -13,14 +15,6 @@
           data.endTime = new Date(data.endTime);
           $scope.event = data;
         });
-
-      Member.findMy($stateParams.eventId).then(
-        function(data){
-          data.startTime = new Date(data.startTime);
-          data.endTime = new Date(data.endTime);
-          $scope.my = data;
-        }
-      );
 
       $scope.submit = function() {
         Member.update($scope.my).then(

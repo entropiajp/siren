@@ -2,7 +2,7 @@
   'use strict';
 
   angular.module('clientApp')
-    .controller('EntryController', function ($scope, globalAlert, Event, $stateParams, Song, Role, user, $state) {
+    .controller('EntryController', function ($scope, globalAlert, Event, $stateParams, Song, Role, user, $state, my) {
 
       $scope.alert = globalAlert.getAndClear();
       $scope.event = null;
@@ -10,6 +10,8 @@
       $scope.newRole = [];
       $scope.user = user;
       $scope.joinedCount = null;
+      $scope.my = my;
+      $scope.isMember = (my !== null);
 
       Event.find($stateParams.eventId).then(
         function(data){

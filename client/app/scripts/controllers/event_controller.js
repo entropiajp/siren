@@ -7,6 +7,15 @@
       $scope.alert = globalAlert.getAndClear();
       $scope.event = null;
 
+      Member.findMy($stateParams.eventId).then(
+        function(){
+          $scope.isMember = true;
+        },
+        function(){
+          $scope.isMember = false;
+        }
+      );
+
       Event.find($stateParams.eventId).then(
         function(data){
           data.startTime = new Date(data.startTime);
