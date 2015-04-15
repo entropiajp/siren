@@ -32,17 +32,17 @@
         </div>
         <div class="col-xs-4 col-sm-3 col-md-3 col-lg-2" ng-repeat="role in song.roles">
           <div class="panel panel-default">
-            <div class="panel-body" style="text-align: center">
-              <h4>{{ role.name }} <small><span class="label label-danger" ng-if="role.required">必須</span></small></h4>
+            <div class="panel-body" style="text-align: center; height:169px;">
+              <h4>{{ role.name }} <span class="label label-danger" ng-if="role.required">必須</span></h4>
               <div ng-if="role.memberName !== null">
                 <img ng-src="{{ role.imageUrl }}" style="border-radius: 24px; border:1px solid #888;"><br>
-                {{ role.memberName }}
+                {{ role.memberName }}<br>
                 <button type="button" class="btn btn-sm btn-danger" ng-click="cancel(role.id)"
                   ng-if="role.userId === user.userId">キャンセル</button>
               </div>
               <div ng-if="role.memberName === null">
                 <div class="empty-user-img"></div>
-                空き
+                空き<br>
                 <button type="button" class="btn btn-sm btn-primary" ng-click="join(role.id)" ng-disabled="joinedCount === event.joinLimit">エントリー</button>
               </div>
             </div>
@@ -50,10 +50,17 @@
         </div>
         <div class="col-xs-4 col-sm-3 col-md-3 col-lg-2">
           <div class="panel panel-default">
-            <div class="panel-body">
-              <input type="text" ng-model="newRole[song.song.id].name" class="form-control" placeholder="パート名">
-              必須チェック: <input type="checkbox" ng-model="newRole[song.song.id].required">
-              <button class="btn btn-success" ng-click="addRole(song.song.id)">パートを追加</button>
+            <div class="panel-body" style="text-align: center; height:169px;">
+              <div class="input-group">
+                <input type="text" ng-model="newRole[song.song.id].name" class="form-control" placeholder="パート名">
+              </div>
+              <div class="btn-group" style="margin: 14px 0 27px 0;" ng-init="newRole[song.song.id].required = 1">
+                <label class="btn btn-default" ng-model="newRole[song.song.id].required" btn-radio="1">必須</label>
+                <label class="btn btn-default" ng-model="newRole[song.song.id].required" btn-radio="0">任意</label>
+              </div>
+              <button class="btn btn-sm btn-success" ng-click="addRole(song.song.id)">
+                <span class="glyphicon glyphicon-plus"></span> パートを追加
+              </button>
             </div>
           </div>
         </div>

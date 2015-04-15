@@ -7,7 +7,7 @@
       $scope.alert = globalAlert.getAndClear();
       $scope.event = null;
       $scope.songs = null;
-      $scope.newRole = {};
+      $scope.newRole = [];
       $scope.user = user;
       $scope.joinedCount = null;
 
