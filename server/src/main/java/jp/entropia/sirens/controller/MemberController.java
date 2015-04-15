@@ -7,6 +7,7 @@ import jp.entropia.sirens.entity.Event;
 import jp.entropia.sirens.entity.Member;
 import jp.entropia.sirens.entity.MemberEntity;
 import jp.entropia.sirens.exception.ForbiddenException;
+import jp.entropia.sirens.exception.NotMemberException;
 import jp.entropia.sirens.model.MemberModel;
 import jp.entropia.sirens.service.ActivityService;
 import jp.entropia.sirens.service.EventService;
@@ -90,8 +91,11 @@ public class MemberController {
 	@RequestMapping(value="/my", method=RequestMethod.GET)
 	public MemberModel getCurrentMember(@RequestParam(required = true, value = "eventId") Integer eventId,
 			Principal principal) {
-		return memberService.convertObject(
-				memberService.findByEventIdAndUserId(eventId, principal.getName()));
+		Member member = memberService.findByEventIdAndUserId(eventId, principal.getName());
+		if(member == null) {
+			throw new NotMemberException();
+		}
+		return memberService.convertObject(member);
 	}
 	
 	/**

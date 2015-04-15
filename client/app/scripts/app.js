@@ -233,7 +233,8 @@
         }
         // 認可チェック
         if(error.status === 403) {
-          globalAlert.set({type: 'error', msg: '管理者のみ許可されたページです'});
+          var msg = (error.data.message != null) ? error.data.message : 'エラーが発生しました';
+          globalAlert.set({type: 'error', msg: msg});
           $state.go('portal');
           e.preventDefault();
         }
