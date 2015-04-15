@@ -43,8 +43,8 @@
         Role.save($scope.newRole[songId]).then(
           function () {
             var msg = $scope.newRole[songId].name + ' を登録しました';
-            $scope.alert = {type: 'success', msg: msg};
-            $scope.newRole[songId] = {};
+            globalAlert.set({type: 'success', msg: msg});
+            $state.reload();
           },
           function () {
             $scope.alert = {type: 'warning', msg: 'おや、失敗しました'};

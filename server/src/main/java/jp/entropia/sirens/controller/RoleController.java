@@ -35,7 +35,7 @@ public class RoleController {
 	@RequestMapping(method=RequestMethod.POST)
 	public void add(@RequestBody Role role, Principal principal) {
 		roleService.save(role);
-		activityService.publish(principal.getName(), "headline.addRoles", activityService.getRoleNameAndEventName(role));
+		activityService.publish(principal.getName(), "headline.addRole", activityService.getRoleNameAndEventName(role));
 	}
 	
 	@RequestMapping(value="/{roleId}", method=RequestMethod.PUT)
