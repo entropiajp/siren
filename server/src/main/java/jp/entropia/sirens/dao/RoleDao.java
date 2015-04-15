@@ -1,7 +1,11 @@
 package jp.entropia.sirens.dao;
 
+import java.util.List;
+
 import jp.entropia.sirens.ConfigAutowireable;
 import jp.entropia.sirens.entity.Role;
+import jp.entropia.sirens.entity.RoleEntity;
+
 import org.seasar.doma.Dao;
 import org.seasar.doma.Delete;
 import org.seasar.doma.Insert;
@@ -19,7 +23,7 @@ public interface RoleDao {
      * @return the Role entity
      */
     @Select
-    Role selectById(Integer roleId);
+    Role selectById(Integer id);
 
     /**
      * @param entity
@@ -41,4 +45,7 @@ public interface RoleDao {
      */
     @Delete
     int delete(Role entity);
+
+    @Select
+	List<RoleEntity> selectAll(Integer eventId);
 }

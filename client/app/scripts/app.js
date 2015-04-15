@@ -175,6 +175,20 @@
             }
           },
           resolve: { user: authenticate }
+        })
+        .state("entry", {
+          url: "/event/:eventId/entry",
+          views: {
+            'header': {
+              templateUrl: "views/includes/header.html",
+              controller: "HeaderController"
+            },
+            'content': {
+              templateUrl: "views/entry.html",
+              controller: "EntryController"
+            }
+          },
+          resolve: { user: authenticate }
         });
 
       function authenticate(UtilService) {

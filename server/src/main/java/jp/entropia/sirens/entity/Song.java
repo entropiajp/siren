@@ -29,8 +29,8 @@ public class Song {
     Integer tuneId;
 
     /** 演奏フラグ */
-    @Column(name = "is_played")
-    Integer isPlayed;
+    @Column(name = "playable")
+    boolean playable;
 
     /** 演奏順 */
     @Column(name = "song_order")
@@ -97,21 +97,21 @@ public class Song {
     }
 
     /** 
-     * Returns the isPlayed.
+     * Returns the playable.
      * 
-     * @return the isPlayed
+     * @return the playable
      */
-    public Integer getIsPlayed() {
-        return isPlayed;
+    public boolean isPlayable() {
+        return playable;
     }
 
     /** 
-     * Sets the isPlayed.
+     * Sets the playable.
      * 
-     * @param isPlayed the isPlayed
+     * @param playable the playable
      */
-    public void setIsPlayed(Integer isPlayed) {
-        this.isPlayed = isPlayed;
+    public void setPlayable(boolean playable) {
+        this.playable = playable;
     }
 
     /** 

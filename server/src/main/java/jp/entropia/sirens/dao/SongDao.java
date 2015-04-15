@@ -1,7 +1,11 @@
 package jp.entropia.sirens.dao;
 
+import java.util.List;
+
 import jp.entropia.sirens.ConfigAutowireable;
 import jp.entropia.sirens.entity.Song;
+import jp.entropia.sirens.entity.SongEntity;
+
 import org.seasar.doma.Dao;
 import org.seasar.doma.Delete;
 import org.seasar.doma.Insert;
@@ -41,4 +45,7 @@ public interface SongDao {
      */
     @Delete
     int delete(Song entity);
+
+    @Select
+	List<SongEntity> selectAll(Integer eventId);
 }

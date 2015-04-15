@@ -3,4 +3,4 @@ select
 from
   role
 where
-  role_id = /* roleId */1
+  id = /* id */1

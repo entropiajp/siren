@@ -1,0 +1,63 @@
+<div class="container-fluid">
+  <div class="row">
+    <div ng-include="'views/includes/sidebar.html'"></div>
+
+    <div class="col-md-9">
+      <div ng-include="'views/includes/member_menu.html'"></div>
+      <h1>楽曲エントリー
+        <small ng-if="event.joinLimit < 9999">ただいまの上限曲数は {{ event.joinLimit }} 曲です。</small>
+        <small ng-if="event.joinLimit == 9999">ただいまの上限曲数はありません</small>
+      </h1>
+      <si-alert si-alert="alert"></si-alert>
+
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">エントリーにあたって主催からのメッセージ</h3>
+        </div>
+        <div class="panel-body">
+          {{ event.joinMessage }}
+        </div>
+      </div>
+
+      <div class="alert alert-info">
+        <ul>
+          <li><strong>上記の主催からのメッセージをよく読んだ上で、エントリーしてください</strong></li>
+          <li>一度回答しても、回答受付期間内なら回答を変更できます</li>
+          <li>もし演奏したい曲が以下にない場合、自分で<a ui-sref="new_tune">楽曲登録</a>をして、あらためて回答してください</li>
+        </ul>
+      </div>
+
+      <div class="row" ng-repeat="song in songs">
+        <div class="col-xs-12">
+          <h3>{{ song.song.name }}</h3>
+        </div>
+        <div class="col-xs-4 col-sm-3 col-md-3 col-lg-2" ng-repeat="role in song.roles">
+          <div class="panel panel-default">
+            <div class="panel-body">
+              <h4>{{ role.name }} <span class="label label-danger" ng-if="role.required">必須</span></h4>
+              <div ng-if="role.memberName !== null">
+                <img ng-src="{{ role.imageUrl }}" width="36" height="36">
+                {{ role.memberName }}
+                <button type="button" class="btn btn-danger" ng-click="cancel(role.id)"
+                  ng-if="role.userId === user.userId">キャンセル</button>
+              </div>
+              <div ng-if="role.memberName === null">
+                <button type="button" class="btn btn-primary" ng-click="join(role.id)" ng-disabled="joinedCount === event.joinLimit">エントリー</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-4 col-sm-3 col-md-3 col-lg-2">
+          <div class="panel panel-default">
+            <div class="panel-body">
+              <input type="text" ng-model="newRole[song.song.id].name" class="form-control" placeholder="パート名">
+              必須チェック: <input type="checkbox" ng-model="newRole[song.song.id].required">
+              <button class="btn btn-success" ng-click="addRole(song.song.id)">パートを追加</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

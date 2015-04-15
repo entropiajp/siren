@@ -20,8 +20,8 @@
         return Resource.update(entity).$promise;
       };
 
-      var query = function() {
-        return Resource.query().$promise;
+      var query = function(eventId) {
+        return Resource.query({eventId: eventId}).$promise;
       };
 
       var remove = function(entity) {

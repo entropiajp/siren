@@ -71,7 +71,7 @@ public class EventPortalEntity {
 
     /** */
     @Column(name = "member_count")
-    Long memberCount;
+    Integer memberCount;
 
     /** */
     @Column(name = "is_member")
@@ -356,7 +356,7 @@ public class EventPortalEntity {
      * 
      * @return the memberCount
      */
-    public Long getMemberCount() {
+    public Integer getMemberCount() {
         return memberCount;
     }
 
@@ -365,7 +365,7 @@ public class EventPortalEntity {
      * 
      * @param memberCount the memberCount
      */
-    public void setMemberCount(Long memberCount) {
+    public void setMemberCount(Integer memberCount) {
         this.memberCount = memberCount;
     }
 

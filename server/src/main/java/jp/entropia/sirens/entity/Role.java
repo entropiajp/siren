@@ -2,6 +2,8 @@ package jp.entropia.sirens.entity;
 
 import org.seasar.doma.Column;
 import org.seasar.doma.Entity;
+import org.seasar.doma.GeneratedValue;
+import org.seasar.doma.GenerationType;
 import org.seasar.doma.Id;
 import org.seasar.doma.Table;
 
@@ -14,8 +16,9 @@ public class Role {
 
     /** ロールID */
     @Id
-    @Column(name = "role_id")
-    Integer roleId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    Integer id;
 
     /** メンバID */
     @Column(name = "member_id")
@@ -30,25 +33,25 @@ public class Role {
     String name;
 
     /** 必須フラグ */
-    @Column(name = "is_required")
-    Short isRequired;
+    @Column(name = "required")
+    boolean required;
 
     /** 
-     * Returns the roleId.
+     * Returns the id.
      * 
-     * @return the roleId
+     * @return the id
      */
-    public Integer getRoleId() {
-        return roleId;
+    public Integer getId() {
+        return id;
     }
 
     /** 
-     * Sets the roleId.
+     * Sets the id.
      * 
-     * @param roleId the roleId
+     * @param id the id
      */
-    public void setRoleId(Integer roleId) {
-        this.roleId = roleId;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     /** 
@@ -106,20 +109,20 @@ public class Role {
     }
 
     /** 
-     * Returns the isRequired.
+     * Returns the required.
      * 
-     * @return the isRequired
+     * @return the required
      */
-    public Short getIsRequired() {
-        return isRequired;
+    public boolean isRequired() {
+        return required;
     }
 
     /** 
-     * Sets the isRequired.
+     * Sets the required.
      * 
-     * @param isRequired the isRequired
+     * @param required the required
      */
-    public void setIsRequired(Short isRequired) {
-        this.isRequired = isRequired;
+    public void setRequired(boolean required) {
+        this.required = required;
     }
 }
