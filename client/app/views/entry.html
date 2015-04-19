@@ -12,8 +12,8 @@
       </div>
       <div ng-if="isEntryPeriod">
         <h1>楽曲エントリー
-          <small ng-if="event.joinLimit < 9999">ただいまの上限曲数は {{ event.joinLimit }} 曲です。</small>
-          <small ng-if="event.joinLimit == 9999">ただいまの上限曲数はありません</small>
+          <small ng-if="event.joinLimit < 9999">上限: {{ event.joinLimit }} 曲</small>
+          <small ng-if="event.joinLimit == 9999">上限: なし</small>
         </h1>
         <si-alert si-alert="alert"></si-alert>
 
@@ -37,7 +37,7 @@
           <div class="col-xs-12">
             <h3>{{ song.song.name }}</h3>
           </div>
-          <div class="col-xs-4 col-sm-3 col-md-3 col-lg-2" ng-repeat="role in song.roles">
+          <div class="col-xs-6 col-sm-3 col-md-3 col-lg-2" ng-repeat="role in song.roles">
             <div class="panel panel-default">
               <div class="panel-body" style="text-align: center; height:169px;">
                 <h4>{{ role.name }} <span class="label label-danger" ng-if="role.required">必須</span></h4>
@@ -55,7 +55,7 @@
               </div>
             </div>
           </div>
-          <div class="col-xs-4 col-sm-3 col-md-3 col-lg-2">
+          <div class="col-xs-6 col-sm-3 col-md-3 col-lg-2">
             <div class="panel panel-default">
               <div class="panel-body" style="text-align: center; height:169px;">
                 <div class="input-group">

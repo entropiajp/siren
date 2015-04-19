@@ -12,8 +12,8 @@
       </div>
       <div ng-if="isVotingPeriod">
         <h1>希望曲投票
-          <small ng-if="event.voteLimit < 9999">ただいまの上限曲数は {{ event.voteLimit }} 曲です。</small>
-          <small ng-if="event.voteLimit == 9999">ただいまの上限曲数はありません</small>
+          <small ng-if="event.voteLimit < 9999">上限: {{ event.voteLimit }} 曲</small>
+          <small ng-if="event.voteLimit == 9999">上限: なし</small>
         </h1>
         <si-alert si-alert="alert"></si-alert>
 
