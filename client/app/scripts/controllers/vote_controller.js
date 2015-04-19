@@ -10,6 +10,8 @@
       $scope.votedCount = null;
       $scope.my = my;
       $scope.isMember = (my !== null);
+      $scope.isEntryPeriod = false;
+      $scope.isVotingPeriod = false;
 
       $scope.onClick = function() {
         $scope.votedCount = $scope.tunes.filter(function(e){return e.voted;}).length;
@@ -23,6 +25,8 @@
             data.voteLimit = 9999;
           }
           $scope.event = data;
+          $scope.isEntryPeriod = UtilService.isBetween($scope.event.joinStartTime, $scope.event.joinEndTime);
+          $scope.isVotingPeriod = UtilService.isBetween($scope.event.voteStartTime, $scope.event.voteEndTime);
         }
       );
 

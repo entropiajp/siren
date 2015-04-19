@@ -2,7 +2,7 @@
   'use strict';
 
   angular.module('clientApp')
-    .controller('EntryController', function ($scope, globalAlert, Event, $stateParams, Song, Role, user, $state, my) {
+    .controller('EntryController', function ($scope, globalAlert, Event, $stateParams, Song, Role, user, $state, my, UtilService) {
 
       $scope.alert = globalAlert.getAndClear();
       $scope.event = null;
@@ -12,6 +12,8 @@
       $scope.joinedCount = null;
       $scope.my = my;
       $scope.isMember = (my !== null);
+      $scope.isEntryPeriod = false;
+      $scope.isVotingPeriod = false;
 
       Event.find($stateParams.eventId).then(
         function(data){
@@ -21,6 +23,8 @@
             data.joinLimit = 9999;
           }
           $scope.event = data;
+          $scope.isEntryPeriod = UtilService.isBetween($scope.event.joinStartTime, $scope.event.joinEndTime);
+          $scope.isVotingPeriod = UtilService.isBetween($scope.event.voteStartTime, $scope.event.voteEndTime);
         }
       );
 

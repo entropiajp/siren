@@ -25,6 +25,14 @@
         <div style="color: #777"><span class="glyphicon glyphicon-calendar"></span> {{ event.startTime | date:'yyyy/MM/dd(EEE) HH:mm' }}</div>
         <div style="color: #777"><span class="glyphicon glyphicon-map-marker"></span> {{ event.place }}</div>
         <div style="color: #777"><span class="glyphicon glyphicon-user"></span> {{ event.memberCount }} 人が参加</div>
+        <div style="color: #777">
+          <span class="label label-default">希望曲投票</span><br>
+          {{ event.voteStartTime | date:'yyyy/MM/dd HH:mm' }} - {{ event.voteEndTime | date:'yyyy/MM/dd HH:mm' }}
+        </div>
+        <div style="color: #777">
+          <span class="label label-default">楽曲エントリー</span><br>
+          {{ event.joinStartTime | date:'yyyy/MM/dd HH:mm' }} - {{ event.joinEndTime | date:'yyyy/MM/dd HH:mm' }}
+        </div>
         <p>{{ event.description | limitTo:100 }}</p>
       </div>
     </div>

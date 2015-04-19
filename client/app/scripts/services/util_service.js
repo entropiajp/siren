@@ -21,10 +21,22 @@
         return $http.post(API_URL + '/logout', {});
       };
 
+      var isBetween = function(fromDateTime, toDateTime) {
+        if(typeof(fromDateTime) === 'string') {
+          fromDateTime = new Date(fromDateTime);
+        }
+        if(typeof(toDateTime) === 'string') {
+          toDateTime = new Date(toDateTime);
+        }
+        var d = new Date();
+        return (fromDateTime <= d) && (d <= toDateTime);
+      };
+
       return {
         convertTimeToDateObject: convertTimeToDateObject,
         findUser: findUser,
-        logout: logout
+        logout: logout,
+        isBetween: isBetween
       };
 
     });

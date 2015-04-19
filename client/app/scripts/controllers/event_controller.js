@@ -2,10 +2,12 @@
   'use strict';
 
   angular.module('clientApp')
-    .controller('EventController', function ($scope, globalAlert, $stateParams, SweetAlert, Member, Event) {
+    .controller('EventController', function ($scope, globalAlert, $stateParams, SweetAlert, Member, Event, UtilService) {
 
       $scope.alert = globalAlert.getAndClear();
       $scope.event = null;
+      $scope.isEntryPeriod = false;
+      $scope.isVotingPeriod = false;
 
       Member.findMy($stateParams.eventId).then(
         function(){
@@ -21,6 +23,8 @@
           data.startTime = new Date(data.startTime);
           data.endTime = new Date(data.endTime);
           $scope.event = data;
+          $scope.isEntryPeriod = UtilService.isBetween($scope.event.joinStartTime, $scope.event.joinEndTime);
+          $scope.isVotingPeriod = UtilService.isBetween($scope.event.voteStartTime, $scope.event.voteEndTime);
         });
 
       $scope.join = function() {
