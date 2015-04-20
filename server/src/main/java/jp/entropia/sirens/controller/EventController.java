@@ -17,6 +17,7 @@ import jp.entropia.sirens.service.MemberService;
 import jp.entropia.sirens.service.S3Service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -44,8 +45,8 @@ public class EventController {
 	private S3Service s3Service;
 	@Autowired
 	private ActivityService activityService;
-	
-	private static final String s3Url = "https://s3-ap-northeast-1.amazonaws.com/band.sirens/event/";
+	@Value("${sirens.s3url}")
+	private String s3Url;
 	
 	@ResponseStatus(HttpStatus.CREATED)
 	@RequestMapping(method = RequestMethod.POST)
@@ -140,11 +141,15 @@ public class EventController {
 		if (!file.isEmpty()) {
 			String fileName = file.getOriginalFilename();
 			try {
+				Event event = eventService.find(eventId);
+				if(event.getImageUrl() != null) {
+					// すでに画像がアップロードされている場合、その画像をS3から削除する
+					s3Service.deleteImage(event.getImageUrl());
+				}
 				File f = File.createTempFile(fileName, null);
 				file.transferTo(f);
 				Upload upload = s3Service.uploadImage(fileName, f);
 				upload.waitForCompletion();
-				Event event = eventService.find(eventId);
 				event.setImageUrl(s3Url + fileName);
 				eventService.update(event);
 				activityService.publish(principal.getName(), "headline.uploadEventImage", event.getName());

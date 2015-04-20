@@ -19,4 +19,11 @@ public class S3Service {
 		TransferManager transferManager = new TransferManager(this.amazonS3);
 		return transferManager.upload("band.sirens", "event/" + fileName, file);
 	}
+	
+	public void deleteImage(String url) {
+		String[] splittedUrl = url.split("/");
+		String fileName = splittedUrl[splittedUrl.length-1];
+		System.out.println(fileName);
+		amazonS3.deleteObject("band.sirens", "event/" + fileName);
+	}
 }
