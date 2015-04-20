@@ -24,7 +24,7 @@
         Event.save($scope.event).then(
           function() {
             globalAlert.set({type: 'success', msg: 'バンオフを作成しました！'});
-            $state.go('portal');
+            $state.go('private.portal');
           },
           function() {
             $scope.alert = {type: 'error', msg: 'おや、失敗しました'};
