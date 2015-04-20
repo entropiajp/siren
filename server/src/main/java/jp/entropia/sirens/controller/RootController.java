@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import jp.entropia.sirens.service.ActivityService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,12 +21,13 @@ public class RootController {
     
     @Autowired
 	private ActivityService activityService;
+    @Value("${sirens.url}")
+    String url = "";
 	
 	@RequestMapping(value="/nowloading")
 	public String postLogin(Principal principal) {
 		activityService.publish(principal.getName(), "headline.login");
-		// TODO URLのproperties変数化
-		return "redirect:http://localhost:9000/#/portal";
+		return "redirect:" + url +"/#/portal";
 	}
 	
 	@RequestMapping(value="/logout", method=RequestMethod.POST)
@@ -36,7 +38,7 @@ public class RootController {
 	
 	@RequestMapping(value="/")
 	public String index(Principal principal) {
-		return "redirect:http://localhost:9000/#/portal";
+		return "redirect:" + url +"/#/portal";
 	}
 
 }
