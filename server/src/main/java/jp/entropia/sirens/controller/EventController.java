@@ -19,6 +19,7 @@ import jp.entropia.sirens.service.S3Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
+import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -51,25 +52,11 @@ public class EventController {
 	@ResponseStatus(HttpStatus.CREATED)
 	@RequestMapping(method = RequestMethod.POST)
 	public void create(@RequestBody EventModel model, Principal principal) {
-		// TODO DomaのLocalTransaction使う
 		Event event = new Event();
 		event.setName(model.getName());
 		event.setStartTime(model.getStartTime().toLocalDateTime());
 		event.setEndTime(model.getEndTime().toLocalDateTime());
-		eventService.save(event);
-		
-		// バンオフ作成者は参加者としても登録
-		Member member = new Member();
-		member.setEventId(event.getId());
-		member.setUserid(principal.getName());
-		member.setAttendParty("参加");
-		memberService.save(member);
-		
-		// バンオフ作成者は管理者になる
-		Manager manager = new Manager();
-		manager.setEventId(event.getId());
-		manager.setMemberId(member.getId());
-		managerService.save(manager);
+		eventService.create(event, principal.getName());
 
 		activityService.publish(principal.getName(), "headline.addEvent", event.getName());
 	}

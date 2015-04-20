@@ -6,17 +6,24 @@ import java.util.List;
 import jp.entropia.sirens.dao.EventDao;
 import jp.entropia.sirens.entity.Event;
 import jp.entropia.sirens.entity.EventPortalEntity;
+import jp.entropia.sirens.entity.Manager;
+import jp.entropia.sirens.entity.Member;
 import jp.entropia.sirens.model.EventModel;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class EventService {
 
 	@Autowired
 	private EventDao eventDao;
+	@Autowired
+	private MemberService memberService;
+	@Autowired
+	private ManagerService managerService;
 	
 	public boolean save(Event event) {
 		return eventDao.insert(event) > 0;
@@ -112,6 +119,24 @@ public class EventService {
             model.setJoinEndTime(entity.getJoinEndTime().atZone(ZoneId.of("Z")));
         }
 		return model;	
+	}
+	
+	@Transactional
+	public void create(Event event, String userId) {
+		save(event);
+		
+		// バンオフ作成者は参加者としても登録
+		Member member = new Member();
+		member.setEventId(event.getId());
+		member.setUserid(userId);
+		member.setAttendParty("参加");
+		memberService.save(member);
+		
+		// バンオフ作成者は管理者になる
+		Manager manager = new Manager();
+		manager.setEventId(event.getId());
+		manager.setMemberId(member.getId());
+		managerService.save(manager);
 	}
 	
 	
