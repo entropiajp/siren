@@ -18,184 +18,130 @@
     ])
     .config(function ($stateProvider, $httpProvider, $urlRouterProvider) {
       $stateProvider
-        .state("new", {
-          url: "/event/new",
-          views: {
-            'header': {
-              templateUrl: "views/includes/header.html",
-              controller: "HeaderController"
-            },
-            'content': {
-              templateUrl: "views/new_event.html",
-              controller: "NewEventController"
-            }
-          },
+        .state("login", {
+          url: "/login",
+          templateUrl: "views/login.html",
+          controller: "LoginController"
+        })
+        .state("private", {
+          templateUrl: "views/includes/private.html",
+          controller: "HeaderController",
           resolve: { user: authenticate }
         })
-        .state("portal", {
+        .state("private.portal", {
           url: "/portal",
           views: {
-            'header': {
-              templateUrl: "views/includes/header.html",
-              controller: "HeaderController"
-            },
             'content': {
               templateUrl: "views/portal.html",
               controller: "PortalController"
             }
-          },
-          resolve: { user: authenticate }
+          }
         })
-        .state("login", {
-          url: "/login",
+        .state("private.help", {
+          url: "/help",
           views: {
             'content': {
-              templateUrl: "views/login.html",
-              controller: "LoginController"
+              templateUrl: "views/help.html",
+              controller: "HelpController"
             }
           }
         })
-        .state("event", {
+        .state("private.new_tune", {
+          url: "/tune/new",
+          views: {
+            'content': {
+              templateUrl: "views/new_tune.html",
+              controller: "NewTuneController"
+            }
+          }
+        })
+        .state("private.new", {
+          url: "/event/new",
+          views: {
+            'content': {
+              templateUrl: "views/new_event.html",
+              controller: "NewEventController"
+            }
+          }
+        })
+        .state("private.event", {
           url: "/event/:eventId",
           views: {
-            'header': {
-              templateUrl: "views/includes/header.html",
-              controller: "HeaderController"
-            },
             'content': {
               templateUrl: "views/event.html",
               controller: "EventController"
             }
-          },
-          resolve: { user: authenticate }
+          }
         })
-        .state("edit_event", {
+        .state("private.edit_event", {
           url: "/event/:eventId/edit",
           views: {
-            'header': {
-              templateUrl: "views/includes/header.html",
-              controller: "HeaderController"
-            },
             'content': {
               templateUrl: "views/edit_event.html",
               controller: "EditEventController"
             }
           },
           resolve: {
-            user: authenticate,
             manager: manager
           }
         })
-        .state("edit_members", {
+        .state("private.edit_members", {
           url: "/event/:eventId/member/edit",
           views: {
-            'header': {
-              templateUrl: "views/includes/header.html",
-              controller: "HeaderController"
-            },
             'content': {
               templateUrl: "views/edit_members.html",
               controller: "MemberController"
             }
           },
           resolve: {
-            user: authenticate,
             manager: manager
           }
         })
-        .state("new_tune", {
-          url: "/tune/new",
-          views: {
-            'header': {
-              templateUrl: "views/includes/header.html",
-              controller: "HeaderController"
-            },
-            'content': {
-              templateUrl: "views/new_tune.html",
-              controller: "NewTuneController"
-            }
-          },
-          resolve: { user: authenticate }
-        })
-        .state("help", {
-          url: "/help",
-          views: {
-            'header': {
-              templateUrl: "views/includes/header.html",
-              controller: "HeaderController"
-            },
-            'content': {
-              templateUrl: "views/help.html",
-              controller: "HelpController"
-            }
-          },
-          resolve: { user: authenticate }
-        })
-        .state("edit_enquete", {
+        .state("private.edit_enquete", {
           url: "/event/:eventId/enquete/edit",
           views: {
-            'header': {
-              templateUrl: "views/includes/header.html",
-              controller: "HeaderController"
-            },
             'content': {
               templateUrl: "views/edit_enquete.html",
               controller: "EditEnqueteController"
             }
           },
           resolve: {
-            user: authenticate,
             manager: manager
           }
         })
-        .state("vote", {
+        .state("private.vote", {
           url: "/event/:eventId/vote",
           views: {
-            'header': {
-              templateUrl: "views/includes/header.html",
-              controller: "HeaderController"
-            },
             'content': {
               templateUrl: "views/vote.html",
               controller: "VoteController"
             }
           },
           resolve: {
-            user: authenticate,
             my: member
           }
         })
-        .state("event_my", {
+        .state("private.event_my", {
           url: "/event/:eventId/my",
           views: {
-            'header': {
-              templateUrl: "views/includes/header.html",
-              controller: "HeaderController"
-            },
             'content': {
               templateUrl: "views/event_my.html",
               controller: "EventMyController"
             }
           },
           resolve: {
-            user: authenticate,
             my: member
           }
         })
-        .state("entry", {
+        .state("private.entry", {
           url: "/event/:eventId/entry",
           views: {
-            'header': {
-              templateUrl: "views/includes/header.html",
-              controller: "HeaderController"
-            },
             'content': {
               templateUrl: "views/entry.html",
               controller: "EntryController"
             }
           },
           resolve: {
-            user: authenticate,
             my: member
           }
         });
@@ -251,7 +197,7 @@
         if(error.status === 403) {
           var msg = (error.data.message != null) ? error.data.message : 'エラーが発生しました';
           globalAlert.set({type: 'error', msg: msg});
-          $state.go('portal');
+          $state.go('private.portal');
           e.preventDefault();
         }
       });
