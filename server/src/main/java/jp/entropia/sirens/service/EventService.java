@@ -48,14 +48,6 @@ public class EventService {
 	public List<Event> findJoinedEvents(String userId) {
 		return eventDao.selectJoinedEvents(userId);
 	}
-
-	public List<Event> findPastEvents() {
-		return eventDao.selectPastEvents();
-	}
-	
-	public List<Event> findFutureEvents() {
-		return eventDao.selectFutureEvents();
-	}
 	
 	public Event convertObject(EventModel model) {
 		Event event = new Event();

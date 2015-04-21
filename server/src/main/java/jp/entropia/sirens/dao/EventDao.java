@@ -53,12 +53,6 @@ public interface EventDao {
 	List<Event> selectJoinedEvents(String userId);
 
     @Select
-	List<Event> selectPastEvents();
-    
-    @Select
-    List<Event> selectFutureEvents();
-
-    @Select
 	List<EventPortalEntity> selectAll(String userId);
     
     @Select

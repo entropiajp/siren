@@ -3,7 +3,7 @@
 
   angular.module('clientApp')
     .factory('Event', function($resource, API_URL, $upload){
-      var Resource = $resource(API_URL + '/event/:id', {id: '@id'},{
+      var Resource = $resource(API_URL + '/events/:id', {id: '@id'},{
         update: {method: 'PUT'}
       });
 
@@ -28,28 +28,20 @@
       };
 
       var findManaged = function() {
-        return $resource(API_URL + '/event/managed').query();
+        return $resource(API_URL + '/events/managed').query();
       };
 
       var findJoined = function() {
-        return $resource(API_URL + '/event/joined').query();
-      };
-
-      var findFuture = function() {
-        return $resource(API_URL + '/event/future').query();
-      };
-
-      var findPast = function() {
-        return $resource(API_URL + '/event/past').query();
+        return $resource(API_URL + '/events/joined').query();
       };
 
       var isManager = function(id) {
-        return $resource(API_URL + '/event/:id/is-manager').get({id: id}).$promise;
+        return $resource(API_URL + '/events/:id/is-manager').get({id: id}).$promise;
       };
 
       var uploadFile = function(files, eventId) {
         return $upload.upload({
-          url: API_URL + '/event/' + eventId + '/image',
+          url: API_URL + '/events/' + eventId + '/image',
           file: files[0]
         });
       };
@@ -62,8 +54,6 @@
         remove: remove,
         findManaged: findManaged,
         findJoined: findJoined,
-        findFuture: findFuture,
-        findPast: findPast,
         isManager: isManager,
         uploadFile: uploadFile
       };

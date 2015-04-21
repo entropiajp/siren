@@ -6,8 +6,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import jp.entropia.sirens.entity.Event;
-import jp.entropia.sirens.entity.Manager;
-import jp.entropia.sirens.entity.Member;
 import jp.entropia.sirens.exception.ForbiddenException;
 import jp.entropia.sirens.model.EventModel;
 import jp.entropia.sirens.service.ActivityService;
@@ -19,7 +17,6 @@ import jp.entropia.sirens.service.S3Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
-import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,7 +30,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.amazonaws.services.s3.transfer.Upload;
 
 @RestController
-@RequestMapping(value = "/event")
+@RequestMapping(value = "/events")
 public class EventController {
 
 	@Autowired
@@ -95,20 +92,6 @@ public class EventController {
 	@RequestMapping(value = "/joined", method = RequestMethod.GET)
 	public List<EventModel> getEventJoinedByLoginUser(Principal principal) {
 		return eventService.findJoinedEvents(principal.getName()).stream()
-				.map(e -> eventService.convertObject(e))
-				.collect(Collectors.toList());
-	}
-
-	@RequestMapping(value = "/past", method = RequestMethod.GET)
-	public List<EventModel> getPastEvent() {
-		return eventService.findPastEvents().stream()
-				.map(e -> eventService.convertObject(e))
-				.collect(Collectors.toList());
-	}
-
-	@RequestMapping(value = "/future", method = RequestMethod.GET)
-	public List<EventModel> getFutureEvent() {
-		return eventService.findFutureEvents().stream()
 				.map(e -> eventService.convertObject(e))
 				.collect(Collectors.toList());
 	}
