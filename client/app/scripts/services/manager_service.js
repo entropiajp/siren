@@ -3,7 +3,7 @@
 
   angular.module('clientApp')
     .factory('Manager', function($resource, API_URL){
-      var Resource = $resource(API_URL + '/manager/:id', {id: '@id'},{
+      var Resource = $resource(API_URL + '/managers/:id', {id: '@id'},{
         update: {method: 'PUT'}
       });
 

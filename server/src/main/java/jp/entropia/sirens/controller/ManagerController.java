@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(value="/manager")
+@RequestMapping(value="/managers")
 public class ManagerController {
 	
 	@Autowired
