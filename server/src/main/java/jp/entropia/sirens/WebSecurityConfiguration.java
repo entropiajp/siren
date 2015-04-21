@@ -35,12 +35,12 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         auth.
             jdbcAuthentication()
             .dataSource(dataSource);
+        // TODO passwordEncoder()でbcrypt使うように設定する
     }
     
     public void configure(WebSecurity web) throws Exception {
-    	// TODO デプロイ時は/asset/以下のみ許可する
     	web.ignoring().antMatchers(
-    			"/fonts/**", "/images/**", "/styles/**", "/scripts/**", "/views/**", "/asset/**");
+    			"/", "/index.html", "/fonts/**", "/images/**", "/styles/**", "/scripts/**", "/views/**");
     }
     
     @Override
