@@ -31,7 +31,7 @@ public class ActivityService {
 		User user = usersService.getCurrentUser(userId);
 		ActivityModel model = new ActivityModel(
 				user.getImageUrl(), user.getName(), messageSource.getMessage(messageCode, args, null));
-		template.convertAndSend("/topic/greetings", model);
+		template.convertAndSend("/topic/activity", model);
 	}
 	
 	public String[] getEventNameAndManagerName(Manager manager) {
