@@ -8,11 +8,9 @@ import org.seasar.doma.jdbc.SqlFileRepository;
 import org.seasar.doma.jdbc.dialect.Dialect;
 import org.seasar.doma.jdbc.dialect.MysqlDialect;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.jdbc.datasource.TransactionAwareDataSourceProxy;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -22,19 +20,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 public class DatabaseConfiguration {
 	
 	@Autowired
-	private DataSourceProperties properties;
-
-	@Bean
-	public DataSource dataSource() {
-
-		DriverManagerDataSource dataSource = new DriverManagerDataSource();
-		dataSource.setDriverClassName(properties.getDriverClassName());
-		dataSource.setUrl(properties.getUrl());
-		dataSource.setUsername(properties.getUsername());
-		dataSource.setPassword(properties.getPassword());
-
-		return new TransactionAwareDataSourceProxy(dataSource);
-	}
+	private DataSource dataSource;
 	
     @Bean
     public Dialect dialect() {
@@ -48,7 +34,7 @@ public class DatabaseConfiguration {
     
     @Bean
     public PlatformTransactionManager transactionManager() {
-        return new DataSourceTransactionManager(dataSource());
+        return new DataSourceTransactionManager(dataSource);
     }
 
     @Bean
@@ -62,7 +48,7 @@ public class DatabaseConfiguration {
 
             @Override
             public DataSource getDataSource() {
-                return dataSource();
+            	return new TransactionAwareDataSourceProxy(dataSource);
             }
 
             @Override
