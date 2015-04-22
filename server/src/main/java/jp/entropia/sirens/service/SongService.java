@@ -27,4 +27,8 @@ public class SongService {
 		return songDao.selectById(songId);
 	}
 
+	public Object update(Song song) {
+		return songDao.update(song) > 0;
+	}
+
 }

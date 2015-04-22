@@ -7,9 +7,9 @@
       var convertTimeToDateObject = function (timeStr, date){
         var HHmmss = timeStr.split(':');
         if(HHmmss[2] === undefined) {
-          return new Date(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), HHmmss[1], 0);
+          return new Date(date.getFullYear(), date.getMonth(), date.getDate(), 0, HHmmss[1], 0);
         } else {
-          return new Date(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), HHmmss[1], HHmmss[2]);
+          return new Date(date.getFullYear(), date.getMonth(), date.getDate(), 0, HHmmss[1], HHmmss[2]);
         }
       };
 
@@ -21,6 +21,7 @@
         return $http.post(API_URL + '/logout', {});
       };
 
+      // 現在時刻がfromdateTimeとtoDateTimeの間に含まれているかを判定する
       var isBetween = function(fromDateTime, toDateTime) {
         if(typeof(fromDateTime) === 'string') {
           fromDateTime = new Date(fromDateTime);
@@ -32,11 +33,27 @@
         return (fromDateTime <= d) && (d <= toDateTime);
       };
 
+      // date1, date2を演奏時間とみなしてmm:ssのみ加算した値を返す
+      var addTime = function(date1, date2) {
+        var d = new Date();
+        d.setHours(date1.getHours() + date2.getHours());
+        d.setMinutes(date1.getMinutes() + date2.getMinutes());
+        d.setSeconds(date1.getSeconds() + date2.getSeconds());
+        return d;
+      };
+
+      function createDateObject(HH,mm,ss) {
+        var d = new Date();
+        return new Date(d.getFullYear(), d.getMonth(), d.getDate(), HH, mm, ss);
+      }
+
       return {
         convertTimeToDateObject: convertTimeToDateObject,
         findUser: findUser,
         logout: logout,
-        isBetween: isBetween
+        isBetween: isBetween,
+        addTime: addTime,
+        createDateObject: createDateObject
       };
 
     });

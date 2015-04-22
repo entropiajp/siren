@@ -1,0 +1,52 @@
+<div class="container-fluid">
+  <div class="row">
+    <div ng-include="'views/includes/sidebar.html'"></div>
+
+    <div class="col-md-9">
+      <div ng-include="'views/includes/admin_menu.html'"></div>
+
+      <h1>セットリスト編集</h1>
+      <si-alert si-alert="alert"></si-alert>
+
+      <p>合計演奏曲数: {{ playableSongsCount }} 合計演奏時間: {{ wholeTime | date:'HH時間mm分ss秒' }}</p>
+
+      <table class="table table-hover" as-sortable="sortableListener" ng-model="songs">
+        <thead>
+        <tr>
+          <th>曲順</th>
+          <th></th>
+          <th>当日演奏</th>
+          <th>楽曲名</th>
+          <th>演奏時間</th>
+          <th>アーティスト</th>
+          <th>出典</th>
+        </tr>
+        </thead>
+        <tr ng-repeat="item in songs" as-sortable-item class="as-sortable-item">
+          <td>{{ item.song.songOrder }}</td>
+          <td as-sortable-item-handle>
+            <button class="btn btn-sm btn-info"><span class="glyphicon glyphicon-move"></span> ドラッグして並べ替え</button>
+          </td>
+          <td>
+            <div class="btn-group btn-group-sm">
+              <label class="btn btn-default" ng-model="item.song.playable" btn-radio="true" ng-change="recalc()">する</label>
+              <label class="btn btn-default" ng-model="item.song.playable" btn-radio="false" ng-change="recalc()">しない</label>
+            </div>
+          </td>
+          <td>{{ item.song.name }}</td>
+          <td>{{ item.song.time | date:'mm:ss' }}</td>
+          <td>{{ item.song.artist }}</td>
+          <td>{{ item.song.source }}</td>
+        </tr>
+      </table>
+
+      <button type="button" class="btn btn-primary btn-lg btn-block" ng-click="submit()" style="margin-bottom: 20px;">
+        セットリストを変更する</button>
+
+      <button type="button" class="btn btn-warning btn-lg btn-block" ng-click="endJoin()" style="margin-bottom: 20px;">
+        楽曲エントリーを終了する</button>
+
+    </div>
+  </div>
+
+</div>

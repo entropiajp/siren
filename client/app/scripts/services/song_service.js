@@ -5,7 +5,8 @@
     .factory('Song', function($resource, API_URL){
       var Resource = $resource(API_URL + '/songs/:id', {id: '@id'},{
         update: {method: 'PUT'},
-        saveAll: {method: 'POST', params:{eventId: '@eventId'}, isArray: true}
+        saveAll: {method: 'POST', params:{eventId: '@eventId'}, isArray: true},
+        updateAll: {method: 'PUT', params:{eventId: '@eventId'}, isArray: true}
       });
 
       var find = function(id) {
@@ -32,13 +33,18 @@
         return Resource.saveAll({eventId: eventId}, entities).$promise;
       };
 
+      var updateAll = function(eventId, entities) {
+        return Resource.updateAll({eventId: eventId}, entities).$promise;
+      };
+
       return {
         find: find,
         save: save,
         update: update,
         query: query,
         remove: remove,
-        saveAll: saveAll
+        saveAll: saveAll,
+        updateAll: updateAll
       };
 
 

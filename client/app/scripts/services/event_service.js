@@ -39,6 +39,10 @@
         return $resource(API_URL + '/events/:id/is-manager').get({id: id}).$promise;
       };
 
+      var endJoin = function(id) {
+        return $resource(API_URL + '/events/:id/end-join', {id: '@id'}).save({id: id}).$promise;
+      };
+
       var uploadFile = function(files, eventId) {
         return $upload.upload({
           url: API_URL + '/events/' + eventId + '/image',
@@ -55,7 +59,8 @@
         findManaged: findManaged,
         findJoined: findJoined,
         isManager: isManager,
-        uploadFile: uploadFile
+        uploadFile: uploadFile,
+        endJoin: endJoin
       };
 
 

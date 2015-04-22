@@ -110,6 +110,18 @@
             manager: manager
           }
         })
+        .state("private.edit_setlist", {
+          url: "/event/:eventId/setlist/edit",
+          views: {
+            'content': {
+              templateUrl: "views/edit_setlist.html",
+              controller: "EditSetlistController"
+            }
+          },
+          resolve: {
+            manager: manager
+          }
+        })
         .state("private.vote", {
           url: "/event/:eventId/vote",
           views: {

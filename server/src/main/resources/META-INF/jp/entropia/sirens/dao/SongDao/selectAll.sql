@@ -10,4 +10,8 @@ select
   tune.source
 from song
   inner join tune on song.tune_id = tune.id
-where song.event_id = /* eventId */3
+where
+  song.event_id = /* eventId */3
+order by
+  playable DESC,
+  song.song_order

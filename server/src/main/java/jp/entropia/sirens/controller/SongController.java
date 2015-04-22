@@ -57,5 +57,15 @@ public class SongController {
 				.collect(Collectors.groupingBy(RoleEntity::getSongId));
 		return songs.stream().map(e -> new SongModel(e, rolesMap.get(e.getId()))).collect(Collectors.toList());
 	}
+	
+	@RequestMapping(method=RequestMethod.PUT)
+	public void update(@RequestParam("eventId") Integer eventId, @RequestBody List<Song> songs, Principal principal) {
+		if(managerService.isManager(eventId, principal.getName()) == false) {
+			throw new ForbiddenException();
+		}
+		songs.stream().forEach(e -> songService.update(e));
+		Event event = eventService.find(eventId);
+		activityService.publish(principal.getName(), "headline.updateSongs", event.getName());
+	}
 
 }

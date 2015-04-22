@@ -2,6 +2,8 @@ package jp.entropia.sirens.controller;
 
 import java.io.File;
 import java.security.Principal;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -139,6 +141,16 @@ public class EventController {
 		public UploadFileResponse(String message) {
 			this.message = message;
 		}
+	}
+	
+	@RequestMapping(value = "/{eventId}/end-join", method = RequestMethod.POST)
+	public void endJoin(@PathVariable("eventId") Integer eventId, Principal principal) {
+		if (managerService.isManager(eventId, principal.getName()) == false) {
+			throw new ForbiddenException();
+		}
+		Event event = eventService.find(eventId);
+		event.setJoinEndTime(LocalDateTime.now(ZoneId.of("Z")));
+		eventService.update(event);
 	}
 
 }
