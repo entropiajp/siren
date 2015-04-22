@@ -14,7 +14,8 @@
       'angular-loading-bar',
       'config',
       'nvd3',
-      'angularFileUpload'
+      'angularFileUpload',
+      'ui.sortable'
     ])
     .config(function ($stateProvider, $httpProvider, $urlRouterProvider) {
       $stateProvider
