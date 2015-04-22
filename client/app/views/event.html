@@ -4,12 +4,23 @@
 
     <div class="col-md-9">
       <div ng-include="'views/includes/member_menu.html'"></div>
+
+      <h1>バンオフ概要</h1>
       <si-alert si-alert="alert"></si-alert>
+
+      <button type="button" class="btn btn-primary btn-lg btn-block" ng-if="!event.member" ng-click="join()" style="margin-bottom: 20px;">
+        このバンオフに参加する</button>
+
       <div class="row">
-        <div class="col-md-12" ng-bind-html="event.description | linky | nl2br">
+        <div class="col-md-12">
+          <div class="panel panel-default">
+            <div class="panel-body" ng-bind-html="event.description | linky | nl2br"></div>
+          </div>
         </div>
       </div>
-      <button ng-click="join()" class="btn btn-primary btn-block" ng-disabled="event.member">このバンオフに参加する</button>
+
+      <button type="button" class="btn btn-primary btn-lg btn-block" ng-if="!event.member" ng-click="join()" style="margin-bottom: 20px;">
+        このバンオフに参加する</button>
     </div>
   </div>
 </div>

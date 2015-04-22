@@ -28,6 +28,15 @@ nav {
     border:1px solid #888;
 }
 
+.pin-sidebar {
+    position: fixed;
+    width: 24%;
+    margin-top: 71px !important;
+    overflow-y: scroll;
+    top: 0;
+    bottom: 0;
+}
+
 .sidebar {
     display: none;
 }

@@ -13,20 +13,22 @@
   </div>
 </div>
 <div class="col-sm-3 visible-md visible-lg" style="margin-top: 20px">
-    <div class="pin" style="position: fixed; width: 24%;">
+    <div class="pin pin-sidebar">
       <div class="past" ng-if="event.endTime < now">終了</div>
       <div>
         <a ui-sref="private.edit_event({eventId: event.id})" ng-show="event.manager"><img ng-src="{{ event.imageUrl }}" style="width:100%"></a>
         <a ui-sref="private.event({eventId: event.id})" ng-hide="event.manager"><img ng-src="{{ event.imageUrl }}" style="width:100%"></a>
       </div>
       <div class="info">
-        <span class="label label-primary" ng-show="event.manager">管理者</span>
-        <span class="label label-success" ng-show="!event.manager && event.member">参加</span>
         <h3>
           <a ui-sref="private.edit_event({eventId: event.id})" ng-show="event.manager">{{ event.name }}</a>
           <a ui-sref="private.event({eventId: event.id})" ng-hide="event.manager">{{ event.name }}</a>
         </h3>
-        <div style="color: #777"><span class="glyphicon glyphicon-calendar"></span> {{ event.startTime | date:'yyyy/MM/dd(EEE) HH:mm' }}</div>
+        <div style="color: #777">
+          <span class="glyphicon glyphicon-calendar"></span> {{ event.startTime | date:'yyyy/MM/dd(EEE) HH:mm' }}
+          <span class="label label-primary" ng-show="event.manager">管理者</span>
+          <span class="label label-success" ng-show="!event.manager && event.member">参加</span>
+        </div>
         <div style="color: #777"><span class="glyphicon glyphicon-map-marker"></span> {{ event.place }}</div>
         <div style="color: #777"><span class="glyphicon glyphicon-user"></span> {{ event.memberCount }} 人が参加</div>
         <div style="color: #777">
@@ -37,7 +39,7 @@
           <span class="label label-default">楽曲エントリー</span><br>
           {{ event.joinStartTime | date:'yyyy/MM/dd HH:mm' }} - {{ event.joinEndTime | date:'yyyy/MM/dd HH:mm' }}
         </div>
-        <p>{{ event.description | limitTo:100 }}</p>
+        <p ng-bind-html="event.description | linky | nl2br"></p>
       </div>
     </div>
 </div>
