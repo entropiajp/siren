@@ -9,15 +9,6 @@
       $scope.isEntryPeriod = false;
       $scope.isVotingPeriod = false;
 
-      Member.findMy($stateParams.eventId).then(
-        function(){
-          $scope.isMember = true;
-        },
-        function(){
-          $scope.isMember = false;
-        }
-      );
-
       Event.find($stateParams.eventId).then(
         function(data){
           data.startTime = new Date(data.startTime);

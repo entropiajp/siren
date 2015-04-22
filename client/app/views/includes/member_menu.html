@@ -1,15 +1,15 @@
 <nav class="navbar navbar-inverse" style="margin-top: 20px">
   <ul class="nav navbar-nav">
     <li ui-sref-active="active"><a ui-sref="private.event({eventId: event.id})">バンオフ概要</a></li>
-    <li ui-sref-active="active" ng-if="isMember"><a ui-sref="private.event_my({eventId: event.id})">自分の情報</a></li>
-    <li ui-sref-active="active" ng-if="!isMember" class="disabled"><a href="">自分の情報</a></li>
-    <li ui-sref-active="active" ng-if="isMember">
+    <li ui-sref-active="active" ng-if="event.member"><a ui-sref="private.event_my({eventId: event.id})">自分の情報</a></li>
+    <li ui-sref-active="active" ng-if="!event.member" class="disabled"><a href="">自分の情報</a></li>
+    <li ui-sref-active="active" ng-if="event.member">
       <a ui-sref="private.vote({eventId: event.id})">希望曲投票 <span class="badge" ng-if="!isVotingPeriod">期間外</span></a>
     </li>
-    <li ui-sref-active="active" ng-if="!isMember" class="disabled"><a href="">希望曲投票</a></li>
-    <li ui-sref-active="active" ng-if="isMember">
+    <li ui-sref-active="active" ng-if="!event.member" class="disabled"><a href="">希望曲投票</a></li>
+    <li ui-sref-active="active" ng-if="event.member">
       <a ui-sref="private.entry({eventId: event.id})">楽曲エントリー <span class="badge" ng-if="!isEntryPeriod">期間外</span></a>
     </li>
-    <li ui-sref-active="active" ng-if="!isMember" class="disabled"><a href="">楽曲エントリー</a></li>
+    <li ui-sref-active="active" ng-if="!event.member" class="disabled"><a href="">楽曲エントリー</a></li>
   </ul>
 </nav>
