@@ -20,7 +20,7 @@ public class RootController {
     @Autowired
 	private ActivityService activityService;
     
-    @Value("${sirens.url:}")
+    @Value("${sirens.client-url:}")
     String url;
 	
 	@RequestMapping(value="/nowloading")

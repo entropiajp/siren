@@ -18,7 +18,7 @@ import org.springframework.stereotype.Component;
 @Profile("develop")
 public class CORSFilter implements Filter {
 	
-	@Value("${sirens.url: }")
+	@Value("${sirens.client-url: }")
     String url;
 
 	public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {
