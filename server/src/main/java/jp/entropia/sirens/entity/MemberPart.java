@@ -11,8 +11,15 @@ import org.seasar.doma.Table;
 @Entity(listener = MemberPartListener.class)
 @Table(name = "member_part")
 public class MemberPart {
+	
+	public MemberPart() {}
+    public MemberPart(Integer memberId, Integer partId) {
+		this.memberId = memberId;
+		this.partId = partId;
+	}
 
-    /** メンバID */
+
+	/** メンバID */
     @Id
     @Column(name = "member_id")
     Integer memberId;

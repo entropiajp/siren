@@ -29,8 +29,8 @@
         return Resource.remove({id: id}).$promise;
       };
 
-      var join = function(eventId) {
-        return Resource.join({eventId: eventId}).$promise;
+      var join = function(eventId, parts) {
+        return Resource.join({eventId: eventId}, parts).$promise;
       };
 
       var findMy = function(eventId) {

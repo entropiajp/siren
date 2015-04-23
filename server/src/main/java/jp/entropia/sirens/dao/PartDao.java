@@ -1,7 +1,10 @@
 package jp.entropia.sirens.dao;
 
+import java.util.List;
+
 import jp.entropia.sirens.ConfigAutowireable;
 import jp.entropia.sirens.entity.Part;
+
 import org.seasar.doma.Dao;
 import org.seasar.doma.Delete;
 import org.seasar.doma.Insert;
@@ -41,4 +44,7 @@ public interface PartDao {
      */
     @Delete
     int delete(Part entity);
+
+    @Select
+	List<Part> selectAll();
 }

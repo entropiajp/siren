@@ -6,15 +6,19 @@ import java.util.List;
 import jp.entropia.sirens.entity.Event;
 import jp.entropia.sirens.entity.Member;
 import jp.entropia.sirens.entity.MemberEntity;
+import jp.entropia.sirens.entity.MemberPart;
 import jp.entropia.sirens.exception.ForbiddenException;
 import jp.entropia.sirens.exception.NotMemberException;
 import jp.entropia.sirens.model.MemberModel;
+import jp.entropia.sirens.model.PartModel;
 import jp.entropia.sirens.service.ActivityService;
 import jp.entropia.sirens.service.EventService;
 import jp.entropia.sirens.service.ManagerService;
 import jp.entropia.sirens.service.MemberService;
+import jp.entropia.sirens.service.PartService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,6 +38,8 @@ public class MemberController {
 	private ActivityService activityService;
 	@Autowired
 	private EventService eventService;
+	@Autowired
+	private PartService partService;
 	
 	/**
 	 * イベントの全参加者を取得する
@@ -52,16 +58,23 @@ public class MemberController {
 	 * @param principal
 	 */
 	@RequestMapping(method=RequestMethod.POST)
+	@Transactional
 	public void join(@RequestParam(required = true, value = "eventId") Integer eventId,
-			Principal principal) {
-		Member member = new Member();
+			@RequestBody List<PartModel> model, Principal principal) {
 		Event event = eventService.find(eventId);
+		
+		// メンバ情報を保存
+		Member member = new Member();
 		member.setEventId(eventId);
 		member.setUserid(principal.getName());
 		member.setStartTime(event.getStartTime());
 		member.setEndTime(event.getEndTime());
 		member.setAttendParty("未定");
 		memberService.save(member);
+		
+		// 担当パート情報を保存
+		model.stream().forEach(e -> partService.saveMemberPart(new MemberPart(member.getId(), e.getId())));
+		
 		activityService.publish(principal.getName(), "headline.join", event.getName());
 	}
 	

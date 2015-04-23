@@ -14,29 +14,29 @@ public class Part {
 
     /** 楽器歌唱パートID */
     @Id
-    @Column(name = "part_id")
-    Integer partId;
+    @Column(name = "id")
+    Integer id;
 
     /** パート名 */
     @Column(name = "name")
     String name;
 
     /** 
-     * Returns the partId.
+     * Returns the id.
      * 
-     * @return the partId
+     * @return the id
      */
-    public Integer getPartId() {
-        return partId;
+    public Integer getId() {
+        return id;
     }
 
     /** 
-     * Sets the partId.
+     * Sets the id.
      * 
-     * @param partId the partId
+     * @param id the id
      */
-    public void setPartId(Integer partId) {
-        this.partId = partId;
+    public void setPartId(Integer id) {
+        this.id = id;
     }
 
     /** 
