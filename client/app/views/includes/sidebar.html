@@ -25,7 +25,8 @@
           <a ui-sref="private.event({eventId: event.id})" ng-hide="event.manager">{{ event.name }}</a>
         </h3>
         <div style="color: #777">
-          <span class="glyphicon glyphicon-calendar"></span> {{ event.startTime | date:'yyyy/MM/dd(EEE) HH:mm' }}
+          <span class="glyphicon glyphicon-calendar"></span>
+          {{ event.startTime | date:'yyyy/MM/dd(EEE) HH:mm' }} - {{ event.endTime | date:'HH:mm' }}
           <span class="label label-primary" ng-show="event.manager">管理者</span>
           <span class="label label-success" ng-show="!event.manager && event.member">参加</span>
         </div>

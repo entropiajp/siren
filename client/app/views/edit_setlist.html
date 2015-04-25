@@ -25,7 +25,12 @@
         <tr ng-repeat="item in songs" as-sortable-item class="as-sortable-item">
           <td>{{ item.song.songOrder }}</td>
           <td as-sortable-item-handle>
-            <button class="btn btn-sm btn-info"><span class="glyphicon glyphicon-move"></span> ドラッグして並べ替え</button>
+            <button class="btn btn-sm btn-info visible-md visible-lg">
+              <span class="glyphicon glyphicon-move"></span> ドラッグして並べ替え
+            </button>
+            <button class="btn btn-sm btn-info visible-xs visible-sm">
+              <span class="glyphicon glyphicon-move"></span>
+            </button>
           </td>
           <td>
             <div class="btn-group btn-group-sm">
