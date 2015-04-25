@@ -12,8 +12,8 @@
       </div>
       <div ng-if="isVotingPeriod">
         <h1>希望曲投票
-          <small ng-if="event.voteLimit < 9999">上限: {{ event.voteLimit }} 曲</small>
-          <small ng-if="event.voteLimit == 9999">上限: なし</small>
+          <small ng-if="event.voteLimit !== null">上限: {{ event.voteLimit }} 曲</small>
+          <small ng-if="event.voteLimit === null">上限: なし</small>
         </h1>
         <si-alert si-alert="alert"></si-alert>
 
@@ -37,7 +37,9 @@
           <input type="text" ng-model="search" class="form-control" id="search" placeholder="曲名やアーティスト名で楽曲を絞りこむ">
         </div>
         <form>
-          <button type="button" ng-click="vote()" ng-disabled="votedCount > event.voteLimit || votedCount == 0" class="btn btn-block btn-primary">回答する</button>
+          <button type="button" ng-click="vote()" class="btn btn-block btn-primary"
+                  ng-disabled="(event.voteLimit !== null && (event.voteLimit < votedCount || votedCount === 0)) || (event.voteLimit === null && votedCount === 0)" >
+            回答する</button>
         </form>
         <table class="table table-hover">
           <thead>

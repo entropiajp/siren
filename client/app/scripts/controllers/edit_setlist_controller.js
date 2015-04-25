@@ -2,10 +2,10 @@
   'use strict';
 
   angular.module('clientApp')
-    .controller('EditSetlistController', function ($scope, globalAlert, $state, $stateParams, Event, UtilService, Song, user) {
+    .controller('EditSetlistController', function ($scope, globalAlert, $state, $stateParams, Event, UtilService, Song, user, event) {
 
       $scope.alert = globalAlert.getAndClear();
-      $scope.event = null;
+      $scope.event = event;
       $scope.songs = null;
       $scope.wholeTime = null;
       $scope.playableSongsCount = 0;
@@ -17,15 +17,6 @@
       };
       $scope.submit = submit;
       $scope.endJoin = endJoin;
-
-
-      Event.find($stateParams.eventId).then(
-        function(data){
-          data.startTime = new Date(data.startTime);
-          data.endTime = new Date(data.endTime);
-          $scope.event = data;
-        }
-      );
 
       Song.query($stateParams.eventId).then(
         function(data){

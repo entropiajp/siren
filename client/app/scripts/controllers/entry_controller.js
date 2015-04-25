@@ -2,31 +2,19 @@
   'use strict';
 
   angular.module('clientApp')
-    .controller('EntryController', function ($scope, globalAlert, Event, $stateParams, Song, Role, user, $state, my, UtilService) {
+    .controller('EntryController', function ($scope, globalAlert, $stateParams, Song, Role, user, $state, UtilService, event) {
 
       $scope.alert = globalAlert.getAndClear();
-      $scope.event = null;
+      $scope.event = event;
       $scope.songs = null;
       $scope.newRole = [];
       $scope.user = user;
       $scope.joinedCount = null;
-      $scope.my = my;
-      $scope.isMember = (my !== null);
-      $scope.isEntryPeriod = false;
-      $scope.isVotingPeriod = false;
-
-      Event.find($stateParams.eventId).then(
-        function(data){
-          data.startTime = new Date(data.startTime);
-          data.endTime = new Date(data.endTime);
-          if(data.joinLimit === null) {
-            data.joinLimit = 9999;
-          }
-          $scope.event = data;
-          $scope.isEntryPeriod = UtilService.isBetween($scope.event.joinStartTime, $scope.event.joinEndTime);
-          $scope.isVotingPeriod = UtilService.isBetween($scope.event.voteStartTime, $scope.event.voteEndTime);
-        }
-      );
+      $scope.isEntryPeriod = UtilService.isBetween($scope.event.joinStartTime, $scope.event.joinEndTime);
+      $scope.isVotingPeriod = UtilService.isBetween($scope.event.voteStartTime, $scope.event.voteEndTime);
+      $scope.addRole = addRole;
+      $scope.join = join;
+      $scope.cancel = cancel;
 
       Song.query($stateParams.eventId).then(
         function(data){
@@ -42,7 +30,7 @@
         }
       );
 
-      $scope.addRole = function(songId){
+      function addRole(songId){
         $scope.newRole[songId].songId = songId;
         Role.save($scope.newRole[songId]).then(
           function () {
@@ -54,9 +42,9 @@
             $scope.alert = {type: 'warning', msg: 'おや、失敗しました'};
           }
         );
-      };
+      }
 
-      $scope.join = function(roleId){
+      function join(roleId){
         Role.join(roleId, $stateParams.eventId).then(
           function () {
             var msg = 'エントリーしました';
@@ -67,9 +55,9 @@
             $scope.alert = {type: 'warning', msg: 'おや、失敗しました'};
           }
         );
-      };
+      }
 
-      $scope.cancel = function(roleId){
+      function cancel(roleId){
         Role.cancel(roleId).then(
           function () {
             var msg = 'キャンセルしました';
@@ -80,7 +68,7 @@
             $scope.alert = {type: 'warning', msg: 'おや、失敗しました'};
           }
         );
-      };
+      }
 
     });
 

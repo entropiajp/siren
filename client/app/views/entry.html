@@ -12,8 +12,8 @@
       </div>
       <div ng-if="isEntryPeriod">
         <h1>楽曲エントリー
-          <small ng-if="event.joinLimit < 9999">上限: {{ event.joinLimit }} 曲</small>
-          <small ng-if="event.joinLimit == 9999">上限: なし</small>
+          <small ng-if="event.joinLimit !== null">上限: {{ event.joinLimit }} 曲</small>
+          <small ng-if="event.joinLimit === null">上限: なし</small>
         </h1>
         <si-alert si-alert="alert"></si-alert>
 

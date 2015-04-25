@@ -2,31 +2,15 @@
   'use strict';
 
   angular.module('clientApp')
-    .controller('EditEnqueteController', function ($scope, globalAlert, $state, $stateParams, Event, Vote, UtilService, Tune, Song) {
+    .controller('EditEnqueteController', function ($scope, globalAlert, $state, $stateParams, event, Vote, UtilService, Tune, Song) {
 
       $scope.alert = globalAlert.getAndClear();
-      $scope.event = null;
+      $scope.event = event;
       $scope.result = null;
       $scope.resultForGraph = null;
       $scope.tunes = null;
-
-
-      Event.find($stateParams.eventId).then(
-        function(data){
-          var d = new Date();
-          d.setHours(22);
-          d.setMinutes(0);
-          d.setSeconds(0);
-
-          data.startTime = new Date(data.startTime);
-          data.endTime = new Date(data.endTime);
-
-          $scope.event = data;
-          $scope.event.voteStartTime = (data.voteStartTime == null) ? d : new Date(data.voteStartTime);
-          $scope.event.voteEndTime = (data.voteEndTime == null) ? d : new Date(data.voteEndTime);
-
-        }
-      );
+      $scope.checkVotedTunes = checkVotedTunes;
+      $scope.submit = submit;
 
       Vote.findResult($stateParams.eventId).then(
         function(data){
@@ -82,7 +66,7 @@
         }
       );
 
-      $scope.checkVotedTunes = function() {
+      function checkVotedTunes() {
         $scope.result.forEach(function(r){
           for(var i=0; i<$scope.tunes.length; i++) {
             if(r.tuneId === $scope.tunes[i].id) {
@@ -91,9 +75,9 @@
             }
           }
         });
-      };
+      }
 
-      $scope.submit = function() {
+      function submit() {
         var songs = $scope.tunes
           .filter(function(e){return e.candidate;})
           .map(function(e){return e.id;});
@@ -106,7 +90,7 @@
             $scope.alert = {type: 'warning', msg: 'おや、失敗しました'};
           }
         );
-      };
+      }
 
     });
 

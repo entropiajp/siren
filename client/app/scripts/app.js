@@ -72,6 +72,9 @@
               templateUrl: "views/event.html",
               controller: "EventController"
             }
+          },
+          resolve: {
+            event: event
           }
         })
         .state("private.edit_event", {
@@ -83,6 +86,7 @@
             }
           },
           resolve: {
+            event: event,
             manager: manager
           }
         })
@@ -95,6 +99,7 @@
             }
           },
           resolve: {
+            event: event,
             manager: manager
           }
         })
@@ -107,6 +112,7 @@
             }
           },
           resolve: {
+            event: event,
             manager: manager
           }
         })
@@ -119,6 +125,7 @@
             }
           },
           resolve: {
+            event: event,
             manager: manager
           }
         })
@@ -131,7 +138,7 @@
             }
           },
           resolve: {
-            my: member
+            event: event
           }
         })
         .state("private.event_my", {
@@ -143,7 +150,7 @@
             }
           },
           resolve: {
-            my: member
+            event: event
           }
         })
         .state("private.entry", {
@@ -155,7 +162,7 @@
             }
           },
           resolve: {
-            my: member
+            event: event
           }
         });
 
@@ -167,11 +174,8 @@
         return Event.isManager($stateParams.eventId);
       }
 
-      function member(Member, $stateParams) {
-        var data = Member.findMy($stateParams.eventId);
-        data.startTime = new Date(data.startTime);
-        data.endTime = new Date(data.endTime);
-        return data;
+      function event(Event, $stateParams) {
+        return Event.find($stateParams.eventId);
       }
 
       $urlRouterProvider.otherwise('/portal');

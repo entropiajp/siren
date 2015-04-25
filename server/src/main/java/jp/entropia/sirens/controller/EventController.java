@@ -55,6 +55,10 @@ public class EventController {
 		event.setName(model.getName());
 		event.setStartTime(model.getStartTime().toLocalDateTime());
 		event.setEndTime(model.getEndTime().toLocalDateTime());
+		event.setVoteStartTime(LocalDateTime.now(ZoneId.of("Z")));
+		event.setVoteEndTime(LocalDateTime.now(ZoneId.of("Z")));
+		event.setJoinStartTime(LocalDateTime.now(ZoneId.of("Z")));
+		event.setJoinEndTime(LocalDateTime.now(ZoneId.of("Z")));
 		eventService.create(event, principal.getName());
 
 		activityService.publish(principal.getName(), "headline.addEvent", event.getName());

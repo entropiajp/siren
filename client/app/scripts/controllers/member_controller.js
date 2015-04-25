@@ -2,19 +2,15 @@
   'use strict';
 
   angular.module('clientApp')
-    .controller('MemberController', function ($scope, globalAlert, $stateParams, Member, Manager, $state, SweetAlert, Event, user) {
+    .controller('MemberController', function ($scope, globalAlert, $stateParams, Member, Manager, $state, SweetAlert, event, user) {
 
       $scope.alert = globalAlert.getAndClear();
-      $scope.event = null;
+      $scope.event = event;
       $scope.user = user;
       $scope.members = null;
-
-      Event.find($stateParams.eventId).then(
-        function(data){
-          data.startTime = new Date(data.startTime);
-          data.endTime = new Date(data.endTime);
-          $scope.event = data;
-        });
+      $scope.cancel = cancel;
+      $scope.addManager = addManager;
+      $scope.removeManager = removeManager;
 
       Member.query($stateParams.eventId).then(
         function(data) {
@@ -22,7 +18,7 @@
         }
       );
 
-      $scope.cancel = function(memberId) {
+      function cancel(memberId) {
         SweetAlert.swal({
             title: "参加者をキャンセルしますか？",
             text: "この操作はやり直せません。",
@@ -46,9 +42,9 @@
             }
           }
         );
-      };
+      }
 
-      $scope.addManager = function(memberId) {
+      function addManager(memberId) {
         var manager = {
           eventId: $stateParams.eventId,
           memberId: memberId
@@ -76,9 +72,9 @@
             }
           }
         );
-      };
+      }
 
-      $scope.removeManager = function(memberId) {
+      function removeManager(memberId) {
         var manager = {
           eventId: $stateParams.eventId,
           memberId: memberId
@@ -106,7 +102,7 @@
             }
           }
         );
-      };
+      }
 
 
     });

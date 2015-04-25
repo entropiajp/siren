@@ -42,9 +42,12 @@
         return d;
       };
 
-      function createDateObject(HH,mm,ss) {
-        var d = new Date();
-        return new Date(d.getFullYear(), d.getMonth(), d.getDate(), HH, mm, ss);
+      // 時、分、秒の文字列からDateオブジェクトを生成する。dateObjが指定されていればその年月日を設定する
+      function createDateObject(HH, mm, ss, dateObj) {
+        if(dateObj === undefined) {
+          dateObj = new Date();
+        }
+        return new Date(dateObj.getFullYear(), dateObj.getMonth(), dateObj.getDate(), HH, mm, ss);
       }
 
       return {

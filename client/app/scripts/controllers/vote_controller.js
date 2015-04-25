@@ -2,33 +2,16 @@
   'use strict';
 
   angular.module('clientApp')
-    .controller('VoteController', function ($scope, globalAlert, $state, $stateParams, Tune, Vote, Event, UtilService, my) {
+    .controller('VoteController', function ($scope, globalAlert, $state, $stateParams, Tune, Vote, UtilService, event) {
 
       $scope.alert = globalAlert.getAndClear();
-      $scope.event = null;
+      $scope.event = event;
       $scope.tunes = null;
       $scope.votedCount = null;
-      $scope.my = my;
-      $scope.isMember = (my !== null);
-      $scope.isEntryPeriod = false;
-      $scope.isVotingPeriod = false;
-
-      $scope.onClick = function() {
-        $scope.votedCount = $scope.tunes.filter(function(e){return e.voted;}).length;
-      };
-
-      Event.find($stateParams.eventId).then(
-        function(data){
-          data.startTime = new Date(data.startTime);
-          data.endTime = new Date(data.endTime);
-          if(data.voteLimit === null) {
-            data.voteLimit = 9999;
-          }
-          $scope.event = data;
-          $scope.isEntryPeriod = UtilService.isBetween($scope.event.joinStartTime, $scope.event.joinEndTime);
-          $scope.isVotingPeriod = UtilService.isBetween($scope.event.voteStartTime, $scope.event.voteEndTime);
-        }
-      );
+      $scope.isEntryPeriod = UtilService.isBetween($scope.event.joinStartTime, $scope.event.joinEndTime);
+      $scope.isVotingPeriod = UtilService.isBetween($scope.event.voteStartTime, $scope.event.voteEndTime);
+      $scope.onClick = onClick;
+      $scope.vote = vote;
 
       Vote.query($stateParams.eventId).then(
         function(data) {
@@ -43,7 +26,7 @@
         }
       );
 
-      $scope.vote = function() {
+      function vote() {
         var votes = $scope.tunes
           .filter(function(e){return e.voted;})
           .map(function(e){return e.id;});
@@ -56,7 +39,11 @@
             $scope.alert = {type: 'warning', msg: 'おや、失敗しました'};
           }
         );
-      };
+      }
+
+      function onClick() {
+        $scope.votedCount = $scope.tunes.filter(function(e){return e.voted;}).length;
+      }
 
     });
 
