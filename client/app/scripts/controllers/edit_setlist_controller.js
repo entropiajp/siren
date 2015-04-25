@@ -32,7 +32,7 @@
           for(var i=0; i<data.length; i++) {
             data[i].song.time = UtilService.convertTimeToDateObject(data[i].song.time, new Date());
           }
-          $scope.songs = data;
+          $scope.songs = assignSongOrder(data);
           $scope.wholeTime = calcWholeTime(data);
           $scope.playableSongsCount = calcPlayableSongsCount(data);
         }
