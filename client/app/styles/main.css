@@ -73,7 +73,7 @@ nav {
 }
 
 .coverimg {
-    background: url('../images/tumblr_n4ka9c0nTN1ta0hnbo1_1280.jpg') center center no-repeat fixed;
+    background: url('https://s3-ap-northeast-1.amazonaws.com/band.sirens/tumblr_n4ka9c0nTN1ta0hnbo1_1280.jpg') center center no-repeat fixed;
     background-size: cover;
 }
 
