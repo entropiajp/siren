@@ -40,7 +40,7 @@ dependencies {
     compile("org.thymeleaf.extras:thymeleaf-extras-springsecurity3:2.1.1.RELEASE")
     compile("org.seasar.doma:doma:2.1.0")
     compile("org.hibernate:hibernate-validator")
-    compile("mysql:mysql-connector-java:5.1.30")
+    compile("mysql:mysql-connector-java:5.1.35")
     compile("net.sourceforge.nekohtml:nekohtml:1.9.20")
     compile("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.5.2")
     testCompile("junit:junit:4.12")
