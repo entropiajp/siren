@@ -2,6 +2,7 @@ package jp.entropia.sirens.dao;
 
 import jp.entropia.sirens.ConfigAutowireable;
 import jp.entropia.sirens.entity.MemberPart;
+
 import org.seasar.doma.Dao;
 import org.seasar.doma.Delete;
 import org.seasar.doma.Insert;
@@ -45,4 +46,7 @@ public interface MemberPartDao {
     
     @Delete(sqlFile=true)
     int deleteByEventId(Integer eventId);
+    
+    @Delete(sqlFile=true)
+    int deleteByMemberId(Integer memberId);
 }

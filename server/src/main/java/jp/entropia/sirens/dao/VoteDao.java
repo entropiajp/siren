@@ -59,4 +59,7 @@ public interface VoteDao {
 	
 	@Delete(sqlFile=true)
     int deleteByEventId(Integer eventId);
+	
+	@Delete(sqlFile=true)
+    int deleteByMemberId(Integer memberId);
 }

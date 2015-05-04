@@ -51,4 +51,7 @@ public interface RoleDao {
     
     @Delete(sqlFile=true)
     int deleteByEventId(Integer eventId);
+    
+    @Delete(sqlFile=true)
+    int cancelByMemberId(Integer memberId);
 }

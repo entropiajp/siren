@@ -1,0 +1,1 @@
+delete from member_part where member_id = /* memberId */1

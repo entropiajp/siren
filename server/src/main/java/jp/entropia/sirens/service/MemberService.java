@@ -3,7 +3,12 @@ package jp.entropia.sirens.service;
 import java.time.ZoneId;
 import java.util.List;
 
+import jp.entropia.sirens.dao.ManagerDao;
 import jp.entropia.sirens.dao.MemberDao;
+import jp.entropia.sirens.dao.MemberPartDao;
+import jp.entropia.sirens.dao.RoleDao;
+import jp.entropia.sirens.dao.VoteDao;
+import jp.entropia.sirens.entity.Manager;
 import jp.entropia.sirens.entity.Member;
 import jp.entropia.sirens.entity.MemberEntity;
 import jp.entropia.sirens.entity.MemberPart;
@@ -22,7 +27,13 @@ public class MemberService {
 	@Autowired
 	private MemberDao memberDao;
 	@Autowired
-	private MemberPartService memberPartService;
+	private MemberPartDao memberPartDao;
+	@Autowired
+	private RoleDao roleDao;
+	@Autowired
+	private VoteDao voteDao;
+	@Autowired
+	private ManagerDao managerDao;
 	
 	public int save(Member member){
 		return memberDao.insert(member);
@@ -36,9 +47,17 @@ public class MemberService {
 		return memberDao.selectById(id);
 	}
 	
-	// TODO メンバ削除時に関連テーブルのレコードも全て削除する
-	public int remove(Member member) {
-		return memberDao.delete(member);
+	public void remove(Member member) {
+		Integer memberId = member.getId();
+		Manager manager = new Manager();
+		manager.setEventId(member.getEventId());
+		manager.setMemberId(memberId);
+		
+		roleDao.cancelByMemberId(memberId);
+		voteDao.deleteByMemberId(memberId);
+		memberPartDao.deleteByMemberId(memberId);
+		managerDao.delete(manager);
+		memberDao.delete(member);
 	}
 	
 	public Member findByEventIdAndUserId(Integer eventId, String userId) {
@@ -67,7 +86,7 @@ public class MemberService {
 
 	public void join(Member member, List<PartModel> model) {
 		save(member);
-		model.stream().forEach(e -> memberPartService.save(new MemberPart(member.getId(), e.getId())));
+		model.stream().forEach(e -> memberPartDao.insert(new MemberPart(member.getId(), e.getId())));
 	}
 	
 	/**
