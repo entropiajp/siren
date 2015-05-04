@@ -25,6 +25,7 @@
           },
           function() {
             $scope.alert = {type: 'error', msg: 'おや、失敗しました'};
+            UtilService.scrollTop();
           }
         );
       };

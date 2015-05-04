@@ -50,9 +50,11 @@
         Song.updateAll($stateParams.eventId, data).then(
           function () {
             $scope.alert = {type: 'success', msg: 'セットリストを変更しました'};
+            UtilService.scrollTop();
           },
           function () {
             $scope.alert = {type: 'warning', msg: 'おや、失敗しました'};
+            UtilService.scrollTop();
           }
         );
       }
@@ -61,9 +63,11 @@
         Event.endJoin($stateParams.eventId).then(
           function () {
             $scope.alert = {type: 'success', msg: 'エントリーを終了しました'};
+            UtilService.scrollTop();
           },
           function () {
             $scope.alert = {type: 'warning', msg: 'おや、失敗しました'};
+            UtilService.scrollTop();
           }
         );
       }

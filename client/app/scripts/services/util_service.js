@@ -2,7 +2,7 @@
   'use strict';
 
   angular.module('clientApp')
-    .factory('UtilService', function($resource, $http, API_URL){
+    .factory('UtilService', function($resource, $http, API_URL, $location, $anchorScroll){
 
       var convertTimeToDateObject = function (timeStr, date){
         var HHmmss = timeStr.split(':');
@@ -50,13 +50,20 @@
         return new Date(dateObj.getFullYear(), dateObj.getMonth(), dateObj.getDate(), HH, mm, ss);
       }
 
+      function scrollToTop() {
+        $location.hash('top');
+        $anchorScroll.yOffset = 51;
+        $anchorScroll();
+      }
+
       return {
         convertTimeToDateObject: convertTimeToDateObject,
         findUser: findUser,
         logout: logout,
         isBetween: isBetween,
         addTime: addTime,
-        createDateObject: createDateObject
+        createDateObject: createDateObject,
+        scrollTop: scrollToTop
       };
 
     });

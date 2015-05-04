@@ -24,9 +24,11 @@
         Member.update($scope.my).then(
           function() {
             $scope.alert = {type: 'success', msg: '情報を編集しました！'};
+            UtilService.scrollTop();
           },
           function() {
             $scope.alert = {type: 'danger', msg: 'おや、失敗しました'};
+            UtilService.scrollTop();
           }
         );
       }

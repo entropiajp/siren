@@ -28,9 +28,11 @@
         Event.update($scope.event).then(
           function() {
             $scope.alert = {type: 'success', msg: 'バンオフ情報を編集しました！'};
+            UtilService.scrollTop();
           },
           function() {
             $scope.alert = {type: 'danger', msg: 'おや、失敗しました'};
+            UtilService.scrollTop();
           }
         );
       }
@@ -82,6 +84,7 @@
                 },
                 function () {
                   $scope.alert = {type: 'warning', msg: 'おや、失敗しました'};
+                  UtilService.scrollTop();
                 }
               );
             }

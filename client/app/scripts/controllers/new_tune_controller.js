@@ -37,10 +37,12 @@
                 function () {
                   var msg = $scope.newTune.artist + ' / ' + $scope.newTune.name + ' を登録しました。';
                   $scope.alert = {type: 'success', msg: msg};
+                  UtilService.scrollTop();
                   $scope.newTune.name = '';
                 },
                 function () {
                   $scope.alert = {type: 'warning', msg: 'おや、失敗しました'};
+                  UtilService.scrollTop();
                 }
               );
             }

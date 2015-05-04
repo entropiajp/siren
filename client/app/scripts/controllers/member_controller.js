@@ -2,7 +2,7 @@
   'use strict';
 
   angular.module('clientApp')
-    .controller('MemberController', function ($scope, globalAlert, $stateParams, Member, Manager, $state, SweetAlert, event, user) {
+    .controller('MemberController', function ($scope, globalAlert, $stateParams, Member, Manager, $state, SweetAlert, event, user, UtilService) {
 
       $scope.alert = globalAlert.getAndClear();
       $scope.event = event;
@@ -37,6 +37,7 @@
                 },
                 function () {
                   $scope.alert = {type: 'warning', msg: 'おや、失敗しました'};
+                  UtilService.scrollTop();
                 }
               );
             }
@@ -67,6 +68,7 @@
                 },
                 function () {
                   $scope.alert = {type: 'warning', msg: 'おや、失敗しました'};
+                  UtilService.scrollTop();
                 }
               );
             }
@@ -97,6 +99,7 @@
                 },
                 function () {
                   $scope.alert = {type: 'warning', msg: 'おや、失敗しました'};
+                  UtilService.scrollTop();
                 }
               );
             }

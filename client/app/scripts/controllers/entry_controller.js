@@ -40,6 +40,7 @@
           },
           function () {
             $scope.alert = {type: 'warning', msg: 'おや、失敗しました'};
+            UtilService.scrollTop();
           }
         );
       }
@@ -53,6 +54,7 @@
           },
           function () {
             $scope.alert = {type: 'warning', msg: 'おや、失敗しました'};
+            UtilService.scrollTop();
           }
         );
       }
@@ -66,6 +68,7 @@
           },
           function () {
             $scope.alert = {type: 'warning', msg: 'おや、失敗しました'};
+            UtilService.scrollTop();
           }
         );
       }
