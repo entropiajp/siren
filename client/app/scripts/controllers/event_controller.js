@@ -8,6 +8,15 @@
       $scope.event = event;
       $scope.isEntryPeriod = UtilService.isBetween($scope.event.joinStartTime, $scope.event.joinEndTime);
       $scope.isVotingPeriod = UtilService.isBetween($scope.event.voteStartTime, $scope.event.voteEndTime);
+      $scope.managers = null;
+      $scope.members = null;
+
+      Member.query($stateParams.eventId).then(
+        function(data) {
+          $scope.managers = data.filter(function(e){return e.admin;});
+          $scope.members = data;
+        }
+      );
 
       Part.query().then(
         function(data) {
