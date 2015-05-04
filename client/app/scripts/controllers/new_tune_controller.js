@@ -5,7 +5,6 @@
     .controller('NewTuneController', function ($scope, globalAlert, $stateParams, Tune, $state, SweetAlert, UtilService) {
 
       $scope.alert = globalAlert.getAndClear();
-
       $scope.newTune = null;
       $scope.storedArtists = Tune.findArtists();
       $scope.storedSources = Tune.findSources();

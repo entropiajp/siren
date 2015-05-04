@@ -12,6 +12,8 @@
       $scope.progressText = '';
       $scope.scheduledDate = event.startTime;
       $scope.cancel = cancel;
+      $scope.submit = submit;
+      $scope.onFileDropped = onFileDropped;
 
       $scope.$watch('scheduledDate', function(newDate, oldDate) {
         if($scope.event != null && newDate != null) {
@@ -22,8 +24,7 @@
         }
       });
 
-      $scope.submit = function() {
-
+      function submit() {
         Event.update($scope.event).then(
           function() {
             $scope.alert = {type: 'success', msg: 'バンオフ情報を編集しました！'};
@@ -32,7 +33,7 @@
             $scope.alert = {type: 'danger', msg: 'おや、失敗しました'};
           }
         );
-      };
+      }
 
       $scope.open = function($event, caller) {
         $event.preventDefault();
@@ -46,7 +47,7 @@
         showWeeks: false
       };
 
-      $scope.onFileDropped = function(files) {
+      function onFileDropped(files) {
         $scope.progressText = '';
         Event.uploadFile(files, $stateParams.eventId)
           .progress(function (evt) {
@@ -60,7 +61,7 @@
             $scope.progress = 0;
             $scope.progressText = 'ファイルアップロードが失敗しました。もう一度試してください';
           });
-      };
+      }
 
       function cancel() {
         SweetAlert.swal({

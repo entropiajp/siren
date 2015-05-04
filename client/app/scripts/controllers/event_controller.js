@@ -4,7 +4,6 @@
   angular.module('clientApp')
     .controller('EventController', function ($scope, globalAlert, $stateParams, SweetAlert, Member, UtilService, Part, $modal, $state, event) {
 
-
       $scope.alert = globalAlert.getAndClear();
       $scope.event = event;
       $scope.isEntryPeriod = UtilService.isBetween($scope.event.joinStartTime, $scope.event.joinEndTime);

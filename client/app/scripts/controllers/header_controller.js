@@ -7,16 +7,19 @@
       $scope.user = user;
       $scope.managedEvents = Event.findManaged();
       $scope.joinedEvents = Event.findJoined();
-      $scope.logout = function () {
+      $scope.logout = logout;
+      $scope.activity = null;
+      $scope.visible = true;
+
+      function logout(){
         UtilService.logout().success(
           function (data, status, headers, config) {
             globalAlert.set({type: 'success', msg: 'ログアウトしました'});
             $state.go('login');
           }
         );
-      };
-      $scope.activity = null;
-      $scope.visible = true;
+      }
+
       $rootScope.$on('onReceived', function(event, data) {
         $scope.$apply(function(){
           $scope.visible = false;
