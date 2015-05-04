@@ -46,4 +46,7 @@ public interface ManagerDao {
 
     @Select
 	boolean isAdmin(Integer eventId, String userId);
+    
+    @Delete(sqlFile=true)
+    int deleteByEventId(Integer eventId);
 }

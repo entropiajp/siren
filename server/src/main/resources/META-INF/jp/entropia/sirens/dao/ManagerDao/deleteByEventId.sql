@@ -1,0 +1,1 @@
+delete from manager where event_id = /* eventId */2

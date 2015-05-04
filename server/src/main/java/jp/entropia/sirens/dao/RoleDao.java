@@ -48,4 +48,7 @@ public interface RoleDao {
 
     @Select
 	List<RoleEntity> selectAll(Integer eventId);
+    
+    @Delete(sqlFile=true)
+    int deleteByEventId(Integer eventId);
 }

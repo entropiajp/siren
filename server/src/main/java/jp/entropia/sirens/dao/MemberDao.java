@@ -51,4 +51,7 @@ public interface MemberDao {
 
     @Select
 	Member selectByEventIdAndUserId(Integer eventId, String userId);
+    
+    @Delete(sqlFile=true)
+    int deleteByEventId(Integer eventId);
 }

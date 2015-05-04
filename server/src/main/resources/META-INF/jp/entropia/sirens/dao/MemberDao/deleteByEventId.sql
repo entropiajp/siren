@@ -1,0 +1,1 @@
+delete from member where event_id = /* eventId */1

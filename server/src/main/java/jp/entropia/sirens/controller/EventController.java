@@ -157,4 +157,17 @@ public class EventController {
 		eventService.update(event);
 	}
 
+	/**
+	 * イベントを関連情報含めて削除する
+	 * @param eventId イベントID
+	 * @param principal
+	 */
+	@RequestMapping(value = "/{eventId}", method = RequestMethod.DELETE)
+	public void delete(@PathVariable("eventId") Integer eventId, Principal principal) {
+		if (managerService.isManager(eventId, principal.getName()) == false) {
+			throw new ForbiddenException();
+		}
+		eventService.removeEventAndRelated(eventId);
+	}
+
 }

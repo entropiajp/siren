@@ -1,0 +1,1 @@
+delete from song where event_id = /* eventId */2

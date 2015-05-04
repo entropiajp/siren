@@ -38,6 +38,10 @@ public class MemberService {
 	public Member findByEventIdAndUserId(Integer eventId, String userId) {
 		return memberDao.selectByEventIdAndUserId(eventId, userId);
 	}
+	
+	public void removeByEventId(Integer eventId) {
+		memberDao.deleteByEventId(eventId);
+	}
 
 	public MemberModel convertObject(Member member) {
         MemberModel model = new MemberModel();

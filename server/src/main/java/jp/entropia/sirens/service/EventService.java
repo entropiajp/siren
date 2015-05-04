@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Transactional
 public class EventService {
 
 	@Autowired
@@ -24,6 +25,14 @@ public class EventService {
 	private MemberService memberService;
 	@Autowired
 	private ManagerService managerService;
+	@Autowired
+	private RoleService roleService;
+	@Autowired
+	private VoteService voteService;
+	@Autowired
+	private SongService songService;
+	@Autowired
+	private MemberPartService memberPartService;
 	
 	public boolean save(Event event) {
 		return eventDao.insert(event) > 0;
@@ -129,6 +138,20 @@ public class EventService {
 		manager.setEventId(event.getId());
 		manager.setMemberId(member.getId());
 		managerService.save(manager);
+	}
+	
+	public void remove(Integer eventId) {
+		eventDao.delete(eventDao.selectById(eventId));
+	}
+	
+	public void removeEventAndRelated(Integer eventId) {
+		managerService.removeByEventId(eventId);
+		memberPartService.removeByEventId(eventId);
+		roleService.removeByEventId(eventId);
+		voteService.removeByEventId(eventId);
+		memberService.removeByEventId(eventId);
+		songService.removeByEventId(eventId);
+		remove(eventId);
 	}
 	
 	

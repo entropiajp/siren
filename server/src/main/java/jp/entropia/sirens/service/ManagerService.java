@@ -29,5 +29,9 @@ public class ManagerService {
 	public boolean remove(Manager manager) {
 		return managerDao.delete(manager) > 0;
 	}
+	
+	public void removeByEventId(Integer eventId) {
+		managerDao.deleteByEventId(eventId);
+	}
 
 }

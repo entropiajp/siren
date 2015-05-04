@@ -30,5 +30,9 @@ public class SongService {
 	public Object update(Song song) {
 		return songDao.update(song) > 0;
 	}
+	
+	public void removeByEventId(Integer eventId) {
+		songDao.deleteByEventId(eventId);
+	}
 
 }

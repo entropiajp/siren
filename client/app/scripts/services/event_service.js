@@ -23,8 +23,8 @@
         return Resource.query().$promise;
       };
 
-      var remove = function() {
-
+      var remove = function(id) {
+        return Resource.remove({id: id}).$promise;
       };
 
       var findManaged = function() {

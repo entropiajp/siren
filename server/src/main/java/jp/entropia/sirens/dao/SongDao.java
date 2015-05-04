@@ -48,4 +48,7 @@ public interface SongDao {
 
     @Select
 	List<SongEntity> selectAll(Integer eventId);
+    
+    @Delete(sqlFile=true)
+    int deleteByEventId(Integer eventId);
 }

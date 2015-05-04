@@ -31,4 +31,8 @@ public class RoleService {
 		return roleDao.selectById(roleId);
 	}
 	
+	public void removeByEventId(Integer eventId) {
+		roleDao.deleteByEventId(eventId);
+	}
+	
 }

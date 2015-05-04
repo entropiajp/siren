@@ -184,6 +184,24 @@
         </fieldset>
       </form>
 
+      <div class="panel panel-danger">
+        <div class="panel-heading">バンオフを中止する</div>
+        <div class="panel-body">
+          参加者、希望曲投票、楽曲エントリーなどのこのバンオフに関連した情報が全て削除されます。<br>
+          <b>この操作はもとに戻すことができません。参加者がいる場合、十分に告知してから中止してください</b>
+        </div>
+        <div class="panel-footer">
+          <div class="row">
+            <div class="col-sm-6">
+              <input type="text" ng-model="deleteConfirmedText" class="form-control" placeholder="確認のために、バンオフ名を入力してください">
+            </div>
+            <div class="col-sm-6">
+              <button class="btn btn-danger" ng-click="cancel()" ng-disabled="deleteConfirmedText !== event.name">バンオフを中止する</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
 
   </div>

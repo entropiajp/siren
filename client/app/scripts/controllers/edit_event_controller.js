@@ -2,7 +2,7 @@
   'use strict';
 
   angular.module('clientApp')
-    .controller('EditEventController', function ($scope, globalAlert, $stateParams, Event, event, UtilService) {
+    .controller('EditEventController', function ($scope, globalAlert, $stateParams, Event, event, UtilService, SweetAlert) {
 
       init();
 
@@ -11,6 +11,7 @@
       $scope.progress = 0;
       $scope.progressText = '';
       $scope.scheduledDate = event.startTime;
+      $scope.cancel = cancel;
 
       $scope.$watch('scheduledDate', function(newDate, oldDate) {
         if($scope.event != null && newDate != null) {
@@ -60,6 +61,32 @@
             $scope.progressText = 'ファイルアップロードが失敗しました。もう一度試してください';
           });
       };
+
+      function cancel() {
+        SweetAlert.swal({
+            title: "本当にこのバンオフを中止しますか？",
+            text: "この操作はやり直せません。",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "中止する",
+            closeOnConfirm: true
+          },
+          function (isConfirm) {
+            if (isConfirm) {
+              Event.remove($stateParams.eventId).then(
+                function () {
+                  globalAlert.set({type: 'success', msg: 'バンオフを中止しました'});
+                  $state.go('private.portal');
+                },
+                function () {
+                  $scope.alert = {type: 'warning', msg: 'おや、失敗しました'};
+                }
+              );
+            }
+          }
+        );
+      }
 
       function init() {
         event.startTime = new Date(event.startTime);

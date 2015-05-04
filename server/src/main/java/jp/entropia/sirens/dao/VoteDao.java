@@ -56,4 +56,7 @@ public interface VoteDao {
 
 	@Select
 	List<VoteResult> selectVoteResult(Integer eventId);
+	
+	@Delete(sqlFile=true)
+    int deleteByEventId(Integer eventId);
 }

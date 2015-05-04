@@ -42,4 +42,7 @@ public interface MemberPartDao {
      */
     @Delete
     int delete(MemberPart entity);
+    
+    @Delete(sqlFile=true)
+    int deleteByEventId(Integer eventId);
 }

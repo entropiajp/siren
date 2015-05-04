@@ -41,4 +41,8 @@ public class VoteService {
 	public List<VoteResult> findResult(Integer eventId) {
 		return voteDao.selectVoteResult(eventId);
 	}
+
+	public void removeByEventId(Integer eventId) {
+		voteDao.deleteByEventId(eventId);
+	}
 }
