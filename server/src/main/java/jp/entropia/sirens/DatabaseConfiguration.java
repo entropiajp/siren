@@ -36,7 +36,7 @@ public class DatabaseConfiguration {
         ds.setTestOnBorrow(true);
         ds.setTestWhileIdle(true);
 
-        return new TransactionAwareDataSourceProxy(ds);
+        return ds;
     }
 	
     @Bean
@@ -65,7 +65,7 @@ public class DatabaseConfiguration {
 
             @Override
             public DataSource getDataSource() {
-            	return dataSource();
+            	return new TransactionAwareDataSourceProxy(dataSource());
             }
 
             @Override
