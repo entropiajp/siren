@@ -131,6 +131,8 @@ public class EventService {
 		member.setEventId(event.getId());
 		member.setUserid(userId);
 		member.setAttendParty("参加");
+		member.setStartTime(event.getStartTime());
+		member.setEndTime(event.getEndTime());
 		memberService.save(member);
 		
 		// バンオフ作成者は管理者になる
