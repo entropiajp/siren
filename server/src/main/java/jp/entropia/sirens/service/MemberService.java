@@ -6,17 +6,23 @@ import java.util.List;
 import jp.entropia.sirens.dao.MemberDao;
 import jp.entropia.sirens.entity.Member;
 import jp.entropia.sirens.entity.MemberEntity;
+import jp.entropia.sirens.entity.MemberPart;
 import jp.entropia.sirens.model.MemberModel;
+import jp.entropia.sirens.model.PartModel;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Transactional
 public class MemberService {
 
 	@Autowired
 	private MemberDao memberDao;
+	@Autowired
+	private MemberPartService memberPartService;
 	
 	public int save(Member member){
 		return memberDao.insert(member);
@@ -57,5 +63,10 @@ public class MemberService {
 
 	public boolean update(Member member) {
 		return memberDao.update(member) > 0;
+	}
+
+	public void join(Member member, List<PartModel> model) {
+		save(member);
+		model.stream().forEach(e -> memberPartService.save(new MemberPart(member.getId(), e.getId())));
 	}
 }
