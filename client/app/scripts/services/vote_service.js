@@ -21,7 +21,7 @@
       };
 
       var findResult = function(eventId) {
-        return $resource(API_URL + '/votes/:eventId/result', {eventId: '@eventId'}).query({eventId: eventId}).$promise;
+        return $resource(API_URL + '/votes/:eventId/result', {eventId: '@eventId'}).query({eventId: eventId});
       };
 
       return {

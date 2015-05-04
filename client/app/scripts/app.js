@@ -13,7 +13,6 @@
       'oitozero.ngSweetAlert',
       'angular-loading-bar',
       'config',
-      'nvd3',
       'angularFileUpload',
       'ui.sortable'
     ])

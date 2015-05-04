@@ -6,54 +6,11 @@
 
       $scope.alert = globalAlert.getAndClear();
       $scope.event = event;
-      $scope.result = null;
+      $scope.result = Vote.findResult($stateParams.eventId);
       $scope.resultForGraph = null;
       $scope.tunes = null;
       $scope.checkVotedTunes = checkVotedTunes;
       $scope.submit = submit;
-
-      Vote.findResult($stateParams.eventId).then(
-        function(data){
-          $scope.result = data;
-          $scope.resultForGraph = [
-            {
-              "key": "Series1",
-              "color": "#d62728",
-              "values": null
-            }
-          ];
-          $scope.resultForGraph[0].values = data.map(function(e){
-            return {
-              label: e.name,
-              value: e.count
-            };
-          });
-        }
-      );
-
-      $scope.options = {
-        chart: {
-          type: 'multiBarHorizontalChart',
-          x: function(d){return d.label;},
-          y: function(d){return d.value;},
-          showControls: false,
-          showValues: true,
-          transitionDuration: 500,
-          xAxis: {
-            showMaxMin: false
-          },
-          valueFormat: function(d){return d;},
-          showYAxis: false,
-          showLegend: false,
-          margin: {
-            top: 0,
-            right: 20,
-            bottom: 50,
-            left: 300
-          },
-          tooltips: false
-        }
-      };
 
       Tune.findAllWithCandidates($stateParams.eventId).then(
         function(data) {
@@ -94,6 +51,5 @@
       }
 
     });
-
 
 })();

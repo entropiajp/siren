@@ -11,7 +11,6 @@
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
     <link rel="stylesheet" href="bower_components/sweetalert/lib/sweet-alert.css" />
     <link rel="stylesheet" href="bower_components/angular-loading-bar/build/loading-bar.css" />
-    <link rel="stylesheet" href="bower_components/nvd3/src/nv.d3.css" />
     <link rel="stylesheet" href="bower_components/ng-sortable/dist/ng-sortable.css" />
     <!-- endbower -->
     <!-- endbuild -->
@@ -49,22 +48,20 @@
     <script src="bower_components/sweetalert/lib/sweet-alert.js"></script>
     <script src="bower_components/angular-sweetalert/SweetAlert.js"></script>
     <script src="bower_components/angular-loading-bar/build/loading-bar.js"></script>
-    <script src="bower_components/d3/d3.js"></script>
-    <script src="bower_components/nvd3/nv.d3.js"></script>
-    <script src="bower_components/angular-nvd3/dist/angular-nvd3.min.js"></script>
     <script src="bower_components/ng-file-upload/angular-file-upload.js"></script>
     <script src="bower_components/ng-sortable/dist/ng-sortable.js"></script>
+    <script src="bower_components/d3/d3.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
-        <!-- build:js({.tmp,app}) scripts/scripts.js -->
-        <script src="scripts/app.js"></script>
+    <!-- build:js({.tmp,app}) scripts/scripts.js -->
+    <script src="scripts/app.js"></script>
     <script src="scripts/stomp.js"></script>
     <script src="scripts/config.js"></script>
     <script src="scripts/services/util_service.js"></script>
     <script src="scripts/services/headline.service.js"></script>
     <script src="scripts/filters/nl2br.js"></script>
-        <script src="scripts/services/globalAlert.service.js"></script>
+    <script src="scripts/services/globalAlert.service.js"></script>
     <script src="scripts/services/event_service.js"></script>
     <script src="scripts/services/tune_service.js"></script>
     <script src="scripts/services/member_service.js"></script>
@@ -73,12 +70,13 @@
     <script src="scripts/services/song_service.js"></script>
     <script src="scripts/services/role_service.js"></script>
     <script src="scripts/services/part_service.js"></script>
-        <script src="scripts/directives/siAlert.directive.js"></script>
-        <script src="scripts/controllers/edit_event_controller.js"></script>
+    <script src="scripts/directives/siAlert.directive.js"></script>
+    <script src="scripts/directives/bar.directive.js"></script>
+    <script src="scripts/controllers/edit_event_controller.js"></script>
     <script src="scripts/controllers/member_controller.js"></script>
-        <script src="scripts/controllers/new_event_controller.js"></script>
-        <script src="scripts/controllers/login_controller.js"></script>
-        <script src="scripts/controllers/portal_controller.js"></script>
+    <script src="scripts/controllers/new_event_controller.js"></script>
+    <script src="scripts/controllers/login_controller.js"></script>
+    <script src="scripts/controllers/portal_controller.js"></script>
     <script src="scripts/controllers/header_controller.js"></script>
     <script src="scripts/controllers/event_controller.js"></script>
     <script src="scripts/controllers/new_tune_controller.js"></script>
@@ -88,9 +86,6 @@
     <script src="scripts/controllers/event_my_controller.js"></script>
     <script src="scripts/controllers/entry_controller.js"></script>
     <script src="scripts/controllers/edit_setlist_controller.js"></script>
-
-
-
-        <!-- endbuild -->
+    <!-- endbuild -->
 </body>
 </html>
