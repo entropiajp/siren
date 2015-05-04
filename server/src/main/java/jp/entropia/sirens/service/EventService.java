@@ -122,7 +122,6 @@ public class EventService {
 		return model;	
 	}
 	
-	@Transactional
 	public void create(Event event, String userId) {
 		save(event);
 		
