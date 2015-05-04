@@ -2,7 +2,7 @@
   'use strict';
 
   angular.module('clientApp')
-    .controller('EditEventController', function ($scope, globalAlert, $stateParams, Event, event, UtilService, SweetAlert) {
+    .controller('EditEventController', function ($scope, globalAlert, $stateParams, Event, event, UtilService, SweetAlert, $state) {
 
       init();
 
