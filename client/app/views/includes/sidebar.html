@@ -11,6 +11,14 @@
     <h5><span class="glyphicon glyphicon-map-marker"></span> {{ event.place }}</h5>
     <h5><span class="glyphicon glyphicon-user"></span> {{ event.memberCount }} 人が参加</h5>
   </div>
+  <div>
+    <span class="label label-default">希望曲投票</span><br>
+    {{ event.voteStartTime | date:'yyyy/MM/dd HH:mm' }} - {{ event.voteEndTime | date:'yyyy/MM/dd HH:mm' }}
+  </div>
+  <div>
+    <span class="label label-default">楽曲エントリー</span><br>
+    {{ event.joinStartTime | date:'yyyy/MM/dd HH:mm' }} - {{ event.joinEndTime | date:'yyyy/MM/dd HH:mm' }}
+  </div>
 </div>
 <div class="col-sm-3 visible-md visible-lg" style="margin-top: 20px">
     <div class="pin pin-sidebar">
