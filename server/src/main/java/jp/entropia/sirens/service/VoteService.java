@@ -9,8 +9,10 @@ import jp.entropia.sirens.entity.VoteResult;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Transactional
 public class VoteService {
 
 	@Autowired
@@ -44,5 +46,10 @@ public class VoteService {
 
 	public void removeByEventId(Integer eventId) {
 		voteDao.deleteByEventId(eventId);
+	}
+	
+	public void saveAll(List<Vote> votes) {
+		removeAll(votes.get(0).getMemberId());
+		votes.stream().forEach(vote -> voteDao.insert(vote));		
 	}
 }

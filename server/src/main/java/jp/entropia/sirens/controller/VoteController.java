@@ -2,6 +2,7 @@ package jp.entropia.sirens.controller;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import jp.entropia.sirens.entity.CheckableTune;
 import jp.entropia.sirens.entity.Event;
@@ -40,20 +41,19 @@ public class VoteController {
 
 	@RequestMapping(value="/{eventId}", method=RequestMethod.POST)
 	public void vote(@PathVariable("eventId") Integer eventId,
-			@RequestBody List<Integer> votes, Principal principal) {
+			@RequestBody List<Integer> voteIds, Principal principal) {
 		Member loginMember = memberService.findByEventIdAndUserId(eventId, principal.getName());
 		if(loginMember == null) {
 			throw new ForbiddenException();
 		}
 		
 		Event event = eventService.find(eventId);
-		if(event.getVoteLimit() != null && votes.size() > event.getVoteLimit()) {
+		if(event.getVoteLimit() != null && voteIds.size() > event.getVoteLimit()) {
 			throw new VoteLimitExceededException();
 		}
 		
-		// TODO トランザクション制御
-		voteService.removeAll(loginMember.getId());
-		votes.stream().forEach(c -> voteService.save(new Vote(loginMember.getId(), c)));
+		List<Vote> votes = voteIds.stream().map(c -> new Vote(loginMember.getId(), c)).collect(Collectors.toList());
+		voteService.saveAll(votes);
 		activityService.publish(principal.getName(), "headline.vote", event.getName());
 	}
 	
