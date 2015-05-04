@@ -44,7 +44,7 @@ public class SongController {
 		if(managerService.isManager(eventId, principal.getName()) == false) {
 			throw new ForbiddenException();
 		}
-		selectedTuneIds.stream().forEach(e -> songService.save(new Song(eventId, e)));
+		songService.saveAll(eventId, selectedTuneIds);
 		Event event = eventService.find(eventId);
 		activityService.publish(principal.getName(), "headline.addSongs", event.getName());
 	}

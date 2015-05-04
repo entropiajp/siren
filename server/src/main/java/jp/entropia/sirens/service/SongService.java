@@ -36,5 +36,10 @@ public class SongService {
 	public void removeByEventId(Integer eventId) {
 		songDao.deleteByEventId(eventId);
 	}
+	
+	public void saveAll(Integer eventId, List<Integer> tuneIds) {
+		removeByEventId(eventId);
+		tuneIds.stream().forEach(e -> save(new Song(eventId, e)));
+	}
 
 }
