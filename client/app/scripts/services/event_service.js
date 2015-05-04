@@ -39,6 +39,10 @@
         return $resource(API_URL + '/events/:id/is-manager').get({id: id}).$promise;
       };
 
+      var isMember = function(id) {
+        return $resource(API_URL + '/events/:id/is-member').get({id: id}).$promise;
+      };
+
       var endJoin = function(id) {
         return $resource(API_URL + '/events/:id/end-join', {id: '@id'}).save({id: id}).$promise;
       };
@@ -59,6 +63,7 @@
         findManaged: findManaged,
         findJoined: findJoined,
         isManager: isManager,
+        isMember: isMember,
         uploadFile: uploadFile,
         endJoin: endJoin
       };

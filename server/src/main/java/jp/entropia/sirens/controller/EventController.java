@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 
 import jp.entropia.sirens.entity.Event;
 import jp.entropia.sirens.exception.ForbiddenException;
+import jp.entropia.sirens.exception.NotMemberException;
 import jp.entropia.sirens.model.EventModel;
 import jp.entropia.sirens.service.ActivityService;
 import jp.entropia.sirens.service.EventService;
@@ -107,6 +108,14 @@ public class EventController {
 			Principal principal) {
 		if (managerService.isManager(eventId, principal.getName()) == false) {
 			throw new ForbiddenException();
+		}
+	}
+	
+	@RequestMapping(value = "/{eventId}/is-member", method = RequestMethod.GET)
+	public void isCurrentUserMember(@PathVariable("eventId") Integer eventId,
+			Principal principal) {
+		if (memberService.isMember(eventId, principal.getName()) == false) {
+			throw new NotMemberException();
 		}
 	}
 

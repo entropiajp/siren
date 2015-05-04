@@ -138,7 +138,8 @@
             }
           },
           resolve: {
-            event: event
+            event: event,
+            member: member
           }
         })
         .state("private.event_my", {
@@ -150,7 +151,8 @@
             }
           },
           resolve: {
-            event: event
+            event: event,
+            member: member
           }
         })
         .state("private.entry", {
@@ -162,7 +164,8 @@
             }
           },
           resolve: {
-            event: event
+            event: event,
+            member: member
           }
         });
 
@@ -172,6 +175,10 @@
 
       function manager(Event, $stateParams) {
         return Event.isManager($stateParams.eventId);
+      }
+
+      function member(Event, $stateParams) {
+        return Event.isMember($stateParams.eventId);
       }
 
       function event(Event, $stateParams) {
@@ -187,13 +194,23 @@
       $httpProvider.defaults.withCredentials = true;
 
       // ログインしていなければログインページヘ強制遷移させるinterceptor
-      $httpProvider.interceptors.push(function ($q, $rootScope, $location) {
+      $httpProvider.interceptors.push(function ($q, $rootScope, $location, globalAlert) {
           return {
             'responseError': function(response) {
+              // 認証チェック
               if (response.status === 401) {
+                globalAlert.set({type: 'error', msg: 'ログインしてください'});
                 $location.path('/login');
               }
+              // 認可チェック
+              if (response.status === 403) {
+                var msg = (response.data.message != null) ? response.data.message : 'エラーが発生しました';
+                globalAlert.set({type: 'error', msg: msg});
+                $location.path('/portal');
+              }
+              // APIサーバが停止している場合
               if (response.status === 0) {
+                globalAlert.set({type: 'error', msg: 'サーバが停止しています。しばらくしてからアクセスしてください'});
                 $location.path('/login');
               }
               return $q.reject(response);

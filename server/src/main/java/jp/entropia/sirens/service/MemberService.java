@@ -69,4 +69,14 @@ public class MemberService {
 		save(member);
 		model.stream().forEach(e -> memberPartService.save(new MemberPart(member.getId(), e.getId())));
 	}
+	
+	/**
+	 * ユーザがイベントの参加者であるか判定する
+	 * @param eventId イベントID
+	 * @param userId ユーザID
+	 * @return
+	 */
+	public boolean isMember(Integer eventId, String userId) {
+		return findByEventIdAndUserId(eventId, userId) != null;
+	}
 }
