@@ -1,0 +1,1 @@
+delete from role where song_id = /* songId */1
