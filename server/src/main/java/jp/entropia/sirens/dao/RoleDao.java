@@ -3,6 +3,7 @@ package jp.entropia.sirens.dao;
 import java.util.List;
 
 import jp.entropia.sirens.ConfigAutowireable;
+import jp.entropia.sirens.entity.EntryInfo;
 import jp.entropia.sirens.entity.Role;
 import jp.entropia.sirens.entity.RoleEntity;
 
@@ -57,4 +58,7 @@ public interface RoleDao {
     
     @Delete(sqlFile=true)
     int deleteBySongId(Integer songId);
+    
+    @Select
+    EntryInfo selectEntryInfoById(Integer id);
 }

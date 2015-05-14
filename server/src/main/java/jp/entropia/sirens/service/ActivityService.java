@@ -1,5 +1,7 @@
 package jp.entropia.sirens.service;
 
+import jp.entropia.sirens.dao.RoleDao;
+import jp.entropia.sirens.entity.EntryInfo;
 import jp.entropia.sirens.entity.Manager;
 import jp.entropia.sirens.entity.Member;
 import jp.entropia.sirens.entity.Role;
@@ -25,7 +27,7 @@ public class ActivityService {
 	@Autowired
 	private EventService eventService;
 	@Autowired
-	private SongService songService;
+	private RoleDao roleDao;
 	
 	public void publish(String userId, String messageCode, String... args) {
 		User user = usersService.getCurrentUser(userId);
@@ -42,9 +44,9 @@ public class ActivityService {
 		return result;
 	}
 	
-	public String[] getRoleNameAndEventName(Role role) {
-		String eventName = eventService.find(songService.find(role.getSongId()).getEventId()).getName();
-		String[] result = {eventName, role.getName()};
+	public String[] getTuneNameAndRoleNameAndEventName(Role role) {
+		EntryInfo info = roleDao.selectEntryInfoById(role.getId());
+		String[] result = {info.getTuneName(), info.getRoleName(), info.getEventName()};
 		return result;
 	}
 

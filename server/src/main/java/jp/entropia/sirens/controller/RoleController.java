@@ -35,7 +35,7 @@ public class RoleController {
 	@RequestMapping(method=RequestMethod.POST)
 	public void add(@RequestBody Role role, Principal principal) {
 		roleService.save(role);
-		activityService.publish(principal.getName(), "headline.addRole", activityService.getRoleNameAndEventName(role));
+		activityService.publish(principal.getName(), "headline.addRole", activityService.getTuneNameAndRoleNameAndEventName(role));
 	}
 	
 	@RequestMapping(value="/{roleId}", method=RequestMethod.PUT)
@@ -44,7 +44,7 @@ public class RoleController {
 		Integer memberId = memberService.findByEventIdAndUserId(eventId, principal.getName()).getId();
 		role.setMemberId(memberId);
 		roleService.update(role);
-		activityService.publish(principal.getName(), "headline.joinRole", activityService.getRoleNameAndEventName(role));
+		activityService.publish(principal.getName(), "headline.joinRole", activityService.getTuneNameAndRoleNameAndEventName(role));
 	}
 	
 	@RequestMapping(value="/{roleId}/cancel", method=RequestMethod.POST)
@@ -52,7 +52,7 @@ public class RoleController {
 		Role role = roleService.select(roleId);
 		role.setMemberId(null);
 		roleService.update(role);
-		activityService.publish(principal.getName(), "headline.cancelRole", activityService.getRoleNameAndEventName(role));
+		activityService.publish(principal.getName(), "headline.cancelRole", activityService.getTuneNameAndRoleNameAndEventName(role));
 	}
 
 }
