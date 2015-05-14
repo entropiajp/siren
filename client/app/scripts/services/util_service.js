@@ -52,7 +52,7 @@
 
       function scrollToTop() {
         $location.hash('top');
-        $anchorScroll.yOffset = 51;
+        $anchorScroll.yOffset = 72;
         $anchorScroll();
       }
 

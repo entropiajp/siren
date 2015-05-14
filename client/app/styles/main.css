@@ -208,3 +208,7 @@ nav {
     margin: 5px;
     color: white;
 }
+
+.panel-body .btn-sm {
+    padding: 5px 8px;
+}
