@@ -4,17 +4,14 @@
 
     <div class="col-md-9">
       <div ng-include="'views/includes/member_menu.html'"></div>
-      <div ng-if="!isEntryPeriod">
-        <h1>楽曲エントリー</h1>
-        <div class="alert alert-danger">
-          <strong>ただいま受付時間外です</strong>
-        </div>
-      </div>
-      <div ng-if="isEntryPeriod">
+      <div>
         <h1>楽曲エントリー
           <small ng-if="event.joinLimit !== null">上限: {{ event.joinLimit }} 曲</small>
           <small ng-if="event.joinLimit === null">上限: なし</small>
         </h1>
+        <div class="alert alert-danger" ng-if="!isEntryPeriod">
+          <strong>ただいま受付時間外です</strong>
+        </div>
         <si-alert si-alert="alert"></si-alert>
 
         <div class="panel panel-default">
@@ -45,13 +42,13 @@
                   <img ng-src="{{ role.imageUrl }}" style="border-radius: 24px; border:1px solid #888;"><br>
                   {{ role.memberName }}<br>
                   <button type="button" class="btn btn-sm btn-danger" ng-click="cancel(role.id)"
-                          ng-if="role.userId === user.userId">キャンセル</button>
+                          ng-if="role.userId === user.userId" ng-disabled="!isEntryPeriod">キャンセル</button>
                 </div>
                 <div ng-if="role.memberName === null">
                   <div class="empty-user-img"></div>
                   空き<br>
                   <button type="button" class="btn btn-sm btn-primary" ng-click="join(role.id)"
-                          ng-disabled="joinedCount === event.joinLimit">エントリー</button>
+                          ng-disabled="joinedCount === event.joinLimit || !isEntryPeriod">エントリー</button>
                 </div>
               </div>
             </div>
@@ -65,7 +62,7 @@
                   <label class="btn btn-default btn-sm" ng-model="newRole[song.song.id].required" btn-radio="0">任意</label>
                 </div>
                 <div>
-                  <button class="btn btn-sm btn-success btn-block" ng-click="addRole(song.song.id)">
+                  <button class="btn btn-sm btn-success btn-block" ng-click="addRole(song.song.id)" ng-disabled="!isEntryPeriod">
                     <span class="glyphicon glyphicon-plus"></span> パート追加
                   </button>
                 </div>
