@@ -37,4 +37,8 @@ public class RoleService {
 		roleDao.deleteByEventId(eventId);
 	}
 	
+	public boolean isJoinedUser(Integer roleId, String userId) {
+		return roleDao.selectUserId(roleId, userId) != null;
+	}
+	
 }

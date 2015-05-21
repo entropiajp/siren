@@ -128,6 +128,19 @@
             manager: manager
           }
         })
+        .state("private.edit_entry", {
+          url: "/event/:eventId/entry/edit",
+          views: {
+            'content': {
+              templateUrl: "views/edit_entry.html",
+              controller: "EditEntryController"
+            }
+          },
+          resolve: {
+            event: event,
+            manager: manager
+          }
+        })
         .state("private.vote", {
           url: "/event/:eventId/vote",
           views: {

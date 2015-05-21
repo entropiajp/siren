@@ -15,8 +15,8 @@
         return Resource.save(entity).$promise;
       };
 
-      var join = function(id, eventId) {
-        return Resource.update({eventId: eventId}, {id: id}).$promise;
+      var join = function(id, memberId) {
+        return Resource.update({memberId: memberId}, {id: id}).$promise;
       };
 
       var cancel = function(id) {

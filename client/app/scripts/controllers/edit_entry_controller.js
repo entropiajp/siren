@@ -2,7 +2,7 @@
   'use strict';
 
   angular.module('clientApp')
-    .controller('EntryController', function ($scope, globalAlert, $stateParams, Song, Role, user, $state, UtilService, event) {
+    .controller('EditEntryController', function ($scope, globalAlert, $stateParams, Song, Role, user, $state, UtilService, event, $modal, Member) {
 
       $scope.alert = globalAlert.getAndClear();
       $scope.event = event;
@@ -45,8 +45,8 @@
         );
       }
 
-      function join(roleId){
-        Role.join(roleId).then(
+      function join(roleId, memberId){
+        Role.join(roleId, memberId).then(
           function () {
             var msg = 'エントリーしました';
             globalAlert.set({type: 'success', msg: msg});
@@ -73,6 +73,38 @@
         );
       }
 
+      $scope.selectJoiningMember = function (roleId) {
+
+        var modalInstance = $modal.open({
+          templateUrl: 'myModalContent.html',
+          controller: 'ModalInstanceCtrl',
+          size: 'lg',
+          resolve: {
+            roleId: function () {return roleId;},
+            members: function () {
+              return Member.query($stateParams.eventId);
+            }
+          }
+        });
+
+        modalInstance.result.then(function (data) {
+          join(data.roleId, data.memberId);
+        }, function () {});
+      };
+
+    });
+
+  angular.module('clientApp')
+    .controller('ModalInstanceCtrl', function ($scope, $modalInstance, roleId, members) {
+      $scope.members = members;
+
+      $scope.select = function (memberId) {
+        $modalInstance.close({roleId: roleId, memberId: memberId});
+      };
+
+      $scope.cancel = function () {
+        $modalInstance.dismiss('cancel');
+      };
     });
 
 

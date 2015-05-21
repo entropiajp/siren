@@ -98,4 +98,14 @@ public class MemberService {
 	public boolean isMember(Integer eventId, String userId) {
 		return findByEventIdAndUserId(eventId, userId) != null;
 	}
+	
+	/**
+	 * メンバIDがユーザIDと紐付いているか判定する
+	 * @param memberId メンバID
+	 * @param userId ユーザID
+	 * @return
+	 */
+	public boolean isCorrespondingMember(Integer memberId, String userId) {
+		return userId.equals(find(memberId).getUserid());
+	}
 }

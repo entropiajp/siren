@@ -61,4 +61,7 @@ public interface RoleDao {
     
     @Select
     EntryInfo selectEntryInfoById(Integer id);
+
+    @Select
+	String selectUserId(Integer roleId, String userId);
 }

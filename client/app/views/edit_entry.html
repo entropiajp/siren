@@ -1,0 +1,105 @@
+<div class="container-fluid">
+  <div class="row">
+    <div ng-include="'views/includes/sidebar.html'"></div>
+
+    <div class="col-md-9">
+      <div ng-include="'views/includes/admin_menu.html'"></div>
+      <div>
+        <h1>楽曲エントリー
+          <small ng-if="event.joinLimit !== null">上限: {{ event.joinLimit }} 曲</small>
+          <small ng-if="event.joinLimit === null">上限: なし</small>
+        </h1>
+        <si-alert si-alert="alert"></si-alert>
+
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">エントリーにあたって主催からのメッセージ</h3>
+          </div>
+          <div class="panel-body">
+            {{ event.joinMessage }}
+          </div>
+        </div>
+
+        <div class="alert alert-info">
+          <ul>
+            <li><strong>上記の主催からのメッセージをよく読んだ上で、エントリーしてください</strong></li>
+            <li>一度回答しても、回答受付期間内なら回答を変更できます</li>
+          </ul>
+        </div>
+
+        <div class="row" ng-repeat="song in songs">
+          <div class="col-xs-12">
+            <h3>{{ song.song.name }} <small>/ {{ song.song.artist }}</small></h3>
+          </div>
+          <div class="col-xs-6 col-sm-3 col-md-3 col-lg-2" ng-repeat="role in song.roles">
+            <div class="panel panel-default">
+              <div class="panel-body" style="text-align: center; height:169px;">
+                <h4>{{ role.name }}
+                  <span class="label label-danger" ng-if="role.required">必須</span>
+                  <span class="label label-default" ng-if="!role.required">任意</span>
+                </h4>
+                <div ng-if="role.memberName !== null">
+                  <img ng-src="{{ role.imageUrl }}" style="border-radius: 24px; border:1px solid #888;"><br>
+                  {{ role.memberName }}<br>
+                  <button type="button" class="btn btn-sm btn-danger" ng-click="cancel(role.id)">キャンセル</button>
+                </div>
+                <div ng-if="role.memberName === null">
+                  <div class="empty-user-img"></div>
+                  空き<br>
+                  <button type="button" class="btn btn-sm btn-primary" ng-click="selectJoiningMember(role.id)"
+                          ng-disabled="joinedCount === event.joinLimit">エントリー</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-xs-6 col-sm-3 col-md-3 col-lg-2">
+            <div class="panel panel-default">
+              <div class="panel-body" style="text-align: center; height:169px;">
+                <input type="text" ng-model="newRole[song.song.id].name" class="form-control" placeholder="パート名">
+                <div class="btn-group" style="margin: 16px 0 29px 0;" ng-init="newRole[song.song.id].required = 1">
+                  <label class="btn btn-default btn-sm" ng-model="newRole[song.song.id].required" btn-radio="1">必須</label>
+                  <label class="btn btn-default btn-sm" ng-model="newRole[song.song.id].required" btn-radio="0">任意</label>
+                </div>
+                <div>
+                  <button class="btn btn-sm btn-success btn-block" ng-click="addRole(song.song.id)">
+                    <span class="glyphicon glyphicon-plus"></span> パート追加
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script type="text/ng-template" id="myModalContent.html">
+  <div class="modal-header">
+    <h3 class="modal-title">誰をエントリーさせますか？</h3>
+  </div>
+  <div class="modal-body">
+    <table class="table table-hover">
+      <thead>
+      <tr>
+        <th>名前</th>
+        <th></th>
+      </tr>
+      </thead>
+      <tr ng-repeat="member in members">
+        <td><a href="{{ member.profileUrl }}" target="_blank">
+          <img ng-src="{{ member.imageUrl }}" style="height: 32px; border-radius: 32px;">
+          {{ member.name }} ({{ member.displayName }})
+        </a></td>
+        <td>
+          <button class="btn btn-primary" ng-click="select(member.id)">
+            <span class="glyphicon glyphicon-plus"></span> エントリーさせる</button>
+        </td>
+      </tr>
+    </table>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-warning" ng-click="cancel()">やめとく</button>
+  </div>
+</script>
