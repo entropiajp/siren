@@ -34,7 +34,7 @@ public class SongService {
 		return songDao.selectById(songId);
 	}
 
-	public Object update(Song song) {
+	public boolean update(Song song) {
 		return songDao.update(song) > 0;
 	}
 	
