@@ -35,6 +35,25 @@
       <a ng-href="{{ member.profileUrl }}" ng-repeat="member in members">
         <img ng-src="{{ member.imageUrl }}" style="height: 32px;" class="img-circle" tooltip="{{ member.name }}">
       </a>
+
+      <h2>本番セットリスト</h2>
+      <table class="table table-hover">
+        <thead>
+        <tr>
+          <th>曲順</th>
+          <th>楽曲名</th>
+          <th>奏者</th>
+        </tr>
+        </thead>
+        <tr ng-repeat="item in songs">
+          <td>{{ item.song.songOrder }}</td>
+          <td>{{ item.song.name }} <small>/ {{ item.song.artist }}</small></td>
+          <td style="text-align: left">
+            <img ng-src="{{ member.imageUrl }}" style="height: 32px; margin-right:2px;" class="img-circle" tooltip="{{ member.memberName }}"
+                 ng-repeat="member in item.roles">
+          </td>
+        </tr>
+      </table>
     </div>
   </div>
 </div>
