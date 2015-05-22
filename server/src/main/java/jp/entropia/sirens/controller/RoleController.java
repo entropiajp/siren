@@ -1,7 +1,9 @@
 package jp.entropia.sirens.controller;
 
 import java.security.Principal;
+import java.util.List;
 
+import jp.entropia.sirens.entity.EntryInfo;
 import jp.entropia.sirens.entity.Role;
 import jp.entropia.sirens.exception.ForbiddenException;
 import jp.entropia.sirens.service.ActivityService;
@@ -69,6 +71,12 @@ public class RoleController {
 		role.setMemberId(null);
 		roleService.update(role);
 		activityService.publish(principal.getName(), "headline.cancelRole", activityService.getTuneNameAndRoleNameAndEventName(role));
+	}
+	
+	@RequestMapping(value="/my", method=RequestMethod.GET)
+	public List<EntryInfo> fetchRoleInfoRelatedToLoginUser(@RequestParam(value="eventId", required=false) Integer eventId,
+			Principal principal) {
+		return roleService.findRoleInfo(principal.getName(), eventId);
 	}
 
 }

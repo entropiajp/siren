@@ -64,4 +64,7 @@ public interface RoleDao {
 
     @Select
 	String selectUserId(Integer roleId, String userId);
+    
+    @Select
+    List<EntryInfo> selectEntryInfo(String userId, Integer eventId);
 }

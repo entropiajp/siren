@@ -3,6 +3,7 @@ package jp.entropia.sirens.service;
 import java.util.List;
 
 import jp.entropia.sirens.dao.RoleDao;
+import jp.entropia.sirens.entity.EntryInfo;
 import jp.entropia.sirens.entity.Role;
 import jp.entropia.sirens.entity.RoleEntity;
 
@@ -39,6 +40,10 @@ public class RoleService {
 	
 	public boolean isJoinedUser(Integer roleId, String userId) {
 		return roleDao.selectUserId(roleId, userId) != null;
+	}
+	
+	public List<EntryInfo> findRoleInfo(String userId, Integer eventId) {
+		return roleDao.selectEntryInfo(userId, eventId);
 	}
 	
 }

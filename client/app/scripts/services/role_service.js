@@ -31,13 +31,18 @@
         return Resource.remove(entity).$promise;
       };
 
+      var findMy = function(eventId) {
+        return $resource(API_URL + '/roles/my').query({eventId: eventId});
+      };
+
       return {
         find: find,
         save: save,
         join: join,
         query: query,
         remove: remove,
-        cancel: cancel
+        cancel: cancel,
+        findMy: findMy
       };
 
 

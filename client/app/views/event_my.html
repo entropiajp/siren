@@ -50,6 +50,19 @@
         </fieldset>
       </form>
 
+      <h2>エントリー状況</h2>
+      <table class="table table-hover">
+        <thead>
+        <tr>
+          <th>曲名</th>
+          <th>担当</th>
+        </tr>
+        </thead>
+        <tr ng-repeat="entry in myEntry">
+          <td>{{ entry.tuneName }}</td>
+          <td>{{ entry.roleName }}</td>
+        </tr>
+      </table>
     </div>
   </div>
 </div>

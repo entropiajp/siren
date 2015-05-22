@@ -2,7 +2,7 @@
   'use strict';
 
   angular.module('clientApp')
-    .controller('EventMyController', function ($scope, globalAlert, $stateParams, SweetAlert, Member, Event, event, UtilService) {
+    .controller('EventMyController', function ($scope, globalAlert, $stateParams, SweetAlert, Member, Event, event, UtilService, Role) {
 
       $scope.alert = globalAlert.getAndClear();
       $scope.event = event;
@@ -11,6 +11,7 @@
       $scope.my = null;
       $scope.submit = submit;
       $scope.copy = copy;
+      $scope.myEntry = Role.findMy($stateParams.eventId);
 
       Member.findMy($stateParams.eventId).then(
         function(data){
